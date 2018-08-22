@@ -1,6 +1,8 @@
 package com.extensionrepository.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "extensions")
@@ -33,10 +35,18 @@ public class Extension {
     @Column(name = "repositoryLink")
     private String repositoryLink;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "extensions_tags",
+            joinColumns = @JoinColumn(name = "extension_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags;
+
     public Extension(){
+        this.tags = new HashSet<>();
     }
 
-    public Extension(String name, String description, String version, User owner, int numberOfDownloads, String downloadLink, String repositoryLink) {
+    public Extension(String name, String description, String version, User owner, int numberOfDownloads, String downloadLink, String repositoryLink, Set<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
@@ -44,6 +54,8 @@ public class Extension {
         this.numberOfDownloads = numberOfDownloads;
         this.downloadLink = downloadLink;
         this.repositoryLink = repositoryLink;
+
+        this.tags = new HashSet<>();
     }
 
     public int getId() {
@@ -108,5 +120,13 @@ public class Extension {
 
     public void setRepositoryLink(String repositoryLink) {
         this.repositoryLink = repositoryLink;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }
