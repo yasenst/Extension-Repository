@@ -1,6 +1,7 @@
 package com.extensionrepository.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,11 +33,11 @@ public class User {
     public User(){
     }
 
-    public User(String username, String password, String fullName, Set<Role> roles) {
+    public User(String username, String password, String fullName) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
-        this.roles = roles;
+        this.roles = new HashSet<>();
     }
 
     public int getId() {
