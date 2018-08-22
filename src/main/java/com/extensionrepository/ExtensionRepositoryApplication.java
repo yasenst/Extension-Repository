@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExtensionrepositoryApplication {
+public class ExtensionRepositoryApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExtensionrepositoryApplication.class, args);
+        SpringApplication.run(ExtensionRepositoryApplication.class, args);
     }
 }
