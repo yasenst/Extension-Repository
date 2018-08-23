@@ -1,12 +1,16 @@
 package com.extensionrepository;
 
 import com.extensionrepository.entity.User;
+import com.extensionrepository.repositories.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Optional;
+
 public class DatabaseTest {
     public static void main(String[] args) {
+
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(User.class)
