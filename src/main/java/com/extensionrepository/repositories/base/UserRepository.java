@@ -1,9 +1,9 @@
-package com.extensionrepository.repositories;
+package com.extensionrepository.repositories.base;
 
 
 import com.extensionrepository.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository {
     User findByUsername(String username);
 }

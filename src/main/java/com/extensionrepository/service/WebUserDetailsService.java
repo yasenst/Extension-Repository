@@ -1,7 +1,7 @@
 package com.extensionrepository.service;
 
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.UserRepository;
+import com.extensionrepository.repositories.base.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
