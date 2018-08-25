@@ -1,5 +1,7 @@
 package com.extensionrepository.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +23,10 @@ public class User {
 
     @Column(name = "fullName", nullable = false)
     private String fullName;
+
+    @Column(name = "enabled")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private int enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -72,6 +78,14 @@ public class User {
         this.fullName = fullName;
     }
 
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -79,5 +93,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
 }

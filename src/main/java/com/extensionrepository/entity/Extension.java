@@ -26,13 +26,13 @@ public class Extension {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @Column(name = "numberOfDownloads")
+    @Column(name = "number_of_downloads")
     private int numberOfDownloads;
 
-    @Column(name = "downloadLink")
+    @Column(name = "download_link")
     private String downloadLink;
 
-    @Column(name = "repositoryLink")
+    @Column(name = "repository_link")
     private String repositoryLink;
 
     @ManyToMany(fetch = FetchType.EAGER)
