@@ -13,7 +13,7 @@
         </property>
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/extensions_db
+            jdbc:mysql://localhost:3306/extensions_db?autoReconnect=true&amp;useSSL=false
         </property>
 
         <property name = "hibernate.connection.username">
