@@ -59,6 +59,7 @@ public class WebUserDetailsServiceTests {
 
         // ASSERT
         Assert.assertEquals(userToFind, userFound);
+
     }
 
 }
