@@ -26,7 +26,7 @@ public class User {
 
     @Column(name = "enabled")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private int enabled;
+    private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -43,6 +43,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
+        this.enabled = true;
         this.roles = new HashSet<>();
     }
 
@@ -78,11 +79,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public int getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 

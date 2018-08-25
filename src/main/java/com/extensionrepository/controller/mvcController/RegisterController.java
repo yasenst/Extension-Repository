@@ -32,7 +32,7 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("view", "user/register");
+        model.addAttribute("view", "register");
 
         return "base-layout";
     }
@@ -42,7 +42,7 @@ public class RegisterController {
         // check if password matches
         if (bindingResult.hasErrors()) {
 
-            model.addAttribute("view", "user/register");
+            model.addAttribute("view", "register");
 
             return "base-layout";
         }

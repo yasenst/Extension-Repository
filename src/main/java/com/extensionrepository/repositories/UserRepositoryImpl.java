@@ -36,11 +36,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean registerUser(User u) {
+    public boolean registerUser(User user) {
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            session.save(u);
+            session.save(user);
             session.getTransaction().commit();
 
             return true;
