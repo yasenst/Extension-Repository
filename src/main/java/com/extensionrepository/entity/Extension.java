@@ -90,12 +90,12 @@ public class Extension {
         this.version = version;
     }
 
-    public User getOwner() {
+    public User getUser() {
         return user;
     }
 
-    public void setOwner(User owner) {
-        this.user = owner;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getNumberOfDownloads() {
