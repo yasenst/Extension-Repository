@@ -24,7 +24,7 @@ public class Extension {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User owner;
+    private User user;
 
     @Column(name = "number_of_downloads")
     private int numberOfDownloads;
@@ -46,11 +46,11 @@ public class Extension {
         this.tags = new HashSet<>();
     }
 
-    public Extension(String name, String description, String version, User owner, int numberOfDownloads, String downloadLink, String repositoryLink, Set<Tag> tags) {
+    public Extension(String name, String description, String version, User user, int numberOfDownloads, String downloadLink, String repositoryLink, Set<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
-        this.owner = owner;
+        this.user = user;
         this.numberOfDownloads = numberOfDownloads;
         this.downloadLink = downloadLink;
         this.repositoryLink = repositoryLink;
@@ -91,11 +91,11 @@ public class Extension {
     }
 
     public User getOwner() {
-        return owner;
+        return user;
     }
 
     public void setOwner(User owner) {
-        this.owner = owner;
+        this.user = owner;
     }
 
     public int getNumberOfDownloads() {
