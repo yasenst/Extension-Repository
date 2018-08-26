@@ -4,18 +4,23 @@ import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.ExtensionService;
-import com.extensionrepository.service.base.FileStorage;
+import com.extensionrepository.service.base.FileStorageService;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
+import java.util.List;
 
 @Controller
 public class UploadExtensionController {
@@ -24,13 +29,13 @@ public class UploadExtensionController {
 
     private UserService userService;
 
-    private FileStorage fileStorage;
+    private FileStorageService fileStorageService;
 
     @Autowired
-    public UploadExtensionController(ExtensionService extensionService, UserService userService, FileStorage fileStorage) {
+    public UploadExtensionController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
         this.extensionService = extensionService;
         this.userService = userService;
-        this.fileStorage = fileStorage;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping("/upload")
@@ -54,23 +59,43 @@ public class UploadExtensionController {
 
             System.out.println("Extension is: " + extensionDto.getName() + ", file is: " + extensionDto.getFile().getName());
 
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(UploadExtensionController.class,
+                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
+
             Extension extension = new Extension(
                     extensionDto.getName(),
                     extensionDto.getDescription(),
                     extensionDto.getVersion(),
                     user,
-                    extensionDto.getFile().getName(),
+                    downloadLink,
                     extensionDto.getRepositoryLink()
             );
 
             extensionService.save(extension);
 
-            fileStorage.store(extensionDto.getFile());
+            fileStorageService.store(extensionDto.getFile());
             model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
         } catch (Exception e) {
             model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
         }
         model.addAttribute("view", "extension/upload-form");
         return "base-layout";
+    }
+
+    @GetMapping("/extensions")
+    public String showExtensions(Model model) {
+        List<Extension> allExtensions = extensionService.getAll();
+        model.addAttribute("extensions", allExtensions);
+        model.addAttribute("view", "extension/display-extensions");
+        return "base-layout";
+    }
+
+    // download
+    @GetMapping("/extensions/{filename}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
+        Resource file = fileStorageService.loadFile(filename);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file);
     }
 }

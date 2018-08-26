@@ -18,8 +18,8 @@
         <td th:text="${extension.getVersion()}">@twitter</td>
         <td th:text="${extension.getUser().getUsername()}">Larry</td>
         <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
-        <td th:text="${extension.getDownloadLink()}">@twitter</td>
-        <td th:text="${extension.getRepositoryLink()}">@twitter</td>
+        <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
+        <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
     </tr>
     </tbody>
 </table>
