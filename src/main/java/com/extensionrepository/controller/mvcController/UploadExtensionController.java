@@ -58,7 +58,7 @@ public class UploadExtensionController {
                     extensionDto.getRepositoryLink()
             );
 
-            
+
 
             fileStorage.store(extensionDto.getFile());
             model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());

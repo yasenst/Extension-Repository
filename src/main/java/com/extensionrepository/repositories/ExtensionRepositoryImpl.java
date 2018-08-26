@@ -42,4 +42,19 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         */
         return predictions;
     }
+
+    @Override
+    public boolean saveExtension(Extension extension) {
+        try (Session session = factory.openSession()) {
+
+            session.beginTransaction();
+            session.save(extension);
+            session.getTransaction().commit();
+
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

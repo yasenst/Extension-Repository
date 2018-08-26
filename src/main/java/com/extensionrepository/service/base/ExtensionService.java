@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ExtensionService {
     List<Extension> getAll();
+    boolean saveExtension(Extension extension);
 }

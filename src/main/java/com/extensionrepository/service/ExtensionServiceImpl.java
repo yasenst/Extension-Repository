@@ -20,6 +20,11 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getAll() {
-        return this.extensionRepository.getAll();
+        return extensionRepository.getAll();
+    }
+
+    @Override
+    public boolean saveExtension(Extension extension) {
+        return extensionRepository.saveExtension(extension);
     }
 }
