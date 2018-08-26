@@ -34,8 +34,9 @@ public class UploadExtensionController {
     }
 
     @GetMapping("/upload")
-    public String showForm() {
-        return "extension/upload-form";
+    public String showForm(Model model) {
+        model.addAttribute("view", "extension/upload-form");
+        return "base-layout";
     }
 
     @PostMapping("/upload")
@@ -47,7 +48,11 @@ public class UploadExtensionController {
                     .getPrincipal();
 
             // extract user from database
-            User user = this.userService.findByUsername(principal.getUsername());
+            User user = userService.findByUsername(principal.getUsername());
+
+            System.out.println("User is: " + user.getUsername());
+
+            System.out.println("Extension is: " + extensionDto.getName() + ", file is: " + extensionDto.getFile().getName());
 
             Extension extension = new Extension(
                     extensionDto.getName(),
@@ -58,13 +63,14 @@ public class UploadExtensionController {
                     extensionDto.getRepositoryLink()
             );
 
-
+            extensionService.save(extension);
 
             fileStorage.store(extensionDto.getFile());
             model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
         } catch (Exception e) {
             model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
         }
-        return "extension/upload-form";
+        model.addAttribute("view", "extension/upload-form");
+        return "base-layout";
     }
 }

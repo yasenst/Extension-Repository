@@ -3,7 +3,7 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">
                 <h3>Upload MultipartFile to FileSystem</h3>
-                <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+                <form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/upload}">
 
                     <div class="form-group">
                         <label class="control-label" for="extensionName">Name:</label>
@@ -16,18 +16,18 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="extensionVersion">Name:</label>
+                        <label class="control-label" for="extensionVersion">Version:</label>
                         <input type="text" class="form-control" id="extensionVersion" placeholder="Version"  name="version"></input>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="extensionLink">Name:</label>
+                        <label class="control-label" for="extensionLink">GitHub Link:</label>
                         <input type="text" class="form-control" id="extensionLink" placeholder="Link"  name="repositoryLink"></input>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="uploadfile">Upload File:</label>
-                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="uploadfile"></input>
+                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="file"></input>
                     </div>
 
                     <button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>

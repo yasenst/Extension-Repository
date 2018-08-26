@@ -23,13 +23,12 @@ public class Tag {
     inverseJoinColumns = @JoinColumn(name = "extension_id"))
     private Set<Extension> extensions;
 
-    public Tag(){
+    public Tag() {
         this.extensions = new HashSet<>();
     }
 
-    public Tag(String name, Set<Extension> extensions) {
+    public Tag(String name) {
         this.name = name;
-
         this.extensions = new HashSet<>();
     }
 

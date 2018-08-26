@@ -44,7 +44,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public boolean saveExtension(Extension extension) {
+    public boolean save(Extension extension) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
