@@ -72,4 +72,18 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
 
         return extension;
     }
+
+    @Override
+    public void update(Extension extension) {
+        try (Session session = factory.openSession()) {
+
+            session.beginTransaction();
+            session.update(extension);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

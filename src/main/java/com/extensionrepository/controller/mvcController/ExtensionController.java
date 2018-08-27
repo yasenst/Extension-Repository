@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -108,5 +109,37 @@ public class ExtensionController {
         model.addAttribute("extension", extension);
         model.addAttribute("view", "extension/details");
         return "base-layout";
+    }
+
+    @GetMapping("/extension/update/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String updateExtension(Model model, @PathVariable int id){
+        Extension extension = extensionService.getById(id);
+        model.addAttribute("extension", extension);
+        model.addAttribute("view", "extension/update");
+        return "base-layout";
+    }
+
+    @PostMapping("/extension/update/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String updateProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
+        Extension extension = extensionService.getById(id);
+        extension.setName(extensionDto.getName());
+        extension.setDescription((extensionDto.getDescription()));
+        extension.setVersion(extensionDto.getVersion());
+        extension.setRepositoryLink(extensionDto.getRepositoryLink());
+
+        if (!extensionDto.getFile().getOriginalFilename().equals("")){
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionController.class,
+                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
+
+            extension.setDownloadLink(downloadLink);
+            fileStorageService.store(extensionDto.getFile());
+        }
+
+        extensionService.update(extension);
+
+        return "redirect:/extension/view/" + extension.getId();
+
     }
 }

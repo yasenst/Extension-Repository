@@ -32,4 +32,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public Extension getById(int id) {
         return extensionRepository.getById(id);
     }
+
+    @Override
+    public void update(Extension extension) {
+        extensionRepository.update(extension);
+    }
 }
