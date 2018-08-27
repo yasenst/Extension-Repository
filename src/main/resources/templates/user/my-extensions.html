@@ -1,0 +1,20 @@
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="extension : ${extensions}">
+        <td><a th:text="${extension.getName()}" th:href="@{/extensions/view/{id}(id = ${extension.getId()})}"></a></td>
+        <td>
+            <a class="btn btn-primary btn-xs" th:href="@{/extension/view/{id}(id = ${extension.getId()})}">Review</a>
+            <a class="btn btn-success btn-xs" th:href="@{/extension/edit/{id}(id = ${extension.getId()})}">Edit</a>
+            <a class="btn btn-danger btn-xs" th:href="@{/extension/delete/{id}(id = ${extension.getId()})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

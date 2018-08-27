@@ -1,6 +1,7 @@
 package com.extensionrepository.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,9 @@ public class Extension {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
     @Column(name = "number_of_downloads")
     private int numberOfDownloads;
 
@@ -46,12 +50,13 @@ public class Extension {
         this.tags = new HashSet<>();
     }
 
-    public Extension(String name, String description, String version, User user, int numberOfDownloads, String downloadLink, String repositoryLink, Set<Tag> tags) {
+    public Extension(String name, String description, String version, User user, String downloadLink, String repositoryLink) {
         this.name = name;
         this.description = description;
         this.version = version;
         this.user = user;
-        this.numberOfDownloads = numberOfDownloads;
+        this.date = new Date();
+        this.numberOfDownloads = 0;
         this.downloadLink = downloadLink;
         this.repositoryLink = repositoryLink;
 
@@ -90,12 +95,20 @@ public class Extension {
         this.version = version;
     }
 
-    public User getOwner() {
+    public User getUser() {
         return user;
     }
 
-    public void setOwner(User owner) {
-        this.user = owner;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getNumberOfDownloads() {

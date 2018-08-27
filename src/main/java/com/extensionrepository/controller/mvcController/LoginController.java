@@ -10,6 +10,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("view", "login");
+
         return "base-layout";
     }
 }
