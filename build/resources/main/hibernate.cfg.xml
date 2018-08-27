@@ -13,19 +13,25 @@
         </property>
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/extensions_db
+            jdbc:mysql://localhost:3306/extensions_db?autoReconnect=true&amp;useSSL=false
         </property>
 
         <property name = "hibernate.connection.username">
-            dev_user
+            root
         </property>
 
         <property name = "hibernate.connection.password">
-            dev_user
+            Aquakineza97
         </property>
 
-        <property name="hibernate.show_sql">true</property>
-
-
+        <property name="show_sql">
+            true
+        </property>
+        <property name="format_sql">
+            true
+        </property>
+        <property name="use_sql_comments">
+            true
+        </property>
     </session-factory>
 </hibernate-configuration>

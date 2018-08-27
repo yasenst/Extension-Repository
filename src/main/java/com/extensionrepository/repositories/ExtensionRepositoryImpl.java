@@ -21,18 +21,18 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
 
     @Override
     public List<Extension> getAll() {
-        List<Extension> predictions = new ArrayList<>();
+        List<Extension> extensions = new ArrayList<>();
 
         try(Session session = factory.openSession()) {
             session.beginTransaction();
-            predictions = session.createQuery("From Extension").list();
+            extensions = session.createQuery("From Extension").list();
             session.getTransaction().commit();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
         /*
-        if (predictions != null) {
-            Collections.sort(predictions, new Comparator<Prediction>() {
+        if (extensions != null) {
+            Collections.sort(extensions, new Comparator<Prediction>() {
                 @Override
                 public int compare(Prediction o1, Prediction o2) {
                     return o2.getDate().compareTo(o1.getDate());
@@ -40,7 +40,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
             });
         }
         */
-        return predictions;
+        return extensions;
     }
 
     @Override

@@ -19,8 +19,8 @@ public class Tag {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "extensions_tags",
-    joinColumns = @JoinColumn(name = "tag_id"),
-    inverseJoinColumns = @JoinColumn(name = "extension_id"))
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "extension_id"))
     private Set<Extension> extensions;
 
     public Tag() {
