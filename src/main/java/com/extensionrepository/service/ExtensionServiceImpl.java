@@ -37,4 +37,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public void update(Extension extension) {
         extensionRepository.update(extension);
     }
+
+    @Override
+    public void delete(Extension extension) {
+        extensionRepository.delete(extension);
+    }
 }

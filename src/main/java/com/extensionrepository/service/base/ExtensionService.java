@@ -9,4 +9,6 @@ public interface ExtensionService {
     boolean save(Extension extension);
     Extension getById(int id);
     void update(Extension extension);
+    void delete(Extension extension);
+
 }

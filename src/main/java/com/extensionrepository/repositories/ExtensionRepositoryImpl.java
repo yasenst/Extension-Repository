@@ -85,5 +85,17 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
     }
 
+    @Override
+    public void delete(Extension extension) {
+        try (Session session = factory.openSession()) {
+
+            session.beginTransaction();
+            session.delete(extension);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }

@@ -140,6 +140,23 @@ public class ExtensionController {
         extensionService.update(extension);
 
         return "redirect:/extension/view/" + extension.getId();
+    }
 
+    @GetMapping("/extension/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String deleteExtension(Model model, @PathVariable int id){
+        Extension extension = extensionService.getById(id);
+        model.addAttribute("extension", extension);
+        model.addAttribute("view", "extension/delete");
+        return "base-layout";
+    }
+
+    @PostMapping("/extension/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String deleteProcess(@PathVariable int id){
+        Extension extension = extensionService.getById(id);
+        extensionService.delete(extension);
+
+        return "redirect:/";
     }
 }
