@@ -28,6 +28,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        /*
         http.authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
@@ -39,6 +40,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/error/403")
                 .and()
                 .csrf();
+           */
+
+        http.
+                csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/upload").hasRole("USER")
+                .and()
+                .formLogin().loginPage("/login").permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/login?logout").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/error/403");
     }
 
     @Bean

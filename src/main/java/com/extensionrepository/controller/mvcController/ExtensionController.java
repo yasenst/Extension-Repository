@@ -87,7 +87,7 @@ public class ExtensionController {
         } catch (Exception e) {
             model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
         }
-        
+
         model.addAttribute("view", "extension/upload-form");
         return "base-layout";
     }
