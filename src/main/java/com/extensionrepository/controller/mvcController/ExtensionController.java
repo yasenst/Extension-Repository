@@ -100,4 +100,13 @@ public class ExtensionController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
+
+    @GetMapping("/extension/view/{id}")
+    public String extensionDetail(Model model, @PathVariable int id){
+
+        Extension extension = extensionService.getById(id);
+        model.addAttribute("extension", extension);
+        model.addAttribute("view", "extension/details");
+        return "base-layout";
+    }
 }

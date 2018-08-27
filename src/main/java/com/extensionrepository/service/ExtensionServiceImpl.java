@@ -27,4 +27,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public boolean save(Extension extension) {
         return extensionRepository.save(extension);
     }
+
+    @Override
+    public Extension getById(int id) {
+        return extensionRepository.getById(id);
+    }
 }
