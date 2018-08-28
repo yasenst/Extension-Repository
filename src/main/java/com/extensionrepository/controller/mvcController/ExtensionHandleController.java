@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import java.util.List;
 
 @Controller
-public class ExtensionController {
+public class ExtensionHandleController {
 
     private ExtensionService extensionService;
 
@@ -33,13 +33,13 @@ public class ExtensionController {
     private FileStorageService fileStorageService;
 
     @Autowired
-    public ExtensionController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
+    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping("/extensions")
+    @GetMapping("/extension/view/all")
     public String showExtensions(Model model) {
         List<Extension> allExtensions = extensionService.getAll();
 
@@ -49,58 +49,6 @@ public class ExtensionController {
         return "base-layout";
     }
 
-    @GetMapping("/upload")
-    public String showForm(Model model) {
-        model.addAttribute("view", "extension/upload-form");
-
-        return "base-layout";
-    }
-
-    @PostMapping("/upload")
-    public String uploadMultipartFile(@ModelAttribute ExtensionDto extensionDto, Model model) {
-        try {
-            // get currently logged user
-            UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
-                    .getAuthentication()
-                    .getPrincipal();
-
-            // extract user from database
-            User user = userService.findByUsername(principal.getUsername());
-
-            // MvcUriComponentsBuilder prepares the URL based on the method which is going to actually serve the file for download
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
-            Extension extension = new Extension(
-                    extensionDto.getName(),
-                    extensionDto.getDescription(),
-                    extensionDto.getVersion(),
-                    user,
-                    downloadLink,
-                    extensionDto.getRepositoryLink()
-            );
-
-            extensionService.save(extension);
-
-            fileStorageService.store(extensionDto.getFile());
-
-            model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
-        } catch (Exception e) {
-            model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
-        }
-
-        model.addAttribute("view", "extension/upload-form");
-        return "base-layout";
-    }
-
-    // download
-    @GetMapping("/extensions/{filename}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
-        Resource file = fileStorageService.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
 
     @GetMapping("/extension/view/{id}")
     public String extensionDetail(Model model, @PathVariable int id){
@@ -112,7 +60,6 @@ public class ExtensionController {
     }
 
     @GetMapping("/extension/update/{id}")
-    @PreAuthorize("isAuthenticated()")
     public String updateExtension(Model model, @PathVariable int id){
         Extension extension = extensionService.getById(id);
         model.addAttribute("extension", extension);
@@ -130,7 +77,7 @@ public class ExtensionController {
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionController.class,
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionHandleController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
             extension.setDownloadLink(downloadLink);

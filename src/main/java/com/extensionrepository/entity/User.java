@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -39,6 +40,19 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Extension> extensions;
+
+    @Transient
+    public boolean isAdmin() {
+        return this.getRoles()
+                .stream()
+                .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+    }
+
+    @Transient
+    public boolean isOwner(Extension extension) {
+        return Objects.equals(this.getId(),
+                    extension.getUser().getId());
+    }
 
     public User(){
     }
