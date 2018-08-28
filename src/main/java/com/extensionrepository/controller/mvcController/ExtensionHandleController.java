@@ -39,7 +39,7 @@ public class ExtensionHandleController {
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping("/extension/view/all")
+    @GetMapping("/extension/all")
     public String showExtensions(Model model) {
         List<Extension> allExtensions = extensionService.getAll();
 
@@ -50,7 +50,7 @@ public class ExtensionHandleController {
     }
 
 
-    @GetMapping("/extension/view/{id}")
+    @GetMapping("/extension/{id}")
     public String extensionDetail(Model model, @PathVariable int id){
 
         Extension extension = extensionService.getById(id);
@@ -61,7 +61,16 @@ public class ExtensionHandleController {
 
     @GetMapping("/extension/update/{id}")
     public String updateExtension(Model model, @PathVariable int id){
+        if (!extensionService.exists(id)) {
+            return "redirect:/";
+        }
+
         Extension extension = extensionService.getById(id);
+
+        if (!isUserOwnerOrAdmin(extension)) {
+            return "redirect:/extension/" + id;
+        }
+
         model.addAttribute("extension", extension);
         model.addAttribute("view", "extension/update");
         return "base-layout";
@@ -70,7 +79,16 @@ public class ExtensionHandleController {
     @PostMapping("/extension/update/{id}")
     @PreAuthorize("isAuthenticated()")
     public String updateProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
+        if (!extensionService.exists(id)) {
+            return "redirect:/";
+        }
+
         Extension extension = extensionService.getById(id);
+
+        if (!isUserOwnerOrAdmin(extension)) {
+            return "redirect:/extension/" + id;
+        }
+
         extension.setName(extensionDto.getName());
         extension.setDescription((extensionDto.getDescription()));
         extension.setVersion(extensionDto.getVersion());
@@ -86,13 +104,22 @@ public class ExtensionHandleController {
 
         extensionService.update(extension);
 
-        return "redirect:/extension/view/" + extension.getId();
+        return "redirect:/extension/" + extension.getId();
     }
 
     @GetMapping("/extension/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public String deleteExtension(Model model, @PathVariable int id){
+        if (!extensionService.exists(id)) {
+            return "redirect:/";
+        }
+
         Extension extension = extensionService.getById(id);
+
+        if (!isUserOwnerOrAdmin(extension)) {
+            return "redirect:/extension/" + id;
+        }
+
         model.addAttribute("extension", extension);
         model.addAttribute("view", "extension/delete");
         return "base-layout";
@@ -101,9 +128,27 @@ public class ExtensionHandleController {
     @PostMapping("/extension/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public String deleteProcess(@PathVariable int id){
+        if (!extensionService.exists(id)) {
+            return "redirect:/";
+        }
+
         Extension extension = extensionService.getById(id);
+
+        if (!isUserOwnerOrAdmin(extension)) {
+            return "redirect:/extension/" + id;
+        }
+
         extensionService.delete(extension);
 
         return "redirect:/";
+    }
+
+    private boolean isUserOwnerOrAdmin(Extension extension) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal();
+
+        User user = userService.findByUsername(principal.getUsername());
+
+        return user.isAdmin() || user.isOwner(extension);
     }
 }

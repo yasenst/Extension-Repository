@@ -3,10 +3,7 @@ package com.extensionrepository.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -55,6 +52,8 @@ public class User {
     }
 
     public User(){
+        this.extensions = new ArrayList<>();
+        this.roles = new HashSet<>();
     }
 
     public User(String username, String password, String fullName) {
@@ -62,6 +61,8 @@ public class User {
         this.password = password;
         this.fullName = fullName;
         this.enabled = true;
+
+        this.extensions = new ArrayList<>();
         this.roles = new HashSet<>();
     }
 

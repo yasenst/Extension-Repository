@@ -17,18 +17,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class RegisterController {
+public class LoginRegisterController {
 
     private UserService userService;
 
     private RoleService roleService;
 
     @Autowired
-    public RegisterController(UserService userService, RoleService roleService) {
+    public LoginRegisterController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("view", "login");
+        return "base-layout";
+    }
 
     @GetMapping("/register")
     public String register(Model model) {

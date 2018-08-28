@@ -29,6 +29,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public boolean exists(int id) {
+        return extensionRepository.exists(id);
+    }
+
+    @Override
     public Extension getById(int id) {
         return extensionRepository.getById(id);
     }

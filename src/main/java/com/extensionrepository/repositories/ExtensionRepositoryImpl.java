@@ -59,6 +59,22 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
+    public boolean exists(int id) {
+        Extension extension = null;
+
+        try (Session session = factory.openSession()){
+            session.beginTransaction();
+            extension = (Extension)session.get(Extension.class, id);
+            session.getTransaction().commit();
+
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+
+    }
+
+    @Override
     public Extension getById(int id) {
         Extension extension = null;
 
