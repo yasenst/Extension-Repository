@@ -21,6 +21,7 @@
 
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" th:href="@{/user/my-extensions}">My Extensions</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/accounts}">My Extensions</a></li>
                 </ul>
             </li>
             <li sec:authorize="isAuthenticated()">

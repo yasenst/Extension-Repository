@@ -1,5 +1,6 @@
 package com.extensionrepository.service;
 
+//import com.extensionrepository.configuration.WebUserDetails;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.repositories.base.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,24 @@ public class WebUserDetailsService implements UserDetailsService {
                     .map(role -> new SimpleGrantedAuthority(role.getName()))
                     .collect(Collectors.toSet());
 
+            /*
+            return new org.springframework.security.core.userdetails.User(
+                    user.getUsername(),user.getPassword(),
+                    false,true,true,true,
+                    grantedAuthorities
+            );
+            */
+
+
             return new org
                     .springframework
                     .security
                     .core
                     .userdetails
                     .User(user.getUsername(),user.getPassword(),grantedAuthorities);
+
+
+
         }
     }
 }

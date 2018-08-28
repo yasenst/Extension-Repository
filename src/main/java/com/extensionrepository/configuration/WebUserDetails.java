@@ -1,3 +1,4 @@
+
 package com.extensionrepository.configuration;
 
 import com.extensionrepository.entity.User;
