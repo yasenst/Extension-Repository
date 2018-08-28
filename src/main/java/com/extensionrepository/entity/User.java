@@ -3,9 +3,7 @@ package com.extensionrepository.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -40,7 +38,22 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Extension> extensions;
 
+    @Transient
+    public boolean isAdmin() {
+        return this.getRoles()
+                .stream()
+                .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+    }
+
+    @Transient
+    public boolean isOwner(Extension extension) {
+        return Objects.equals(this.getId(),
+                    extension.getUser().getId());
+    }
+
     public User(){
+        this.extensions = new ArrayList<>();
+        this.roles = new HashSet<>();
     }
 
     public User(String username, String password, String fullName) {
@@ -48,6 +61,8 @@ public class User {
         this.password = password;
         this.fullName = fullName;
         this.enabled = true;
+
+        this.extensions = new ArrayList<>();
         this.roles = new HashSet<>();
     }
 

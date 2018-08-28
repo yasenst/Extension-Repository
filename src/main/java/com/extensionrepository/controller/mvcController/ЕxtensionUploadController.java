@@ -6,11 +6,9 @@ import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.ExtensionService;
 import com.extensionrepository.service.base.FileStorageService;
 import com.extensionrepository.service.base.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,10 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import java.util.List;
-
 @Controller
-public class ExtensionController {
+public class ЕxtensionUploadController {
 
     private ExtensionService extensionService;
 
@@ -32,21 +28,10 @@ public class ExtensionController {
 
     private FileStorageService fileStorageService;
 
-    @Autowired
-    public ExtensionController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
+    public ЕxtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
-    }
-
-    @GetMapping("/extensions")
-    public String showExtensions(Model model) {
-        List<Extension> allExtensions = extensionService.getAll();
-
-        model.addAttribute("extensions", allExtensions);
-        model.addAttribute("view", "extension/display-extensions");
-
-        return "base-layout";
     }
 
     @GetMapping("/upload")
@@ -57,7 +42,7 @@ public class ExtensionController {
     }
 
     @PostMapping("/upload")
-    public String uploadMultipartFile(@ModelAttribute ExtensionDto extensionDto, Model model) {
+    public String upload(@ModelAttribute ExtensionDto extensionDto, Model model) {
         try {
             // get currently logged user
             UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
@@ -68,7 +53,7 @@ public class ExtensionController {
             User user = userService.findByUsername(principal.getUsername());
 
             // MvcUriComponentsBuilder prepares the URL based on the method which is going to actually serve the file for download
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionController.class,
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionHandleController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
             Extension extension = new Extension(
@@ -100,63 +85,5 @@ public class ExtensionController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
-    }
-
-    @GetMapping("/extension/view/{id}")
-    public String extensionDetail(Model model, @PathVariable int id){
-
-        Extension extension = extensionService.getById(id);
-        model.addAttribute("extension", extension);
-        model.addAttribute("view", "extension/details");
-        return "base-layout";
-    }
-
-    @GetMapping("/extension/update/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public String updateExtension(Model model, @PathVariable int id){
-        Extension extension = extensionService.getById(id);
-        model.addAttribute("extension", extension);
-        model.addAttribute("view", "extension/update");
-        return "base-layout";
-    }
-
-    @PostMapping("/extension/update/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public String updateProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
-        Extension extension = extensionService.getById(id);
-        extension.setName(extensionDto.getName());
-        extension.setDescription((extensionDto.getDescription()));
-        extension.setVersion(extensionDto.getVersion());
-        extension.setRepositoryLink(extensionDto.getRepositoryLink());
-
-        if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
-            extension.setDownloadLink(downloadLink);
-            fileStorageService.store(extensionDto.getFile());
-        }
-
-        extensionService.update(extension);
-
-        return "redirect:/extension/view/" + extension.getId();
-    }
-
-    @GetMapping("/extension/delete/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public String deleteExtension(Model model, @PathVariable int id){
-        Extension extension = extensionService.getById(id);
-        model.addAttribute("extension", extension);
-        model.addAttribute("view", "extension/delete");
-        return "base-layout";
-    }
-
-    @PostMapping("/extension/delete/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public String deleteProcess(@PathVariable int id){
-        Extension extension = extensionService.getById(id);
-        extensionService.delete(extension);
-
-        return "redirect:/";
     }
 }

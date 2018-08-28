@@ -24,13 +24,10 @@ public class UserController {
     }
 
     @GetMapping("/user/my-extensions")
-    @PreAuthorize("isAuthenticated()")
     public String showUserPredictions(Model model) {
         // get currently logged in user
-        UserDetails principal =
-                (UserDetails) SecurityContextHolder.getContext()
-                        .getAuthentication()
-                        .getPrincipal();
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal();
 
         // load user
         User user = this.userService.findByUsername(principal.getUsername());
