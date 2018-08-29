@@ -1,5 +1,7 @@
 package com.extensionrepository.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -38,6 +40,13 @@ public class Extension {
 
     @Column(name = "repository_link")
     private String repositoryLink;
+
+    @Column(name = "pending")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean pending;
+
+    @Column(name = "file_name")
+    private String fileName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -133,6 +142,22 @@ public class Extension {
 
     public void setRepositoryLink(String repositoryLink) {
         this.repositoryLink = repositoryLink;
+    }
+
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Set<Tag> getTags() {

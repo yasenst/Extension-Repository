@@ -49,7 +49,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/extension").permitAll()
                 .antMatchers("/extension/update/**").authenticated()
                 .antMatchers("/extension/delete/**").authenticated()
-                .antMatchers("/upload").authenticated()
+                .antMatchers("/upload").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()

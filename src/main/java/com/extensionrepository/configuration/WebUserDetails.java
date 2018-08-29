@@ -1,6 +1,6 @@
 
 package com.extensionrepository.configuration;
-/*
+
 import com.extensionrepository.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -51,4 +51,3 @@ public class WebUserDetails extends User implements UserDetails {
         this.roles = roles;
     }
 }
-*/

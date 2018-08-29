@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 @Controller
-public class ЕxtensionUploadController {
+public class ExtensionUploadController {
 
     private ExtensionService extensionService;
 
@@ -28,7 +28,7 @@ public class ЕxtensionUploadController {
 
     private FileStorageService fileStorageService;
 
-    public ЕxtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
+    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
@@ -53,7 +53,7 @@ public class ЕxtensionUploadController {
             User user = userService.findByUsername(principal.getUsername());
 
             // MvcUriComponentsBuilder prepares the URL based on the method which is going to actually serve the file for download
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionHandleController.class,
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionUploadController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
             Extension extension = new Extension(
@@ -71,6 +71,7 @@ public class ЕxtensionUploadController {
 
             model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
         } catch (Exception e) {
+            e.printStackTrace();
             model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
         }
 
