@@ -62,6 +62,7 @@ public class ExtensionUploadController {
                     extensionDto.getVersion(),
                     user,
                     downloadLink,
+                    extensionDto.getFile().getOriginalFilename(),
                     extensionDto.getRepositoryLink()
             );
 

@@ -138,6 +138,7 @@ public class ExtensionHandleController {
             return "redirect:/extension/" + id;
         }
 
+        fileStorageService.delete(extension.getFileName());
         extensionService.delete(extension);
 
         return "redirect:/";

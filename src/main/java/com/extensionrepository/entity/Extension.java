@@ -59,16 +59,18 @@ public class Extension {
         this.tags = new HashSet<>();
     }
 
-    public Extension(String name, String description, String version, User user, String downloadLink, String repositoryLink) {
+    public Extension(String name, String description, String version, User user, String downloadLink, String fileName, String repositoryLink) {
         this.name = name;
         this.description = description;
         this.version = version;
         this.user = user;
-        this.date = new Date();
-        this.numberOfDownloads = 0;
         this.downloadLink = downloadLink;
+        this.fileName = fileName;
         this.repositoryLink = repositoryLink;
 
+        this.pending = true;
+        this.date = new Date();
+        this.numberOfDownloads = 0;
         this.tags = new HashSet<>();
     }
 
