@@ -8,4 +8,5 @@ public interface FileStorageService {
     public void store(MultipartFile file);
     public Resource loadFile(String filename);
     Resource loadAsResource(String filename);
+    void delete(String filename);
 }
