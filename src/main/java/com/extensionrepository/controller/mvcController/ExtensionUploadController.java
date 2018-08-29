@@ -53,7 +53,7 @@ public class ExtensionUploadController {
             User user = userService.findByUsername(principal.getUsername());
 
             // MvcUriComponentsBuilder prepares the URL based on the method which is going to actually serve the file for download
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionUploadController.class,
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
             Extension extension = new Extension(
@@ -81,11 +81,5 @@ public class ExtensionUploadController {
     }
 
     // download
-    @GetMapping("/extensions/{filename}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
-        Resource file = fileStorageService.loadFile(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
+
 }

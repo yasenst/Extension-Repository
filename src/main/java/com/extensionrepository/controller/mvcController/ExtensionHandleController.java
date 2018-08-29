@@ -95,7 +95,7 @@ public class ExtensionHandleController {
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(ExtensionHandleController.class,
+            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
             extension.setDownloadLink(downloadLink);
