@@ -96,7 +96,23 @@ public class AdminController {
 
         extensionService.update(extension);
 
+        System.out.println("FORM SUBMITTED");
         return "redirect:/extension/" + extension.getId();
     }
 
+    @GetMapping("/admin/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String deleteProcess(@PathVariable int id){
+        if (!extensionService.exists(id)) {
+            return "redirect:/";
+        }
+
+        Extension extension = extensionService.getById(id);
+
+
+        fileStorageService.delete(extension.getFileName());
+        extensionService.delete(extension);
+
+        return "redirect:/";
+    }
 }
