@@ -113,5 +113,18 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
     }
 
+    @Override
+    public List<Extension> getPending() {
+        List<Extension> extensions = new ArrayList<>();
 
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            extensions = session.createQuery("From Extension WHERE pending = true").list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return extensions;
+
+    }
 }

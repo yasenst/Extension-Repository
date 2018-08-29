@@ -4,30 +4,30 @@
             <div class="col-sm-5">
                 <h3>Edit Extension</h3>
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm"
-                      th:action="@{/extension/update/{id}(id = ${extension.getId()})}">
+                      th:action="@{/admin/approve/{id}(id = ${extension.getId()})}">
 
                     <div class="form-group">
                         <label class="control-label" for="extensionName">Name:</label>
                         <input type="text" class="form-control" id="extensionName" placeholder="Name"  name="name"
-                        th:value="${extension.getName()}"></input>
+                               th:value="${extension.getName()}"></input>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionDescription">Description:</label>
                         <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"  name="description"
-                        th:value="${extension.getDescription()}"></input>
+                               th:value="${extension.getDescription()}"></input>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionVersion">Version:</label>
                         <input type="text" class="form-control" id="extensionVersion" placeholder="Version"  name="version"
-                        th:value="${extension.getVersion()}"></input>
+                               th:value="${extension.getVersion()}"></input>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionLink">GitHub Link:</label>
                         <input type="text" class="form-control" id="extensionLink" placeholder="Link"  name="repositoryLink"
-                        th:value="${extension.getRepositoryLink()}"></input>
+                               th:value="${extension.getRepositoryLink()}"></input>
                     </div>
 
                     <div class="form-group">
@@ -36,7 +36,9 @@
                         ></input>
                     </div>
 
-                    <button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>
+                    <button type="submit" class="btn btn-default" id="btnSubmit">Approve</button>
+                    <button type="submit" class="btn btn-danger" id="btnDelete">Delete</button>
+
                     <!--<a href="/files" class="btn btn-default" role="button">Files</a>-->
                 </form>
                 <div th:if="${message}">

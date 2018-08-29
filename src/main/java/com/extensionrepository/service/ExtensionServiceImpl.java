@@ -47,4 +47,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public void delete(Extension extension) {
         extensionRepository.delete(extension);
     }
+
+    @Override
+    public List<Extension> getPending() {
+        return extensionRepository.getPending();
+    }
 }

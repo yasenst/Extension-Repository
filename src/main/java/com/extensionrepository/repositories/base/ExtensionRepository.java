@@ -11,4 +11,5 @@ public interface ExtensionRepository {
     Extension getById(int id);
     void update(Extension extension);
     void delete(Extension extension);
+    List<Extension> getPending();
 }
