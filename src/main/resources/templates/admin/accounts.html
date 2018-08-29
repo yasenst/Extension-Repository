@@ -20,7 +20,9 @@
                             <td th:text="${user.getUsername()}"></td>
                             <td th:text="${user.getFullName()}"></td>
                             <td>
-                                <a th:href="@{/admin/accounts/disable/{id}(id=${user.getId()})}">Disable</a>
+                                <a th:text="${user.getEnabled() ? 'Disable' : 'Enable'}"
+                                   th:class="${user.getEnabled() ? 'btn btn-danger btn-xs' : 'btn btn-success btn-xs'}"
+                                   th:href="@{/admin/accounts/change-status/{id}(id=${user.getId()})}">Disable</a>
                             </td>
                         </tr>
                     </th:block>

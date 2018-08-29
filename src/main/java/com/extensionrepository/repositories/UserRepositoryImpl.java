@@ -7,6 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
@@ -14,6 +19,24 @@ public class UserRepositoryImpl implements UserRepository {
 
     public UserRepositoryImpl(SessionFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
+
+        try (Session session = factory.openSession()){
+            session.beginTransaction();
+
+            Query query = session.createQuery("FROM User");
+            users = query.list();
+
+            session.getTransaction().commit();
+        }catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+
+        return users;
     }
 
     @Override
