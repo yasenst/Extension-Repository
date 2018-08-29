@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             session.getTransaction().commit();
         }catch(Exception e){
-            System.out.print(e.getMessage());
+            e.printStackTrace();
         }
 
         return users;
@@ -70,6 +70,29 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void changeStatus(int id) {
+        User user = null;
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            user = (User) session.get(User.class, id);
+
+            if (user.getEnabled()) {
+                user.setEnabled(false);
+            } else {
+                user.setEnabled(true);
+            }
+
+            session.update(user);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -10,4 +10,6 @@ public interface UserService {
     User findByUsername(String username);
 
     boolean registerUser(User user);
+
+    void changeStatus(int id);
 }

@@ -11,5 +11,7 @@ public interface UserRepository {
 
     User findByUsername(String username);
 
-    boolean registerUser(User u);
+    boolean registerUser(User user);
+
+    void changeStatus(int id);
 }

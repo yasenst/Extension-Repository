@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -25,5 +27,11 @@ public class AdminController {
         model.addAttribute("users", users);
         model.addAttribute("view", "admin/accounts");
         return "base-layout";
+    }
+
+    @GetMapping("/admin/accounts/toggle-status/{id}")
+    public String toggleAccountStatus(@PathVariable int id) {
+        userService.changeStatus(id);
+        return "redirect:/admin/accounts";
     }
 }

@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     public boolean registerUser(User user) {
         return userRepository.registerUser(user);
     }
+
+    @Override
+    public void changeStatus(int id) {
+        userRepository.changeStatus(id);
+    }
 }
