@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
@@ -39,16 +36,25 @@ public class ExtensionHandleController {
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping("/extension/all")
-    public String showExtensions(Model model) {
-        List<Extension> allExtensions = extensionService.getAll();
+    @GetMapping("/extension/browse")
+    public String browseExtensions(@RequestParam(value="search", required = false) String search,Model model) {
+        List<Extension> extensions = extensionService.searchByName(search);
 
-        model.addAttribute("extensions", allExtensions);
-        model.addAttribute("view", "extension/display-extensions");
-
+        model.addAttribute("extensions", extensions);
+        model.addAttribute("view", "extension/browse");
         return "base-layout";
     }
 
+    /*
+    @PostMapping("/extension/browse")
+    public String searchByName(@RequestParam(value="search", required = false) String search, Model model) {
+        List<Extension> extensions = extensionService.searchByName(search);
+
+        model.addAttribute("extensions", extensions);
+        model.addAttribute("view", "extension/browse");
+        return "base-layout";
+    }
+    */
 
     @GetMapping("/extension/{id}")
     public String extensionDetail(Model model, @PathVariable int id){

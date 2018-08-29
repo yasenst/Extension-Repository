@@ -34,6 +34,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> searchByName(String name) {
+        return extensionRepository.searchByName(name);
+    }
+
+    @Override
     public Extension getById(int id) {
         return extensionRepository.getById(id);
     }

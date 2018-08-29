@@ -1,0 +1,29 @@
+<form class="form-inline" th:action="@{/extension/browse}">
+    <input class="form-control mr-sm-2" id="search-field" name="search" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>
+</form>
+<table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+        <th scope="col">name</th>
+        <th scope="col">description</th>
+        <th scope="col">version</th>
+        <th scope="col">owner</th>
+        <th scope="col">number of downloads</th>
+        <th scope="col">download link</th>
+        <th scope="col">repo link</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="extension : ${extensions}">
+        <td th:text="${extension.getName()}">Larry</td>
+        <td th:text="${extension.getDescription()}">the Bird</td>
+        <td th:text="${extension.getVersion()}">@twitter</td>
+        <td th:text="${extension.getUser().getUsername()}">Larry</td>
+        <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
+        <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
+        <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
+    </tr>
+    </tbody>
+</table>

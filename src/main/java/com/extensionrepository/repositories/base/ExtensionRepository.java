@@ -6,10 +6,12 @@ import java.util.List;
 
 public interface ExtensionRepository {
     List<Extension> getAll();
-    boolean save(Extension extension);
-    boolean exists(int id);
+    List<Extension> getPending();
+    List<Extension> searchByName(String name);
     Extension getById(int id);
+    boolean exists(int id);
+    boolean save(Extension extension);
     void update(Extension extension);
     void delete(Extension extension);
-    List<Extension> getPending();
+
 }

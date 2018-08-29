@@ -25,7 +25,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
 
         try(Session session = factory.openSession()) {
             session.beginTransaction();
-            extensions = session.createQuery("From Extension").list();
+            extensions = session.createQuery("From Extension where pending = false").list();
             session.getTransaction().commit();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -126,5 +126,28 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
         return extensions;
 
+    }
+
+    @Override
+    public List<Extension> searchByName(String name) {
+        if (name == null) {
+            return getAll();
+        }
+
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            extensions = session.createQuery(
+                     "FROM Extension " +
+                                "WHERE pending = false " +
+                                "AND name LIKE:searchName")
+                    .setParameter("searchName", "%"+name.trim()+"%")
+                    .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return extensions;
     }
 }
