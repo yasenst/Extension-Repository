@@ -13,6 +13,7 @@ public interface ExtensionRepository {
     List<Extension> filterByDownloads(String name);
     List<Extension> getNewest();
     List<Extension> getPopular();
+    List<Extension> getFeatured();
     Extension getById(int id);
     boolean exists(int id);
     boolean save(Extension extension);

@@ -272,4 +272,23 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         return extensions;
     }
 
+    @Override
+    public List<Extension> getFeatured() {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extensions = session.
+                    createQuery("FROM Extension WHERE featured = true ORDER BY numberOfDownloads DESC")
+                    .list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
 }

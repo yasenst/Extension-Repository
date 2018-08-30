@@ -18,7 +18,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model) {
 
-        List<Extension> featured = this.extensionService.getAll();
+        List<Extension> featured = this.extensionService.getFeatured();
         model.addAttribute("featured", featured);
 
         List<Extension> popular = this.extensionService.getPopular();

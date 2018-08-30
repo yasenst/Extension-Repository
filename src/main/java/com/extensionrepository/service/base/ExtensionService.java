@@ -15,5 +15,6 @@ public interface ExtensionService {
     List<Extension> getPending();
     List<Extension> getNewest();
     List<Extension> getPopular();
+    List<Extension> getFeatured();
 
 }

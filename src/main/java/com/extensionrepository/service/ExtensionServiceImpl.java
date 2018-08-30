@@ -67,4 +67,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getPopular() {
         return extensionRepository.getPopular();
     }
+
+    @Override
+    public List<Extension> getFeatured() {
+        return extensionRepository.getFeatured();
+    }
 }
