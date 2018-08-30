@@ -17,8 +17,15 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<Extension> extensions = this.extensionService.getAll();
-        model.addAttribute("extensions", extensions);
+
+        List<Extension> featured = this.extensionService.getAll();
+        model.addAttribute("featured", featured);
+
+        List<Extension> popular = this.extensionService.getPopular();
+        model.addAttribute("popular", popular);
+
+        List<Extension> newest = this.extensionService.getNewest();
+        model.addAttribute("newest", newest);
 
         model.addAttribute("view", "home/index");
         return "base-layout";

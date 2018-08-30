@@ -24,11 +24,11 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     public List<Extension> getAll() {
         List<Extension> extensions = new ArrayList<>();
 
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             extensions = session.createQuery("From Extension where pending = false").list();
             session.getTransaction().commit();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         /*
@@ -63,13 +63,13 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     public boolean exists(int id) {
         Extension extension = null;
 
-        try (Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
-            extension = (Extension)session.get(Extension.class, id);
+            extension = (Extension) session.get(Extension.class, id);
             session.getTransaction().commit();
 
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             return false;
         }
 
@@ -79,11 +79,11 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     public Extension getById(int id) {
         Extension extension = null;
 
-        try (Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
-            extension = (Extension)session.get(Extension.class, id);
+            extension = (Extension) session.get(Extension.class, id);
             session.getTransaction().commit();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -164,7 +164,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
                                 "WHERE pending = false " +
                                 "AND name LIKE:searchName " +
                                 "ORDER BY name ASC")
-                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .setParameter("searchName", "%" + name.trim() + "%")
                         .list();
             }
 
@@ -193,7 +193,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
                                 "WHERE pending = false " +
                                 "AND name LIKE:searchName " +
                                 "ORDER BY date DESC")
-                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .setParameter("searchName", "%" + name.trim() + "%")
                         .list();
             }
 
@@ -222,9 +222,47 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
                                 "WHERE pending = false " +
                                 "AND name LIKE:searchName " +
                                 "ORDER BY numberOfDownloads DESC")
-                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .setParameter("searchName", "%" + name.trim() + "%")
                         .list();
             }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
+    public List<Extension> getNewest() {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extensions = session.
+                    createQuery("FROM Extension WHERE pending = false ORDER BY date DESC")
+                    .list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
+    public List<Extension> getPopular() {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extensions = session.
+                    createQuery("FROM Extension WHERE pending = false ORDER BY numberOfDownloads DESC")
+                    .list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
