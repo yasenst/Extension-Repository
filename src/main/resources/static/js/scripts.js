@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    /*
     $('#search-button').attr('disabled',true);
     $('#search-field').keyup(function(){
         if($(this).val().length !=0){
@@ -8,4 +9,5 @@ $(document).ready(function(){
         }
 
     })
+    */
 });

@@ -1,29 +1,43 @@
-<form class="form-inline" th:action="@{/extension/browse}">
-    <input class="form-control mr-sm-2" id="search-field" name="search" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" id="search-button" type="submit">Search</button>
-</form>
-<table class="table table-bordered table-dark">
-    <thead>
-    <tr>
-        <th scope="col">name</th>
-        <th scope="col">description</th>
-        <th scope="col">version</th>
-        <th scope="col">owner</th>
-        <th scope="col">number of downloads</th>
-        <th scope="col">download link</th>
-        <th scope="col">repo link</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <form class="form-inline" th:action="@{/extension/browse}">
+        <div class="form-group">
+            <label for="sort-criteria">Sort By:</label>
+            <select class="form-control" id="sort-criteria" name="criteria"  >
+                <option selected="selected">Name</option>
+                <option>Upload Date</option>
+                <option>Downloads</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <!--<label for="search-criteria">Search By Name:</label>-->
+            <input th:value="${#request.getParameter('search')}" id="search-criteria"  type="search" class="form-control" name="search" placeholder="Search by Name...">
+        </div>
+        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
 
-    <tr th:each="extension : ${extensions}">
-        <td th:text="${extension.getName()}">Larry</td>
-        <td th:text="${extension.getDescription()}">the Bird</td>
-        <td th:text="${extension.getVersion()}">@twitter</td>
-        <td th:text="${extension.getUser().getUsername()}">Larry</td>
-        <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
-        <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
-        <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
-    </tr>
-    </tbody>
-</table>
+    <table class="table table-bordered" style="margin-top:5px;">
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">version</th>
+            <th scope="col">owner</th>
+            <th scope="col">number of downloads</th>
+            <th scope="col">download link</th>
+            <th scope="col">repo link</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="extension : ${extensions}">
+            <td th:text="${extension.getName()}">Larry</td>
+            <td th:text="${extension.getDescription()}">the Bird</td>
+            <td th:text="${extension.getVersion()}">@twitter</td>
+            <td th:text="${extension.getUser().getUsername()}">Larry</td>
+            <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
+            <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
+            <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

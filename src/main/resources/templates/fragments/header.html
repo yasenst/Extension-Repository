@@ -68,7 +68,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbardrop" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbardrop" data-toggle="dropdown" th:text="${#authentication.getPrincipal().getUsername()}">
                     <span class="glyphicon glyphicon-user"></span>
                     My Profile
                 </a>

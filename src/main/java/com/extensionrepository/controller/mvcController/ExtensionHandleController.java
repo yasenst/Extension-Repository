@@ -37,8 +37,10 @@ public class ExtensionHandleController {
     }
 
     @GetMapping("/extension/browse")
-    public String browseExtensions(@RequestParam(value="search", required = false) String search,Model model) {
-        List<Extension> extensions = extensionService.searchByName(search);
+    public String browseExtensions(@RequestParam(value="search", required = false) String search,
+                                   @RequestParam(value="criteria", required = false) String criteria,
+                                   Model model) {
+        List<Extension> extensions = extensionService.filter(search, criteria);
 
         model.addAttribute("extensions", extensions);
         model.addAttribute("view", "extension/browse");

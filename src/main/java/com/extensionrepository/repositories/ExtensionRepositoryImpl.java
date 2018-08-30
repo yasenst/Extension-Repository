@@ -1,5 +1,6 @@
 package com.extensionrepository.repositories;
 
+import com.extensionrepository.constant.Constants;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.repositories.base.ExtensionRepository;
 import org.hibernate.Session;
@@ -129,25 +130,108 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> searchByName(String name) {
-        if (name == null) {
-            return getAll();
-        }
+    public List<Extension> filter(String name, String criteria) {
+        if (criteria != null) {
+            switch (criteria) {
+                case Constants.SORT_BY_NAME:
+                    return filterByName(name);
 
+                case Constants.SORT_BY_UPLOAD_DATE:
+                    return filterByDate(name);
+
+                case Constants.SORT_BY_DOWNLOADS:
+                    return filterByDownloads(name);
+
+            }
+        }
+        return filterByName(name);
+    }
+
+    @Override
+    public List<Extension> filterByName(String name) {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            extensions = session.createQuery(
-                     "FROM Extension " +
+
+            if (name == null) {
+                extensions = session.
+                        createQuery("FROM Extension WHERE pending = false ORDER BY name ASC")
+                        .list();
+            } else {
+                extensions = session.createQuery(
+                        "FROM Extension " +
                                 "WHERE pending = false " +
-                                "AND name LIKE:searchName")
-                    .setParameter("searchName", "%"+name.trim()+"%")
-                    .list();
+                                "AND name LIKE:searchName " +
+                                "ORDER BY name ASC")
+                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .list();
+            }
+
             session.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+
         return extensions;
     }
+
+    @Override
+    public List<Extension> filterByDate(String name) {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            if (name == null) {
+                extensions = session.
+                        createQuery("FROM Extension WHERE pending = false ORDER BY date DESC")
+                        .list();
+            } else {
+                extensions = session.createQuery(
+                        "FROM Extension " +
+                                "WHERE pending = false " +
+                                "AND name LIKE:searchName " +
+                                "ORDER BY date DESC")
+                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .list();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
+    public List<Extension> filterByDownloads(String name) {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            if (name == null) {
+                extensions = session.
+                        createQuery("FROM Extension WHERE pending = false ORDER BY numberOfDownloads DESC")
+                        .list();
+            } else {
+                extensions = session.createQuery(
+                        "FROM Extension " +
+                                "WHERE pending = false " +
+                                "AND name LIKE:searchName " +
+                                "ORDER BY numberOfDownloads DESC")
+                        .setParameter("searchName", "%"+name.trim()+"%")
+                        .list();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
 }

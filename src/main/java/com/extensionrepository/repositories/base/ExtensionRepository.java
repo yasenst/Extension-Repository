@@ -7,7 +7,10 @@ import java.util.List;
 public interface ExtensionRepository {
     List<Extension> getAll();
     List<Extension> getPending();
-    List<Extension> searchByName(String name);
+    List<Extension> filter(String name, String criteria);
+    List<Extension> filterByName(String name);
+    List<Extension> filterByDate(String name);
+    List<Extension> filterByDownloads(String name);
     Extension getById(int id);
     boolean exists(int id);
     boolean save(Extension extension);

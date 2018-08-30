@@ -8,7 +8,7 @@ public interface ExtensionService {
     List<Extension> getAll();
     boolean save(Extension extension);
     boolean exists(int id);
-    List<Extension> searchByName(String name);
+    List<Extension> filter(String name, String criteria);
     Extension getById(int id);
     void update(Extension extension);
     void delete(Extension extension);
