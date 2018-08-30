@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Index</h2>
-</body>
-</html>
+<h3>Featured</h3>
+<div class="container">
+    <div class="row">
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner" th:each="extension : ${extensions}">
+                <div class="item">
+                    <div class="pad15">
+                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
+                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
+                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+    </div>
+</div>
+
+<h3>Popular</h3>
+<div class="container">
+    <div class="row">
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner" th:each="extension : ${extensions}">
+                <div class="item">
+                    <div class="pad15">
+                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
+                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
+                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+    </div>
+</div>
+
+<h3>New</h3>
+<div class="container">
+    <div class="row">
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner" th:each="extension : ${extensions}">
+                <div class="item">
+                    <div class="pad15">
+                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
+                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
+                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+    </div>
+</div>

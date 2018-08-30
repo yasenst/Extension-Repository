@@ -1,0 +1,17 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="extension : ${extensions}">
+        <td><a th:text="${extension.getName()}"></a></td>
+        <td>
+            <a class="btn btn-primary btn-xs" th:href="@{/admin/approve/{id}(id = ${extension.getId()})}">Review</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
