@@ -1,5 +1,6 @@
 package com.extensionrepository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -27,6 +28,8 @@ public class User {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean enabled;
 
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -35,6 +38,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Extension> extensions;
 

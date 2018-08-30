@@ -34,6 +34,11 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public List<Extension> filter(String name, String criteria) {
+        return extensionRepository.filter(name, criteria);
+    }
+
+    @Override
     public Extension getById(int id) {
         return extensionRepository.getById(id);
     }

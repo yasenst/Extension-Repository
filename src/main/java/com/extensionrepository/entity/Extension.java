@@ -1,5 +1,6 @@
 package com.extensionrepository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -48,6 +49,7 @@ public class Extension {
     @Column(name = "file_name")
     private String fileName;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "extensions_tags",
