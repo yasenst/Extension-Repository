@@ -22,11 +22,7 @@ public class DatabaseTest {
         Session session = factory.openSession();
         session.beginTransaction();
 
-        User u = session.get(User.class, 1);
-        for (Extension e : u.getExtensions()) {
-            System.out.println(e.getName());
-        }
-
+        System.out.println("hello");
         session.getTransaction().commit();
         session.close();
     }
