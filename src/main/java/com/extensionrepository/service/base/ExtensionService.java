@@ -13,5 +13,9 @@ public interface ExtensionService {
     void update(Extension extension);
     void delete(Extension extension);
     List<Extension> getPending();
+    List<Extension> getNewest();
+    List<Extension> getPopular();
+    List<Extension> getFeatured();
+    void changeStatus(int id);
 
 }

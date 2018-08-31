@@ -115,4 +115,18 @@ public class AdminController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/admin/featured")
+    public String featured(Model model) {
+        List<Extension> extensions = extensionService.getFeatured();
+        model.addAttribute("extensions", extensions);
+        model.addAttribute("view", "admin/featured");
+        return "base-layout";
+    }
+
+    @GetMapping("/admin/featured/toggle-status/{id}")
+    public String toggleFeaturedStatus(@PathVariable int id) {
+        extensionService.changeStatus(id);
+        return "redirect:/admin/featured";
+    }
 }

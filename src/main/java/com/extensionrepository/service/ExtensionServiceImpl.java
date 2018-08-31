@@ -57,4 +57,24 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getPending() {
         return extensionRepository.getPending();
     }
+
+    @Override
+    public List<Extension> getNewest() {
+        return extensionRepository.getNewest();
+    }
+
+    @Override
+    public List<Extension> getPopular() {
+        return extensionRepository.getPopular();
+    }
+
+    @Override
+    public List<Extension> getFeatured() {
+        return extensionRepository.getFeatured();
+    }
+
+    @Override
+    public void changeStatus(int id) {
+        extensionRepository.changeStatus(id);
+    }
 }

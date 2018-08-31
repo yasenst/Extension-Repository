@@ -46,6 +46,10 @@ public class Extension {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean pending;
 
+    @Column(name = "featured")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean featured;
+
     @Column(name = "file_name")
     private String fileName;
 
@@ -71,6 +75,7 @@ public class Extension {
         this.repositoryLink = repositoryLink;
 
         this.pending = true;
+        this.featured = false;
         this.date = new Date();
         this.numberOfDownloads = 0;
         this.tags = new HashSet<>();
@@ -170,5 +175,13 @@ public class Extension {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
     }
 }
