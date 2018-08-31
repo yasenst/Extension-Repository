@@ -72,4 +72,9 @@ public class ExtensionServiceImpl implements ExtensionService {
     public List<Extension> getFeatured() {
         return extensionRepository.getFeatured();
     }
+
+    @Override
+    public void changeStatus(int id) {
+        extensionRepository.changeStatus(id);
+    }
 }

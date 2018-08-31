@@ -16,5 +16,6 @@ public interface ExtensionService {
     List<Extension> getNewest();
     List<Extension> getPopular();
     List<Extension> getFeatured();
+    void changeStatus(int id);
 
 }

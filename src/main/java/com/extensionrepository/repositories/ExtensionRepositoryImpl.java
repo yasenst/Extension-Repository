@@ -115,6 +115,29 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
+    public void changeStatus(int id) {
+        Extension extension = null;
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extension = (Extension) session.get(Extension.class, id);
+
+            if (extension.isFeatured()) {
+                extension.setFeatured(false);
+            } else {
+                extension.setFeatured(true);
+            }
+
+            session.update(extension);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Extension> getPending() {
         List<Extension> extensions = new ArrayList<>();
 

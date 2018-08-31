@@ -19,6 +19,8 @@ public interface ExtensionRepository {
     boolean save(Extension extension);
     void update(Extension extension);
     void delete(Extension extension);
+    void changeStatus(int id);
+
 
 
 }
