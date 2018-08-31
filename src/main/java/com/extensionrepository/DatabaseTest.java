@@ -25,5 +25,7 @@ public class DatabaseTest {
         System.out.println("hello");
         session.getTransaction().commit();
         session.close();
+
+        System.out.println("something");
     }
 }
