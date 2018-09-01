@@ -1,34 +1,64 @@
-<h3>Featured</h3>
 <div class="container">
+    <h3>&nbsp;&nbsp;Featured</h3>
     <div class="row">
-        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
             <div class="MultiCarousel-inner">
                 <div class="item" th:each="extension : ${featured}">
-                    <div class="pad15">
-                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
-                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
-                        <p class="lead" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">Date</p>
-                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
+                             width="150px" height="100px" alt="Card image">
+                        <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                        <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <h5 class="text-left text-danger" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">
+                                    Date</h5>
+                            </div>
+                            <div class="form-group">&nbsp;&nbsp;&nbsp;</div>
+                            <div class="form-group">
+                                <span class="text-right glyphicon glyphicon-download-alt"
+                                      th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
+                            </div>
+                        </form>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-info">Open</a>
+                            <a href="#" class="btn btn-primary">Download</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary leftLst"><</button>
-            <button class="btn btn-primary rightLst">></button>
+            <!--<button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>-->
         </div>
     </div>
 </div>
 
-<h3>Popular</h3>
 <div class="container">
+    <h3>&nbsp;&nbsp;Popular</h3>
     <div class="row">
-        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
             <div class="MultiCarousel-inner">
                 <div class="item" th:each="extension : ${popular}">
-                    <div class="pad15">
-                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
-                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
-                        <p class="lead" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">Date</p>
-                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
+                             width="150px" height="120px" alt="Card image">
+                        <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                        <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <h5 class="text-left text-danger" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">
+                                    Date</h5>
+                            </div>
+                            <div class="form-group">&nbsp;&nbsp;&nbsp;</div>
+                            <div class="form-group">
+                                <span class="text-right glyphicon glyphicon-download-alt"
+                                      th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
+                            </div>
+                        </form>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-info">Open</a>
+                            <a href="#" class="btn btn-primary">Download</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,17 +68,32 @@
     </div>
 </div>
 
-<h3>New</h3>
 <div class="container">
+    <h3>&nbsp;&nbsp;New</h3>
     <div class="row">
-        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
-            <div class="MultiCarousel-inner" >
+        <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+            <div class="MultiCarousel-inner">
                 <div class="item" th:each="extension : ${newest}">
-                    <div class="pad15">
-                        <p class="lead" th:text="${extension.getName()}">Extension name</p>
-                        <p class="lead" th:text="${extension.getUser().getUsername()}">User name</p>
-                        <p class="lead" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">Date</p>
-                        <p th:text="${extension.getNumberOfDownloads()}">Number of Downloads</p>
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
+                             width="150px" height="120px" alt="Card image">
+                        <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                        <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <h5 class="text-left text-danger" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">
+                                    Date</h5>
+                            </div>
+                            <div class="form-group">&nbsp;&nbsp;&nbsp;</div>
+                            <div class="form-group">
+                                <span class="text-right glyphicon glyphicon-download-alt"
+                                      th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
+                            </div>
+                        </form>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-info">Open</a>
+                            <a href="#" class="btn btn-primary">Download</a>
+                        </div>
                     </div>
                 </div>
             </div>

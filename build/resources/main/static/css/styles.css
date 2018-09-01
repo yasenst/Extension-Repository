@@ -1,3 +1,24 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 192px 0;
+    padding: 0 0 25px 0;
+    background:whitesmoke; color:black;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 192px;
+    width: 100%;
+    overflow: hidden;
+}
+
+
             /*  CAROUSEL  */
 .MultiCarousel {
     float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
@@ -6,7 +27,8 @@
 .MultiCarousel .MultiCarousel-inner .item {
     float: left;}
 .MultiCarousel .MultiCarousel-inner .item > div {
-    text-align: center; padding:10px; margin:10px; background:#f1f1f1; color:#666;}
+    text-align: center; padding:10px; margin:10px; background:white; color:black;
+}
 .MultiCarousel .leftLst, .MultiCarousel .rightLst {
     position:absolute; border-radius:50%;top:calc(50% - 20px); }
 .MultiCarousel .leftLst {
@@ -16,6 +38,23 @@
 
 .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
     pointer-events: none; background:#ccc; }
+
+.card{
+    box-shadow: 2px 2px 8px lightgray;
+}
+.card:hover{
+    box-shadow: 2px 2px 8px gray;
+}
+.card > *{
+    margin: 0px;
+}
+.card{
+    border-radius: 10px;
+}
+img{
+    border-radius: 10px;
+}
+
 
             /*  FOOTER  */
 #footer {
