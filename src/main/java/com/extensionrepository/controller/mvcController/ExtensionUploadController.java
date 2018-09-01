@@ -2,23 +2,24 @@ package com.extensionrepository.controller.mvcController;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
+import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.GitHubService;
 import com.extensionrepository.service.base.ExtensionService;
 import com.extensionrepository.service.base.FileStorageService;
+import com.extensionrepository.service.base.TagService;
 import com.extensionrepository.service.base.UserService;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+
+import java.util.Set;
 
 @Controller
 public class ExtensionUploadController {
@@ -29,10 +30,14 @@ public class ExtensionUploadController {
 
     private FileStorageService fileStorageService;
 
-    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
+    private TagService tagService;
+
+    @Autowired
+    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/upload")
@@ -57,6 +62,8 @@ public class ExtensionUploadController {
             String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
                     "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
 
+            Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
+
             Extension extension = new Extension(
                     extensionDto.getName(),
                     extensionDto.getDescription(),
@@ -64,7 +71,8 @@ public class ExtensionUploadController {
                     user,
                     downloadLink,
                     extensionDto.getFile().getOriginalFilename(),
-                    extensionDto.getRepositoryLink()
+                    extensionDto.getRepositoryLink(),
+                    tags
             );
             extension = GitHubService.fetchGithubInfo(extension);
 
