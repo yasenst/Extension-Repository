@@ -46,7 +46,6 @@ public class ExtensionServiceImpl implements ExtensionService {
 
                 case Constants.SORT_BY_DOWNLOADS:
                     return extensionRepository.filterByDownloads(name);
-
             }
         }
         return extensionRepository.filterByName(name);
