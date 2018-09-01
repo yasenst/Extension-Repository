@@ -50,6 +50,16 @@ public class Extension {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private boolean featured;
 
+    @Column(name = "open_issues")
+    private int openIssues;
+
+    @Column(name = "pull_requests")
+    private int pullRequests;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name="last_commit")
+    private Date lastCommit;
+
     @Column(name = "file_name")
     private String fileName;
 
@@ -183,5 +193,29 @@ public class Extension {
 
     public void setFeatured(boolean featured) {
         this.featured = featured;
+    }
+
+    public int getOpenIssues() {
+        return openIssues;
+    }
+
+    public void setOpenIssues(int openIssues) {
+        this.openIssues = openIssues;
+    }
+
+    public int getPullRequests() {
+        return pullRequests;
+    }
+
+    public void setPullRequests(int pullRequests) {
+        this.pullRequests = pullRequests;
+    }
+
+    public Date getLastCommit() {
+        return lastCommit;
+    }
+
+    public void setLastCommit(Date lastCommit) {
+        this.lastCommit = lastCommit;
     }
 }

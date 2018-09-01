@@ -1,2 +1,15 @@
 add pending to db default false
 add filepath and imagepath
+
+in controller
+	method filter(name, criteria)
+
+in repo
+	filter(name, criteria)
+	switch criteria
+		filterByName(name)
+		filterByNumberOfDownloads(name)
+		filterByUploadDate(name)
+
+
+increase downloads on download
