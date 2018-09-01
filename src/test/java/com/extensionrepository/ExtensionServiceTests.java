@@ -40,13 +40,16 @@ public class ExtensionServiceTests {
 
         for (Extension e : extensions) {
             e.setPending(false);
+            extensionRepository.save(e);
         }
 
-        Mockito.when(extensionRepository.filter(EXTENSION_SEARCH_PARAM,null))
 
+
+        Mockito.when(extensionRepository.filterByName(EXTENSION_SEARCH_PARAM))
                 .thenReturn(extensions.stream().filter(extension -> extension.getName().contains(EXTENSION_SEARCH_PARAM)).collect(Collectors.toList()));
 
         List<Extension> result = extensionService.filter(EXTENSION_SEARCH_PARAM,null);
+
 
         Assert.assertEquals(result.size(),3);
     }
