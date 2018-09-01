@@ -37,26 +37,15 @@ public class ExtensionHandleController {
     }
 
     @GetMapping("/extension/browse")
-    public String browseExtensions(@RequestParam(value="search", required = false) String search,
-                                   @RequestParam(value="criteria", required = false) String criteria,
+    public String browseExtensions(@RequestParam(value="name", required = false) String name,
+                                   @RequestParam(value="sortBy", required = false) String sortBy,
                                    Model model) {
-        List<Extension> extensions = extensionService.filter(search, criteria);
+        List<Extension> extensions = extensionService.filter(name, sortBy);
 
         model.addAttribute("extensions", extensions);
         model.addAttribute("view", "extension/browse");
         return "base-layout";
     }
-
-    /*
-    @PostMapping("/extension/browse")
-    public String searchByName(@RequestParam(value="search", required = false) String search, Model model) {
-        List<Extension> extensions = extensionService.searchByName(search);
-
-        model.addAttribute("extensions", extensions);
-        model.addAttribute("view", "extension/browse");
-        return "base-layout";
-    }
-    */
 
     @GetMapping("/extension/{id}")
     public String extensionDetail(Model model, @PathVariable int id){

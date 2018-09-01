@@ -7,7 +7,6 @@ import java.util.List;
 public interface ExtensionRepository {
     List<Extension> getAll();
     List<Extension> getPending();
-    List<Extension> filter(String name, String criteria);
     List<Extension> filterByName(String name);
     List<Extension> filterByDate(String name);
     List<Extension> filterByDownloads(String name);

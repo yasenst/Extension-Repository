@@ -152,23 +152,6 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
 
     }
 
-    @Override
-    public List<Extension> filter(String name, String criteria) {
-        if (criteria != null) {
-            switch (criteria) {
-                case Constants.SORT_BY_NAME:
-                    return filterByName(name);
-
-                case Constants.SORT_BY_UPLOAD_DATE:
-                    return filterByDate(name);
-
-                case Constants.SORT_BY_DOWNLOADS:
-                    return filterByDownloads(name);
-
-            }
-        }
-        return filterByName(name);
-    }
 
     @Override
     public List<Extension> filterByName(String name) {

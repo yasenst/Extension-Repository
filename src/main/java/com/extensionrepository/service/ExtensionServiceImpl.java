@@ -1,5 +1,6 @@
 package com.extensionrepository.service;
 
+import com.extensionrepository.constant.Constants;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.repositories.base.ExtensionRepository;
 import com.extensionrepository.service.base.ExtensionService;
@@ -34,8 +35,21 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public List<Extension> filter(String name, String criteria) {
-        return extensionRepository.filter(name, criteria);
+    public List<Extension> filter(String name, String sortBy) {
+        if (sortBy != null) {
+            switch (sortBy) {
+                case Constants.SORT_BY_NAME:
+                    return extensionRepository.filterByName(name);
+
+                case Constants.SORT_BY_UPLOAD_DATE:
+                    return extensionRepository.filterByDate(name);
+
+                case Constants.SORT_BY_DOWNLOADS:
+                    return extensionRepository.filterByDownloads(name);
+
+            }
+        }
+        return extensionRepository.filterByName(name);
     }
 
     @Override
