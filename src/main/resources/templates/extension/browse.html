@@ -6,6 +6,7 @@
                 <option th:selected="${#request.getParameter('sortBy') == 'Name'}">Name</option>
                 <option th:selected="${#request.getParameter('sortBy') == 'Upload Date'}">Upload Date</option>
                 <option th:selected="${#request.getParameter('sortBy') == 'Downloads'}">Downloads</option>
+                <option th:selected="${#request.getParameter('sortBy') == 'Last Commit'}">Last Commit</option>
             </select>
         </div>
         <div class="form-group">
@@ -21,6 +22,7 @@
             <th scope="col">name</th>
             <th scope="col">number of downloads</th>
             <th scope="col">upload date</th>
+            <th scope="col">last commit</th>
             <th scope="col">download link</th>
             <th scope="col">repo link</th>
         </tr>
@@ -31,6 +33,7 @@
             <td th:text="${extension.getName()}">Larry</td>
             <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
             <td th:text="${extension.getDate()}">the Bird</td>
+            <td th:text="${extension.getLastCommit()}">the Bird</td>
             <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
             <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
         </tr>

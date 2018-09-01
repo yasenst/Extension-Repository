@@ -241,6 +241,35 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
+    public List<Extension> filterByLastCommit(String name) {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            if (name == null) {
+                extensions = session.
+                        createQuery("FROM Extension WHERE pending = false ORDER BY lastCommit DESC")
+                        .list();
+            } else {
+                extensions = session.createQuery(
+                        "FROM Extension " +
+                                "WHERE pending = false " +
+                                "AND name LIKE:searchName " +
+                                "ORDER BY lastCommit DESC")
+                        .setParameter("searchName", "%" + name.trim() + "%")
+                        .list();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
     public List<Extension> getNewest() {
         List<Extension> extensions = new ArrayList<>();
 
