@@ -11,7 +11,7 @@ $(document).ready(function(){
     })
     */
 });
-        /*  CAROUSEL  */
+
 $(document).ready(function () {
     var itemsMainDiv = ('.MultiCarousel');
     var itemsDiv = ('.MultiCarousel-inner');
@@ -116,6 +116,16 @@ $(document).ready(function () {
         var slide = $(Parent).attr("data-slide");
         ResCarousel(ell, Parent, slide);
     }
+
+    // Search bar delete input with 'x'
+    $("#search-input").keyup(function(){
+        $("#search-clear").toggle(Boolean($(this).val()));
+    });
+    $("#search-clear").toggle(Boolean($("#search-input").val()));
+    $("#search-clear").click(function(){
+        $("#search-input").val('').focus();
+        $(this).hide();
+    });
 
 });
 

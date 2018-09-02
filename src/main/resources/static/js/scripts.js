@@ -11,7 +11,7 @@ $(document).ready(function(){
     })
     */
 });
-        /*  CAROUSEL  */
+
 $(document).ready(function () {
     var itemsMainDiv = ('.MultiCarousel');
     var itemsDiv = ('.MultiCarousel-inner');
