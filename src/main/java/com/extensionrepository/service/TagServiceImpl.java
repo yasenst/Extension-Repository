@@ -45,4 +45,9 @@ public class TagServiceImpl implements TagService {
 
         return tagSet;
     }
+
+    @Override
+    public Tag findByName(String name) {
+        return tagRepository.findByName(name);
+    }
 }

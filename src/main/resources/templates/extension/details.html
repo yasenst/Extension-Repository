@@ -1,4 +1,4 @@
-<div class="moviecard" th:object="${extension}">
+<div class="moviecard" th:object="${extension}" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="movie-poster play-trailer"></div>
     <div id="movie-content">
         <div class="movie-ratings">
@@ -33,6 +33,12 @@
                 <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy')}">0</span>
                 </span>
             </div>
+        </div>
+        <div class="movie-details">
+
+              <a class="badge badge-info" th:each="tag : ${extension.getTags()}"
+            th:text="${tag.getName()}" th:href="@{/extension/tag/{name}(name = ${tag.getName()})}">Info</a>
+
         </div>
         <div>
             <a th:href="${extension.getRepositoryLink()}" class="btn btn-info">Repository</a>
