@@ -87,16 +87,11 @@ public class AdminController {
 
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
-            extension.setDownloadLink(downloadLink);
             fileStorageService.store(extensionDto.getFile());
         }
 
         extensionService.update(extension);
 
-        System.out.println("FORM SUBMITTED");
         return "redirect:/extension/" + extension.getId();
     }
 

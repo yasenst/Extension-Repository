@@ -36,7 +36,7 @@
         </div>
         <div>
             <a th:href="${extension.getRepositoryLink()}" class="btn btn-info">Repository</a>
-            <a th:href="${extension.getDownloadLink()}" class="btn btn-primary">Download</a>
+            <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
         </div>
     </div>
 </div>

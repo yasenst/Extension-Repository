@@ -66,10 +66,6 @@ public class ExtensionUploadController {
             // extract user from database
             User user = userService.findByUsername(principal.getUsername());
 
-            // MvcUriComponentsBuilder prepares the URL based on the method which is going to actually serve the file for download
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
             Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
 
             Extension extension = new Extension(
@@ -77,7 +73,6 @@ public class ExtensionUploadController {
                     extensionDto.getDescription(),
                     extensionDto.getVersion(),
                     user,
-                    downloadLink,
                     extensionDto.getFile().getOriginalFilename(),
                     extensionDto.getRepositoryLink(),
                     tags
@@ -99,7 +94,5 @@ public class ExtensionUploadController {
         model.addAttribute("view", "extension/upload-form");
         return "redirect:/upload";
     }
-
-    // download
 
 }

@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface ExtensionService extends FieldValueExists {
     List<Extension> getAll();
-    boolean save(Extension extension);
-    boolean exists(int id);
-    List<Extension> filter(String name, String sortBy);
-    Extension getById(int id);
-    void update(Extension extension);
-    void delete(Extension extension);
     List<Extension> getPending();
     List<Extension> getNewest();
     List<Extension> getPopular();
     List<Extension> getFeatured();
+    List<Extension> filter(String name, String sortBy);
+    Extension getById(int id);
+    boolean save(Extension extension);
+    boolean exists(int id);
+    void update(Extension extension);
+    void delete(Extension extension);
     void changeStatus(int id);
 
 }

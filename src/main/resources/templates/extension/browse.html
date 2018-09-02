@@ -41,7 +41,7 @@
                     </form>
                     <div class="card-body browse-btn" >
                         <a th:href="${extension.getRepositoryLink()}" class="btn btn-info" >GitHub</a>
-                        <a th:href="${extension.getDownloadLink()}" class="btn btn-primary">Download</a>
+                        <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                     </div>
                 </div>
             </div>
