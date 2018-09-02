@@ -216,7 +216,7 @@ img{
     box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
     transition: all 500ms ease-out;
 }
-/* input validation errors*/
+/* input annotation errors*/
 .form-control-feedback {
     all:unset;
     color:red;

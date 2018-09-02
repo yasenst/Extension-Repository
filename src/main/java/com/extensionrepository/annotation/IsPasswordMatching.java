@@ -1,4 +1,4 @@
-package com.extensionrepository.validation;
+package com.extensionrepository.annotation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

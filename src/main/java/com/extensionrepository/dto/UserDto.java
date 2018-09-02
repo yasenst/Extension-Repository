@@ -1,8 +1,8 @@
 package com.extensionrepository.dto;
 
 import com.extensionrepository.service.UserServiceImpl;
-import com.extensionrepository.validation.IsPasswordMatching;
-import com.extensionrepository.validation.IsUsernameUnique;
+import com.extensionrepository.annotation.IsPasswordMatching;
+import com.extensionrepository.annotation.IsFieldUnique;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @NotEmpty
     @Size(min = 3, message = "Username must be at least 3 characters")
-    @IsUsernameUnique(service = UserServiceImpl.class, fieldName = "username", message = "Username already exists.")
+    @IsFieldUnique(service = UserServiceImpl.class, fieldName = "username", message = "Username already exists.")
     private String username;
 
     @NotEmpty

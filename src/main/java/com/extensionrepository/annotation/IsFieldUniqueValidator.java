@@ -1,4 +1,4 @@
-package com.extensionrepository.validation;
+package com.extensionrepository.annotation;
 
 import com.extensionrepository.service.base.FieldValueExists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class IsUsernameUniqueValidator implements ConstraintValidator<IsUsernameUnique, Object> {
+public class IsFieldUniqueValidator implements ConstraintValidator<IsFieldUnique, Object> {
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -15,7 +15,7 @@ public class IsUsernameUniqueValidator implements ConstraintValidator<IsUsername
     private String fieldName;
 
     @Override
-    public void initialize(IsUsernameUnique constraintAnnotation) {
+    public void initialize(IsFieldUnique constraintAnnotation) {
         Class<? extends FieldValueExists> clazz = constraintAnnotation.service();
         this.fieldName = constraintAnnotation.fieldName();
         String serviceQualifier = constraintAnnotation.serviceQualifier();

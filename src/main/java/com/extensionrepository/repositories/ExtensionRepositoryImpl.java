@@ -5,6 +5,7 @@ import com.extensionrepository.entity.Extension;
 import com.extensionrepository.repositories.base.ExtensionRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -74,6 +75,25 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
 
     }
+
+    @Override
+    public boolean exists(String name) {
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            Query query = session.createQuery("from Extension where name=:uname");
+            query.setParameter("uname",name);
+            if (query.uniqueResult() != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     @Override
     public Extension getById(int id) {

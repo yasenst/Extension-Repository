@@ -6,6 +6,7 @@ import com.extensionrepository.repositories.base.ExtensionRepository;
 import com.extensionrepository.service.base.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -94,5 +95,18 @@ public class ExtensionServiceImpl implements ExtensionService {
         extensionRepository.changeStatus(id);
     }
 
+    @Override
+    public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
+        Assert.notNull(fieldName, "Extension name already exists");
 
+        if (!fieldName.equals("name")) {
+            throw new UnsupportedOperationException("Field name not supported");
+        }
+
+        if (value == null) {
+            return false;
+        }
+        System.out.println("This is it " + value.toString());
+        return this.extensionRepository.exists(value.toString());
+    }
 }

@@ -1,20 +1,26 @@
 package com.extensionrepository.dto;
 
+import com.extensionrepository.annotation.IsFieldUnique;
+import com.extensionrepository.service.ExtensionServiceImpl;
+import com.extensionrepository.service.UserServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+
 public class ExtensionDto {
-    @NotNull
+    @NotEmpty
+    @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists.")
     private String name;
 
-    @NotNull
+    @NotEmpty
     private String description;
 
-    @NotNull
+    @NotEmpty
     private String version;
 
-    @NotNull
+    @NotEmpty
     private String repositoryLink;
 
     @NotNull
@@ -62,12 +68,16 @@ public class ExtensionDto {
         this.file = file;
     }
 
-
     public String getTags() {
         return tags;
     }
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

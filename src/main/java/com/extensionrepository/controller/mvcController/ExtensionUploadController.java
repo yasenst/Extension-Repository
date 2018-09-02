@@ -14,12 +14,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Controller
@@ -42,14 +44,19 @@ public class ExtensionUploadController {
     }
 
     @GetMapping("/upload")
-    public String showForm(Model model) {
+    public String upload(Model model, @ModelAttribute ExtensionDto extensionDto) {
         model.addAttribute("view", "extension/upload-form");
 
         return "base-layout";
     }
 
     @PostMapping("/upload")
-    public String upload(@ModelAttribute ExtensionDto extensionDto, Model model, RedirectAttributes redirectAttributes) {
+    public String uploadProcess(@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model,  RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("view", "extension/upload-form");
+            return upload(model, extensionDto);
+        }
+
         try {
             // get currently logged user
             UserDetails principal = (UserDetails) SecurityContextHolder.getContext()

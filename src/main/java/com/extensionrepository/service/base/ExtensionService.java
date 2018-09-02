@@ -4,7 +4,7 @@ import com.extensionrepository.entity.Extension;
 
 import java.util.List;
 
-public interface ExtensionService {
+public interface ExtensionService extends FieldValueExists {
     List<Extension> getAll();
     boolean save(Extension extension);
     boolean exists(int id);

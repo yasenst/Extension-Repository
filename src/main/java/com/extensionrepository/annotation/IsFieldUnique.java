@@ -1,4 +1,4 @@
-package com.extensionrepository.validation;
+package com.extensionrepository.annotation;
 
 import com.extensionrepository.service.base.FieldValueExists;
 
@@ -12,9 +12,9 @@ import static java.lang.annotation.ElementType.METHOD;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, ElementType.TYPE })
-@Constraint(validatedBy = IsUsernameUniqueValidator.class)
+@Constraint(validatedBy = IsFieldUniqueValidator.class)
 @Documented
-public @interface IsUsernameUnique {
+public @interface IsFieldUnique {
     String message() default "{unique.value.violation}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
