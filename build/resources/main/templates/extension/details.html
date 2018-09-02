@@ -1,25 +1,42 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">name</th>
-        <th scope="col">description</th>
-        <th scope="col">version</th>
-        <th scope="col">owner</th>
-        <th scope="col">number of downloads</th>
-        <th scope="col">download link</th>
-        <th scope="col">repo link</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="moviecard" th:object="${extension}">
+    <div class="movie-poster play-trailer"></div>
+    <div id="movie-content">
+        <div class="movie-ratings">
+            <span class="glyphicon glyphicon-download-alt"></span>
+            <span th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
+        </div>
+        <div class="movie-title">
+            <a th:text="${extension.getName()}">Sicario</a>
+        </div>
+        <span
+                class="movie-year" th:text="${extension.getVersion()}">version</span>
+        <div class="movie-details">
 
-    <tr th:object="${extension}">
-        <td th:text="${extension.getName()}">Larry</td>
-        <td th:text="${extension.getDescription()}">the Bird</td>
-        <td th:text="${extension.getVersion()}">@twitter</td>
-        <td th:text="${extension.getUser().getUsername()}">Larry</td>
-        <td th:text="${extension.getNumberOfDownloads()}">the Bird</td>
-        <td><a th:href="${extension.getDownloadLink()}">Download</a></td>
-        <td><a th:href="${extension.getRepositoryLink()}">GitHub</a></td>
-    </tr>
-    </tbody>
-</table>
+        </div>
+        <div class="movie-castcrew"><span class="title">Author</span>
+            <span class="name" th:text="${extension.getUser().getFullName()}">John Doe</span>
+        </div>
+        <div class="movie-castcrew"><span class="title">Date</span>
+            <span class="name" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">19-Aug-2018</span>
+        </div>
+        <div class="movie-synopsis" th:text="${extension.getDescription()}">Description
+        </div>
+        <div class="movie-issues">
+            <div class="movie-details">
+                <span class="movie-rating">Open Issues:
+                <span class="badge" th:text="${extension.getOpenIssues()}">0</span>
+                </span>
+                <span class="movie-duration">Pull Requests:
+                <span class="badge" th:text="${extension.getPullRequests()}">0</span>
+                </span>
+                <span class="movie-genre">Last Commit Date:
+                <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy')}">0</span>
+                </span>
+            </div>
+        </div>
+        <div>
+            <a th:href="${extension.getRepositoryLink()}" class="btn btn-info">Repository</a>
+            <a th:href="${extension.getDownloadLink()}" class="btn btn-primary">Download</a>
+        </div>
+    </div>
+</div>
