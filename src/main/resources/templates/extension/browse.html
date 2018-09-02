@@ -38,8 +38,8 @@
                                       th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
                         </div>
                     </form>
-                    <div class="card-body">
-                        <a th:href="@{'extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
+                    <div class="card-body browse-btn" >
+                        <a th:href="${extension.getRepositoryLink()}" class="btn btn-info" >GitHub</a>
                         <a th:href="${extension.getDownloadLink()}" class="btn btn-primary">Download</a>
                     </div>
                 </div>
