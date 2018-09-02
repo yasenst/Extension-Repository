@@ -38,7 +38,6 @@ footer {
 
 .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
     pointer-events: none; background:#ccc; }
-
 .card{
     box-shadow: 2px 2px 8px lightgray;
 }
@@ -53,6 +52,9 @@ footer {
 }
 img{
     border-radius: 10px;
+}
+.browse {
+    padding-left: 40px;
 }
 
 
@@ -199,6 +201,7 @@ img{
 .moviecard .movie-details span:last-child {
     border: none;
 }
+
 
 
 
