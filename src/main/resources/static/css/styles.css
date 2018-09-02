@@ -200,6 +200,10 @@ img{
     border: none;
 }
 
-
+/* input validation errors*/
+.form-control-feedback {
+    all:unset;
+    color:red;
+}
 
 

@@ -14,4 +14,6 @@ public interface UserRepository {
     boolean registerUser(User user);
 
     void changeStatus(int id);
+
+    boolean isExistUsername(String username);
 }

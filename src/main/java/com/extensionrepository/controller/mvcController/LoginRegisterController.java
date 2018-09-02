@@ -37,20 +37,20 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String register(Model model, @ModelAttribute UserDto userDto) {
         model.addAttribute("view", "register");
 
         return "base-layout";
     }
 
     @PostMapping("/register")
-    public String registerProcess(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, Model model) {
-        // check if password matches
+    public String registerProcess(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        // input validations, if error - return register with current input and error fields
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("view", "register");
 
-            return "base-layout";
+            return register(model,userDto);
         }
 
 
@@ -61,7 +61,7 @@ public class LoginRegisterController {
         User user = new User(
                 userDto.getUsername(),
                 bCryptPasswordEncoder.encode(userDto.getPassword()),
-                userDto.getFullname()
+                userDto.getFullName()
         );
 
         // assign role
@@ -70,6 +70,7 @@ public class LoginRegisterController {
 
         userService.registerUser(user);
 
+        redirectAttributes.addFlashAttribute("registrationMessage", "Registration successful! You may login now.");
         return "redirect:/login";
     }
 }
