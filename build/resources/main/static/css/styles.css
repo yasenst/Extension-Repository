@@ -19,7 +19,7 @@ footer {
 }
 
 
-            /*  CAROUSEL  */
+/*  CAROUSEL  */
 .MultiCarousel {
     float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
 .MultiCarousel .MultiCarousel-inner {
@@ -61,7 +61,7 @@ img{
     padding: 7px;
 }
 
-            /*  FOOTER  */
+/*  FOOTER  */
 #footer {
     border-top: 5px solid #CDB380;
     background: #033649 none repeat scroll 0% 0%;
@@ -215,6 +215,11 @@ img{
     -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
     box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
     transition: all 500ms ease-out;
+}
+/* input validation errors*/
+.form-control-feedback {
+    all:unset;
+    color:red;
 }
 
 
