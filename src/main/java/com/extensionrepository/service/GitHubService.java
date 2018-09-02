@@ -8,12 +8,12 @@ import java.io.IOException;
 
 public class GitHubService {
     private static final String GITHUB_URL = "https://github.com/";
-    private static final String AUTH_KEY = "13fa88a100bfcb384ff4825d0b9335b360f221c2";
+    private static final String AUTH_KEY = "55ec50c31ca927df3a79dd665c2928718fa69056";
 
     public static Extension fetchGithubInfo(Extension extension) {
         GitHub gitHub = null;
         try {
-            gitHub = GitHub.connectUsingOAuth(AUTH_KEY);
+                gitHub = GitHub.connectUsingOAuth(AUTH_KEY);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -22,8 +22,8 @@ public class GitHubService {
         try {
 
             extension.setOpenIssues(gitHub.getRepository(repositoryName).getOpenIssueCount());
-            extension.setPullRequests(gitHub.getRepository(repositoryName).getPullRequests(GHIssueState.ALL).size());
-            extension.setLastCommit(gitHub.getRepository(repositoryName).getUpdatedAt());
+            extension.setPullRequests(gitHub.getRepository(repositoryName).getPullRequests(GHIssueState.OPEN).size());
+            extension.setLastCommit(gitHub.getRepository(repositoryName).listCommits().asList().get(0).getCommitDate());
 
         } catch (IOException e) {
             e.printStackTrace();

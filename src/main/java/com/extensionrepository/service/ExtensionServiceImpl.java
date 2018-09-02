@@ -47,6 +47,8 @@ public class ExtensionServiceImpl implements ExtensionService {
                 case Constants.SORT_BY_DOWNLOADS:
                     return extensionRepository.filterByDownloads(name);
 
+                case Constants.SORT_BY_LAST_COMMIT:
+                    return extensionRepository.filterByLastCommit(name);
             }
         }
         return extensionRepository.filterByName(name);

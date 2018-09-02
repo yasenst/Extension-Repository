@@ -10,6 +10,7 @@ public interface ExtensionRepository {
     List<Extension> filterByName(String name);
     List<Extension> filterByDate(String name);
     List<Extension> filterByDownloads(String name);
+    List<Extension> filterByLastCommit(String name);
     List<Extension> getNewest();
     List<Extension> getPopular();
     List<Extension> getFeatured();

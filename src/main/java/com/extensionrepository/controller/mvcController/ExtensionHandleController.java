@@ -2,14 +2,13 @@ package com.extensionrepository.controller.mvcController;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
+import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.ExtensionService;
 import com.extensionrepository.service.base.FileStorageService;
+import com.extensionrepository.service.base.TagService;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class ExtensionHandleController {
@@ -29,11 +29,14 @@ public class ExtensionHandleController {
 
     private FileStorageService fileStorageService;
 
+    private TagService tagService;
+
     @Autowired
-    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService) {
+    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/extension/browse")
@@ -68,7 +71,15 @@ public class ExtensionHandleController {
             return "redirect:/extension/" + id;
         }
 
+        // Stringify tags
+        StringBuilder tagString = new StringBuilder();
+        for (Tag tag : extension.getTags()) {
+            tagString.append(tag.getName() + " ");
+        }
+
+
         model.addAttribute("extension", extension);
+        model.addAttribute("tagString", tagString.toString());
         model.addAttribute("view", "extension/update");
         return "base-layout";
     }
@@ -86,10 +97,13 @@ public class ExtensionHandleController {
             return "redirect:/extension/" + id;
         }
 
+        Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
+
         extension.setName(extensionDto.getName());
         extension.setDescription((extensionDto.getDescription()));
         extension.setVersion(extensionDto.getVersion());
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
+        extension.setTags(tags);
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
             String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,

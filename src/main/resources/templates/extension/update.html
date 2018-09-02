@@ -2,7 +2,7 @@
     <div class="h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">
-                <h3>Edit Extension</h3>
+                <h3>Update Extension</h3>
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm"
                       th:action="@{/extension/update/{id}(id = ${extension.getId()})}">
 
@@ -25,6 +25,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label" for="tagString">Tags:</label>
+                        <input type="text" class="form-control" id="tagString" placeholder="Tags"  name="tags"
+                               th:value="${tagString}"></input>
+                    </div>
+
+                    <div class="form-group">
                         <label class="control-label" for="extensionLink">GitHub Link:</label>
                         <input type="text" class="form-control" id="extensionLink" placeholder="Link"  name="repositoryLink"
                         th:value="${extension.getRepositoryLink()}"></input>
@@ -36,8 +42,7 @@
                         ></input>
                     </div>
 
-                    <button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>
-                    <!--<a href="/files" class="btn btn-default" role="button">Files</a>-->
+                    <button type="submit" class="btn btn-default" id="btnSubmit">Update</button>
                 </form>
                 <div th:if="${message}">
                     <span th:text="${message}"/>

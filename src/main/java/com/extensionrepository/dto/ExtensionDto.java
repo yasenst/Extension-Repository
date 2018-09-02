@@ -20,6 +20,8 @@ public class ExtensionDto {
     @NotNull
     private MultipartFile file;
 
+    private String tags;
+
     public String getName() {
         return name;
     }
@@ -58,5 +60,14 @@ public class ExtensionDto {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

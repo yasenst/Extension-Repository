@@ -73,9 +73,10 @@ public class Extension {
 
     public Extension(){
         this.tags = new HashSet<>();
+        this.date = new Date();
     }
 
-    public Extension(String name, String description, String version, User user, String downloadLink, String fileName, String repositoryLink) {
+    public Extension(String name, String description, String version, User user, String downloadLink, String fileName, String repositoryLink, Set<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
@@ -83,12 +84,12 @@ public class Extension {
         this.downloadLink = downloadLink;
         this.fileName = fileName;
         this.repositoryLink = repositoryLink;
+        this.tags = tags;
 
         this.pending = true;
         this.featured = false;
         this.date = new Date();
         this.numberOfDownloads = 0;
-        this.tags = new HashSet<>();
     }
 
     public int getId() {

@@ -117,6 +117,16 @@ $(document).ready(function () {
         ResCarousel(ell, Parent, slide);
     }
 
+    // Search bar delete input with 'x'
+    $("#search-input").keyup(function(){
+        $("#search-clear").toggle(Boolean($(this).val()));
+    });
+    $("#search-clear").toggle(Boolean($("#search-input").val()));
+    $("#search-clear").click(function(){
+        $("#search-input").val('').focus();
+        $(this).hide();
+    });
+
 });
 
 
