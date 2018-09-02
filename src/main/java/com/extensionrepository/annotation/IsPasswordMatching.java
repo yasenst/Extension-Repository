@@ -11,11 +11,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Constraint(validatedBy = IsPasswordMatchingValidator.class)
 public @interface IsPasswordMatching {
-
-    String message() default "Passwords not matching.";
-
+    String message() default "Passwords not matching";
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }
 

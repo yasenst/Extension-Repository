@@ -1,5 +1,6 @@
 package com.extensionrepository.service;
 
+import com.extensionrepository.constant.Constants;
 import com.extensionrepository.entity.Extension;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;
@@ -7,7 +8,6 @@ import org.kohsuke.github.GitHub;
 import java.io.IOException;
 
 public class GitHubService {
-    private static final String GITHUB_URL = "https://github.com/";
     private static final String AUTH_KEY = "55ec50c31ca927df3a79dd665c2928718fa69056";
 
     public static Extension fetchGithubInfo(Extension extension) {
@@ -18,7 +18,7 @@ public class GitHubService {
             e.printStackTrace();
         }
 
-        String repositoryName = extension.getRepositoryLink().substring(GITHUB_URL.length());
+        String repositoryName = extension.getRepositoryLink().substring(Constants.GITHUB_URL.length());
         try {
 
             extension.setOpenIssues(gitHub.getRepository(repositoryName).getOpenIssueCount());

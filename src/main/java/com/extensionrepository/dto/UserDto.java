@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class UserDto {
     @NotEmpty
     @Size(min = 3, message = "Username must be at least 3 characters")
-    @IsFieldUnique(service = UserServiceImpl.class, fieldName = "username", message = "Username already exists.")
+    @IsFieldUnique(service = UserServiceImpl.class, fieldName = "username", message = "Username already exists")
     private String username;
 
     @NotEmpty

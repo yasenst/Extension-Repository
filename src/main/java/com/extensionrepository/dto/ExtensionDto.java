@@ -1,6 +1,7 @@
 package com.extensionrepository.dto;
 
 import com.extensionrepository.annotation.IsFieldUnique;
+import com.extensionrepository.annotation.IsGithubRepository;
 import com.extensionrepository.service.ExtensionServiceImpl;
 import com.extensionrepository.service.UserServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,9 +10,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
+@IsGithubRepository
 public class ExtensionDto {
     @NotEmpty
-    @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists.")
+    @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists")
     private String name;
 
     @NotEmpty
