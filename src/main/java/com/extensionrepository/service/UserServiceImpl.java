@@ -5,6 +5,7 @@ import com.extensionrepository.repositories.base.UserRepository;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -36,5 +37,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changeStatus(int id) {
         userRepository.changeStatus(id);
+    }
+
+    @Override
+    public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
+        Assert.notNull(fieldName, "Username already exists");
+
+        if (!fieldName.equals("username")) {
+            throw new UnsupportedOperationException("Field name not supported");
+        }
+
+        if (value == null) {
+            return false;
+        }
+        System.out.println("This is it " + value.toString());
+        return this.userRepository.isExistUsername(value.toString());
     }
 }

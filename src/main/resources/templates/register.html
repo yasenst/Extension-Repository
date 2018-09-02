@@ -7,28 +7,34 @@
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_username">Username</label>
                         <div class="col-sm-4 ">
-                            <input class="form-control" type="text" id="user_username" placeholder="Username"  name="username" required="required"/>
-
+                            <input class="form-control" type="text" id="user_username" placeholder="Username"  name="username" required="required" th:value="${userDto.getUsername()}" />
+                            <div class="form-control-feedback" th:each="error : ${#fields.errors('username')}" th:text="${error}">
+                                Invalid Username
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_fullname">Full Name</label>
                         <div class="col-sm-4 ">
-                            <input class="form-control" type="text" id="user_fullname" placeholder="Full Name" name="fullname" required="required"/>
+                            <input class="form-control" type="text" id="user_fullname" placeholder="Full Name" name="fullName" required="required" th:value="${userDto.getFullName()}"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_password_first">Password</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="user_password_first" placeholder="Password" name="password" required="required"/>
-
+                            <input type="password" class="form-control" id="user_password_first" placeholder="Password" name="password" required="required" th:value="${userDto.getPassword()}"/>
+                            <div class="form-control-feedback" th:each="error : ${#fields.errors('password')}" th:text="${error}">
+                                Incorrect Password
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label" for="user_password_second">Confirm Password</label>
                         <div class="col-sm-4">
                             <input type="password" class="form-control" id="user_password_second" placeholder="Confirm Password" name="confirmPassword" required="required"/>
-
+                            <div class="form-control-feedback" th:each="error : ${#fields.errors('global')}" th:text="${error}">
+                                Passwords not matching
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
