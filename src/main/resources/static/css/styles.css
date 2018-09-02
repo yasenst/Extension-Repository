@@ -97,4 +97,109 @@ img{
 }
 
 
+/*  EXTENSION DETAILS  */
+
+* {
+    box-sizing: border-box;
+}
+
+.moviecard {
+    font-family: 'Helvetica', sans-serif, 'Ariel';
+    position: relative;
+    background: #ffffff;
+    color: #555555;
+    margin: 50px auto;
+    width: 850px;
+    max-width: 900px;
+    min-height: 300px;
+    padding: 30px 290px 30px 30px;
+    -moz-box-shadow: -5px 5px 15px;
+    -webkit-box-shadow: -5px 5px 15px;
+    box-shadow: -5px 5px 15px;
+    border-radius: 5px;
+}
+.moviecard #movie-content {
+    opacity: 1;
+    width: 100%;
+    display: table;
+    transition: all 500ms ease-out;
+    position: relative;
+}
+.moviecard .movie-title {
+    font-size: 36px;
+    padding-bottom: 6px;
+    color: #333333;
+}
+.moviecard .movie-title .movie-year {
+    margin-left: 12px;
+    font-size: 16px;
+}
+.moviecard .movie-title a {
+    color: #333333;
+    text-decoration: none;
+}
+.moviecard .movie-title a:hover {
+    color: #858585;
+}
+.moviecard .movie-details {
+    font-size: 12px;
+    padding-bottom: 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+    padding: 0px 6px;
+    border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+    border: none;
+}
+.moviecard .movie-castcrew {
+    padding-top: 12px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.moviecard .movie-castcrew span.title {
+    color: #333333;
+    display: inline-block;
+    width: 80px;
+    font-weight: 600;
+}
+.moviecard .movie-synopsis {
+    margin: 24px 0px;
+    padding-top: 24px;
+    border-top: 1px solid #dbdbdb;
+    max-height: 130px;
+    height: 130px;
+    overflow-y: hidden;
+    width: 100%;
+}
+.moviecard .movie-ratings {
+    position: absolute;
+    right: 0px;
+    margin-top: 20px;
+}
+
+.moviecard .movie-ratings {
+    font-size: 15px;
+    color: #333333;
+}
+.moviecard .movie-details {
+    font-size: 12px;
+    padding-bottom: 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span {
+    padding: 0px 6px;
+    border-right: 1px solid #dbdbdb;
+}
+.moviecard .movie-details span:last-child {
+    border: none;
+}
+
+
+
 
