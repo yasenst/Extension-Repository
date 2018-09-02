@@ -1,6 +1,6 @@
 package com.extensionrepository.service;
 
-import com.extensionrepository.constant.Constants;
+import com.extensionrepository.util.Constants;
 import com.extensionrepository.entity.Extension;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;

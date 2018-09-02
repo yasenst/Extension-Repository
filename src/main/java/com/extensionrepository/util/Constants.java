@@ -1,4 +1,4 @@
-package com.extensionrepository.constant;
+package com.extensionrepository.util;
 
 public class Constants {
     public static final String SORT_BY_NAME = "Name";

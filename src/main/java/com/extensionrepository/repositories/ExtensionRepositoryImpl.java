@@ -1,6 +1,5 @@
 package com.extensionrepository.repositories;
 
-import com.extensionrepository.constant.Constants;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.repositories.base.ExtensionRepository;
 import org.hibernate.Session;
@@ -9,7 +8,6 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Repository

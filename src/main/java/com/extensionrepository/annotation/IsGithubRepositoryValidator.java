@@ -1,8 +1,7 @@
 package com.extensionrepository.annotation;
 
-import com.extensionrepository.constant.Constants;
+import com.extensionrepository.util.Constants;
 import com.extensionrepository.dto.ExtensionDto;
-import com.extensionrepository.dto.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -92,9 +92,8 @@ public class ExtensionUploadController {
             redirectAttributes.addFlashAttribute("successMessage", "Extension uploaded successfully!");
             //model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
         } catch (Exception e) {
-            e.printStackTrace();
             redirectAttributes.addFlashAttribute("failMessage", e.getMessage());
-            //model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
+            return upload(model, extensionDto);
         }
 
         model.addAttribute("view", "extension/upload-form");
