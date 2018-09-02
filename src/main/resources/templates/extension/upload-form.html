@@ -1,4 +1,12 @@
 <div class="container h-100">
+    <div class="alert alert-dismissible alert-success" th:if="${successMessage}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="${successMessage}"></strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" th:if="${failMessage}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="${failMessage}"></strong>
+    </div>
     <div class="h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">

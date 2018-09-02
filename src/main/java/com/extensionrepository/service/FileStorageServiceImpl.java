@@ -34,7 +34,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     public void store(MultipartFile file) {
         try {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("FAIL! -> message = " + e.getMessage());
         }
     }

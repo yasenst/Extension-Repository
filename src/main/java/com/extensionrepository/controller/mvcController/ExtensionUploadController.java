@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public class ExtensionUploadController {
     }
 
     @PostMapping("/upload")
-    public String upload(@ModelAttribute ExtensionDto extensionDto, Model model) {
+    public String upload(@ModelAttribute ExtensionDto extensionDto, Model model, RedirectAttributes redirectAttributes) {
         try {
             // get currently logged user
             UserDetails principal = (UserDetails) SecurityContextHolder.getContext()
@@ -74,20 +75,23 @@ public class ExtensionUploadController {
                     extensionDto.getRepositoryLink(),
                     tags
             );
+
+            fileStorageService.store(extensionDto.getFile());
+
             extension = GitHubService.fetchGithubInfo(extension);
 
             extensionService.save(extension);
 
-            fileStorageService.store(extensionDto.getFile());
-
-            model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
+            redirectAttributes.addFlashAttribute("successMessage", "Extension uploaded successfully!");
+            //model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
+            redirectAttributes.addFlashAttribute("failMessage", e.getMessage());
+            //model.addAttribute("message", "Fail! -> uploaded filename: " + extensionDto.getFile().getOriginalFilename());
         }
 
         model.addAttribute("view", "extension/upload-form");
-        return "base-layout";
+        return "redirect:/upload";
     }
 
     // download
