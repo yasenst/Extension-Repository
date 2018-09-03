@@ -36,9 +36,6 @@ public class Extension {
     @Column(name = "number_of_downloads")
     private int numberOfDownloads;
 
-    @Column(name = "download_link")
-    private String downloadLink;
-
     @Column(name = "repository_link")
     private String repositoryLink;
 
@@ -76,12 +73,11 @@ public class Extension {
         this.date = new Date();
     }
 
-    public Extension(String name, String description, String version, User user, String downloadLink, String fileName, String repositoryLink, Set<Tag> tags) {
+    public Extension(String name, String description, String version, User user,String fileName, String repositoryLink, Set<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
         this.user = user;
-        this.downloadLink = downloadLink;
         this.fileName = fileName;
         this.repositoryLink = repositoryLink;
         this.tags = tags;
@@ -146,14 +142,6 @@ public class Extension {
 
     public void setNumberOfDownloads(int numberOfDownloads) {
         this.numberOfDownloads = numberOfDownloads;
-    }
-
-    public String getDownloadLink() {
-        return downloadLink;
-    }
-
-    public void setDownloadLink(String downloadLink) {
-        this.downloadLink = downloadLink;
     }
 
     public String getRepositoryLink() {

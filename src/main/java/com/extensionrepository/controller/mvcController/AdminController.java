@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
@@ -87,16 +84,11 @@ public class AdminController {
 
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
-            extension.setDownloadLink(downloadLink);
             fileStorageService.store(extensionDto.getFile());
         }
 
         extensionService.update(extension);
 
-        System.out.println("FORM SUBMITTED");
         return "redirect:/extension/" + extension.getId();
     }
 
@@ -127,6 +119,6 @@ public class AdminController {
     @GetMapping("/admin/featured/toggle-status/{id}")
     public String toggleFeaturedStatus(@PathVariable int id) {
         extensionService.changeStatus(id);
-        return "redirect:/admin/featured";
+        return "redirect:/extension/" + id;
     }
 }

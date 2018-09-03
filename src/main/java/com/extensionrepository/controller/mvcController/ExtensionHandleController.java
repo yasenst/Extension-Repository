@@ -4,6 +4,7 @@ import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
+import com.extensionrepository.service.GitHubService;
 import com.extensionrepository.service.base.ExtensionService;
 import com.extensionrepository.service.base.FileStorageService;
 import com.extensionrepository.service.base.TagService;
@@ -106,13 +107,10 @@ public class ExtensionHandleController {
         extension.setTags(tags);
 
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            String downloadLink =  MvcUriComponentsBuilder.fromMethodName(DownloadController.class,
-                    "downloadFile", extensionDto.getFile().getOriginalFilename()).build().toString();
-
-            extension.setDownloadLink(downloadLink);
             fileStorageService.store(extensionDto.getFile());
         }
 
+        extension = GitHubService.fetchGithubInfo(extension);
         extensionService.update(extension);
 
         return "redirect:/extension/" + extension.getId();
