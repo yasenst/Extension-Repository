@@ -9,9 +9,11 @@
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
                              width="150px" height="100px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                            <textarea rows="2" class="card-title" th:text="${extension.getName()}">Extension name</textarea>
                         </a>
+<!--
                         <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
+-->
                         <form class="form-inline">
                             <div class="form-group">
                                 <h5 class="text-left text-danger"
@@ -26,7 +28,7 @@
                         </form>
                         <div class="card-body">
                             <a th:href="@{'extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
-                            <a th:href="${extension.getDownloadLink()}" class="btn btn-primary">Download</a>
+                            <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                         </div>
                     </div>
                 </div>
@@ -46,11 +48,10 @@
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top"
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
-                             width="150px" height="120px" alt="Card image">
+                             width="150px" height="100px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
-                        </a> <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User
-                        name</i>
+                            <textarea rows="2" class="card-title" th:text="${extension.getName()}">Extension name</textarea>
+                        </a>
                         <form class="form-inline">
                             <div class="form-group">
                                 <h5 class="text-left text-danger"
@@ -64,8 +65,8 @@
                             </div>
                         </form>
                         <div class="card-body">
-                            <a href="#" class="btn btn-info">Open</a>
-                            <a href="#" class="btn btn-primary">Download</a>
+                            <a th:href="@{'extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
+                            <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                         </div>
                     </div>
                 </div>
@@ -85,12 +86,10 @@
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top"
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
-                             width="150px" height="120px" alt="Card image">
+                             width="150px" height="100px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                            <textarea rows="2" class="card-title" th:text="${extension.getName()}">Extension name</textarea>
                         </a>
-                        <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User
-                            name</i>
                         <form class="form-inline">
                             <div class="form-group">
                                 <h5 class="text-left text-danger"
@@ -104,8 +103,8 @@
                             </div>
                         </form>
                         <div class="card-body">
-                            <a href="#" class="btn btn-info">Open</a>
-                            <a href="#" class="btn btn-primary">Download</a>
+                            <a th:href="@{'extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
+                            <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                         </div>
                     </div>
                 </div>

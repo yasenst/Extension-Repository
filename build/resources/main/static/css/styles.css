@@ -6,7 +6,8 @@ html {
 body {
     margin: 0 0 192px 0;
     padding: 0 0 25px 0;
-    background:whitesmoke; color:black;
+    background: whitesmoke;
+    color: black;
 }
 
 footer {
@@ -18,46 +19,84 @@ footer {
     overflow: hidden;
 }
 
-
 /*  CAROUSEL  */
 .MultiCarousel {
-    float: left; overflow: hidden; padding: 15px; width: 100%; position:relative; }
-.MultiCarousel .MultiCarousel-inner {
-    transition: 1s ease all; float: left; }
-.MultiCarousel .MultiCarousel-inner .item {
-    float: left;}
-.MultiCarousel .MultiCarousel-inner .item > div {
-    text-align: center; padding:10px; margin:10px; background:white; color:black;
+    float: left;
+    overflow: hidden;
+    padding: 15px;
+    width: 100%;
+    position: relative;
 }
+
+.MultiCarousel .MultiCarousel-inner {
+    transition: 1s ease all;
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item {
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: white;
+    color: black;
+}
+
 .MultiCarousel .leftLst, .MultiCarousel .rightLst {
-    position:absolute; border-radius:50%;top:calc(50% - 20px); }
+    position: absolute;
+    border-radius: 50%;
+    top: calc(50% - 20px);
+}
+
 .MultiCarousel .leftLst {
-    left:0; }
+    left: 0;
+}
+
 .MultiCarousel .rightLst {
-    right:0; }
+    right: 0;
+}
 
 .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
-    pointer-events: none; background:#ccc; }
-.card{
-    box-shadow: 2px 2px 8px lightgray;
+    pointer-events: none;
+    background: #ccc;
 }
-.card:hover{
+
+.card {
+    box-shadow: 2px 2px 8px lightgray;
+    border-radius: 10px;
+    max-height: 260px;
+}
+.card:hover {
     box-shadow: 2px 2px 8px gray;
 }
-.card > *{
+
+.card > * {
     margin: 0px;
 }
-.card{
+.card-title{
+    font-size: large;
+    max-width: 100%;
+    border: none;
+    resize: none;
+    text-align: center;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+img {
     border-radius: 10px;
 }
 
-img{
-    border-radius: 10px;
-}
 .browse {
     padding-left: 40px;
 }
-.browse-btn > a{
+
+.browse-btn > a {
     padding: 7px;
 }
 
@@ -77,6 +116,7 @@ img{
     padding: 0px 0px 15px;
     border-bottom: medium none;
 }
+
 #footer h4 {
     color: #FFF;
 }
@@ -101,7 +141,6 @@ img{
     padding: 10px 0px;
 }
 
-
 /*  EXTENSION DETAILS  */
 
 * {
@@ -123,6 +162,7 @@ img{
     box-shadow: -5px 5px 15px;
     border-radius: 5px;
 }
+
 .moviecard #movie-content {
     opacity: 1;
     width: 100%;
@@ -130,35 +170,43 @@ img{
     transition: all 500ms ease-out;
     position: relative;
 }
+
 .moviecard .movie-title {
     font-size: 36px;
     padding-bottom: 6px;
     color: #333333;
 }
+
 .moviecard .movie-title .movie-year {
     margin-left: 12px;
     font-size: 16px;
 }
+
 .moviecard .movie-title a {
     color: #333333;
     text-decoration: none;
 }
+
 .moviecard .movie-title a:hover {
     color: #858585;
 }
+
 .moviecard .movie-details {
     font-size: 12px;
     padding-bottom: 24px;
     margin-bottom: 12px;
     border-bottom: 1px solid #dbdbdb;
 }
+
 .moviecard .movie-details span {
     padding: 0px 6px;
     border-right: 1px solid #dbdbdb;
 }
+
 .moviecard .movie-details span:last-child {
     border: none;
 }
+
 .moviecard .movie-castcrew {
     padding-top: 12px;
     width: 100%;
@@ -166,12 +214,14 @@ img{
     white-space: nowrap;
     overflow: hidden;
 }
+
 .moviecard .movie-castcrew span.title {
     color: #333333;
     display: inline-block;
     width: 80px;
     font-weight: 600;
 }
+
 .moviecard .movie-synopsis {
     margin: 24px 0px;
     padding-top: 24px;
@@ -181,6 +231,7 @@ img{
     overflow-y: hidden;
     width: 100%;
 }
+
 .moviecard .movie-ratings {
     position: absolute;
     right: 0px;
@@ -191,19 +242,23 @@ img{
     font-size: 15px;
     color: #333333;
 }
+
 .moviecard .movie-details {
     font-size: 12px;
     padding-bottom: 24px;
     margin-bottom: 12px;
     border-bottom: 1px solid #dbdbdb;
 }
+
 .moviecard .movie-details span {
     padding: 0px 6px;
     border-right: 1px solid #dbdbdb;
 }
+
 .moviecard .movie-details span:last-child {
     border: none;
 }
+
 .moviecard .movie-poster {
     position: absolute;
     background: url("http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png") no-repeat;
@@ -216,10 +271,11 @@ img{
     box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
     transition: all 500ms ease-out;
 }
-/* input validation errors*/
+
+/* input annotation errors*/
 .form-control-feedback {
-    all:unset;
-    color:red;
+    all: unset;
+    color: red;
 }
 
 

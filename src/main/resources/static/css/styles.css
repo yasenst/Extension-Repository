@@ -67,8 +67,8 @@ footer {
 .card {
     box-shadow: 2px 2px 8px lightgray;
     border-radius: 10px;
+    max-height: 260px;
 }
-
 .card:hover {
     box-shadow: 2px 2px 8px gray;
 }
@@ -76,17 +76,16 @@ footer {
 .card > * {
     margin: 0px;
 }
-.card-title {
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+.card-title{
+    font-size: large;
+    max-width: 100%;
+    border: none;
+    resize: none;
+    text-align: center;
 }
-.overflow{
-    text-overflow: ellipsis;
-}
-.overflow:hover{
-    overflow: visible;
-    white-space: normal;
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
 
 img {
