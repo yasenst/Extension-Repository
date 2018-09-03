@@ -5,6 +5,7 @@ import com.extensionrepository.entity.Extension;
 import com.extensionrepository.service.base.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class ExtensionRestController {
         List<Extension> extensions = extensionService.getAll();
 
         return extensions;
+    }
+
+    @GetMapping("/api/extension/{id}")
+    public Extension getExtensionById(@PathVariable int id){
+        return extensionService.getById(id);
     }
 }
