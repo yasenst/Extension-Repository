@@ -6,6 +6,10 @@
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong th:text="${registrationMessage}"></strong>
                 </div>
+                <div class="alert alert-dismissible alert-success" th:if="${param.logout}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Logout successful!</strong>
+                </div>
                 <fieldset>
                     <legend>Login</legend>
                     <div class="alert alert-dismissible alert-danger" th:if="${param.error}">

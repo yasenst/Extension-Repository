@@ -31,11 +31,11 @@ public class ExtensionServiceTests {
     @Test
     public void filter_shouldReturnMatchingNames_whenNameSpecified() {
         List<Extension> extensions = Arrays.asList(
-                new Extension("Cool Extension1", "test", "test", new User(), "test", "test", "test", new HashSet<>()),
-                new Extension("Extension2", "test", "test", new User(), "test", "test", "test", new HashSet<>()),
-                new Extension("Cool Extension2", "test", "test", new User(), "test", "test", "test", new HashSet<>()),
-                new Extension("Extension4", "test", "test", new User(), "test", "test", "test", new HashSet<>()),
-                new Extension("Cool Extension3", "test", "test", new User(), "test", "test", "test", new HashSet<>())
+                new Extension("Cool Extension1", "test", "test", new User(), "test",  "test", new HashSet<>()),
+                new Extension("Extension2", "test", "test", new User(), "test",  "test", new HashSet<>()),
+                new Extension("Cool Extension2", "test", "test", new User(),  "test", "test", new HashSet<>()),
+                new Extension("Extension4", "test", "test", new User(),  "test", "test", new HashSet<>()),
+                new Extension("Cool Extension3", "test", "test", new User(),  "test", "test", new HashSet<>())
 
         );
 
