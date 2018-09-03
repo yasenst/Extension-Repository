@@ -9,7 +9,7 @@
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
                              width="150px" height="100px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                            <h3 class="card-title overflow" th:text="${extension.getName()}">Extension name</h3>
                         </a>
                         <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
                         <form class="form-inline">
@@ -48,7 +48,7 @@
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
                              width="150px" height="120px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                            <h3 class="card-title overflow" th:text="${extension.getName()}">Extension name</h3>
                         </a> <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User
                         name</i>
                         <form class="form-inline">
@@ -87,7 +87,7 @@
                              src="http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png"
                              width="150px" height="120px" alt="Card image">
                         <a th:href="@{'extension/' + ${extension.getId()}}">
-                            <h3 class="card-title" th:text="${extension.getName()}">Extension name</h3>
+                            <h3 class="card-title overflow" th:text="${extension.getName()}">Extension name</h3>
                         </a>
                         <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User
                             name</i>
