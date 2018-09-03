@@ -1,0 +1,22 @@
+﻿2.1 
+	Указателят е променлива, съдържаща адреса в паметта на друг обект.
+	Ако имаме променлива p, която съдържа адреса на друга променлива q, то p сочи q.
+	Ако в паметта q се намира на адрес 100, то p има стойност 100.
+
+const char * - the value being pointed to can't be changed but the pointer can be
+char * const - the value being pointed at can change but the pointer can't
+const char * const - constant pointer to a constant char (nothing can be changed)
+
+memory 
+text segment - executable instructions
+initialized Data Segment - global variables and static variables
+BSS - uninitialized data segment 
+	- Data in this segment is initialized by the kernel to arithmetic 0 before the program starts executing
+	- contains all global variables and static variables that are initialized to zero or do not have explicit initialization in source code.
+stack -  A “stack pointer” register tracks the top of the stack; it is adjusted each time a value is “pushed” onto the stack.
+	Stack, where automatic variables are stored, along with information that is saved each time a function is called. 
+	he newly called function then allocates room on the stack for its local variables.
+
+heap - Heap is the segment where dynamic memory allocation usually takes place.
+
+You can use pointers to constant data as function parameters to prevent the function from modifying a parameter passed through a pointer.

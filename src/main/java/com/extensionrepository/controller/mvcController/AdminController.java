@@ -82,9 +82,9 @@ public class AdminController {
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
         extension.setPending(false);
 
-
+        // Todo fix
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            fileStorageService.store(extensionDto.getFile());
+            fileStorageService.store(extensionDto.getFile(), "Hello");
         }
 
         extensionService.update(extension);

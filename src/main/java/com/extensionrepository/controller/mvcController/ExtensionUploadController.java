@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class ExtensionUploadController {
@@ -54,6 +55,7 @@ public class ExtensionUploadController {
     public String uploadProcess(@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model,  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("view", "extension/upload-form");
+            System.out.println(bindingResult.toString());
             return upload(model, extensionDto);
         }
 
@@ -68,6 +70,8 @@ public class ExtensionUploadController {
 
             Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
 
+
+
             Extension extension = new Extension(
                     extensionDto.getName(),
                     extensionDto.getDescription(),
@@ -78,8 +82,11 @@ public class ExtensionUploadController {
                     tags
             );
 
-            fileStorageService.store(extensionDto.getFile());
-
+            UUID uniquePrefix = UUID.randomUUID();
+            String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
+            System.out.println(fileName);
+            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+            extension.setFileName(fileName);
             extension = GitHubService.fetchGithubInfo(extension);
 
             extensionService.save(extension);

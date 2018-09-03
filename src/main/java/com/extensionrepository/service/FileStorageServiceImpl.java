@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
@@ -32,11 +33,14 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile multipartFile, String fileName) {
         try {
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            String fileSeparator = System.getProperty("file.separator");
+            String filePath = rootLocation.toString() + "\\" + fileName;
+            File newFile = new File(rootLocation.toString() + "\\" + fileName + multipartFile.getOriginalFilename());
+            Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()));
         } catch (FileAlreadyExistsException faee) {
-            throw new RuntimeException("Extension " + file.getOriginalFilename() + " already exists");
+            throw new RuntimeException("Extension " + multipartFile.getOriginalFilename() + " already exists");
         } catch (IOException e) {
             throw new RuntimeException("FAIL! -> message = " + e.getMessage());
         }

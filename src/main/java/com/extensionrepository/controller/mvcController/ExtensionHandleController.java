@@ -106,8 +106,9 @@ public class ExtensionHandleController {
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
         extension.setTags(tags);
 
+        // TODO fix
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            fileStorageService.store(extensionDto.getFile());
+            fileStorageService.store(extensionDto.getFile(), "hello");
         }
 
         extension = GitHubService.fetchGithubInfo(extension);
