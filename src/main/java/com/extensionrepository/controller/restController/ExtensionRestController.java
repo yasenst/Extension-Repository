@@ -40,4 +40,11 @@ public class ExtensionRestController {
 
         return extensions;
     }
+
+    @GetMapping("/api/extension/featured")
+    public List<Extension> getFeatured(){
+        List<Extension> extensions = extensionService.getFeatured();
+
+        return extensions;
+    }
 }
