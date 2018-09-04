@@ -58,7 +58,7 @@ public class ExtensionServiceTests {
     }
 
     @Test
-    public void getAllExtensions_ShouldReturnCorrectNumberOfExtensions(){
+    public void getAllExtensions_shouldReturnCorrectNumberOfExtensions(){
         //Arrange
         List<Extension> extensions = new ArrayList<>();
 
@@ -72,9 +72,39 @@ public class ExtensionServiceTests {
         Mockito.when(extensionRepository.getAll()).thenReturn(extensions);
 
         //Act
-        List<Extension> actualExtension = extensionService.getAll();
+        List<Extension> actualExtensions = extensionService.getAll();
 
         //Assert
-        Assert.assertEquals(actualExtension.size(), 4);
+        Assert.assertEquals(actualExtensions.size(), 4);
     }
+
+    @Test
+    public void getExtensionById_shouldReturnExtensionWithRequestedId(){
+        //Arrange
+        Extension extension = new Extension();
+        extension.setId(1);
+
+        Mockito.when(extensionRepository.getById(extension.getId())).thenReturn(extension);
+
+        //Act
+        Extension actualExtension = extensionService.getById(1);
+
+        //Assert
+        Assert.assertEquals(1, actualExtension.getId());
+
+    }
+
+    /*@Test
+    public void createExtension_whenExtensionSave_shouldReturnTrue(){
+        //Arrange
+        Extension extension = new Extension();
+
+        Mockito.when(extensionRepository.save(extension)).thenReturn(extension.isPending());
+
+        //Act
+        boolean isCreated = extensionService.save(extension);
+
+        //Assert
+        Assert.assertTrue("true", isCreated);
+    }*/
 }

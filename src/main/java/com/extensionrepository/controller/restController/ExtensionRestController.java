@@ -6,6 +6,7 @@ import com.extensionrepository.service.base.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ExtensionRestController {
         this.extensionService = extensionService;
     }
 
-    @GetMapping("/api/extension/browse")
+    @GetMapping("/api/extension/all")
     public List<Extension> getExtensions() {
         List<Extension> extensions = extensionService.getAll();
 
@@ -30,5 +31,13 @@ public class ExtensionRestController {
     @GetMapping("/api/extension/{id}")
     public Extension getExtensionById(@PathVariable int id) {
         return extensionService.getById(id);
+    }
+
+    @GetMapping("/api/extension/browse")
+    public List<Extension> filterExtensions(@RequestParam(value="name", required = false) String name,
+                                            @RequestParam(value="sortBy", required = false) String sortBy){
+        List<Extension> extensions = extensionService.filter(name, sortBy);
+
+        return extensions;
     }
 }

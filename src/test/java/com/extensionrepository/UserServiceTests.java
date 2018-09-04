@@ -60,4 +60,6 @@ public class UserServiceTests {
         //Assert
         Assert.assertEquals("test", actualUser.getUsername());
     }
+
+
  }
