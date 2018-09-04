@@ -1,27 +1,35 @@
-<div class="container h-100">
+<div class="container h-100" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">
-                <h3>Edit Extension</h3>
+                <h3>Review Pending Extension</h3>
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm"
                       th:action="@{/admin/approve/{id}(id = ${extension.getId()})}">
 
                     <div class="form-group">
                         <label class="control-label" for="extensionName">Name:</label>
-                        <input type="text" class="form-control" id="extensionName" placeholder="Name"  name="name"
-                               th:value="${extension.getName()}"></input>
+                        <input type="text" class="form-control" id="extensionName" placeholder="Name" name="name"
+                               th:value="${extension.getName()}"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionDescription">Description:</label>
-                        <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"  name="description"
-                               th:value="${extension.getDescription()}"></input>
+                        <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"
+                               name="description"
+                               th:value="${extension.getDescription()}"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionVersion">Version:</label>
-                        <input type="text" class="form-control" id="extensionVersion" placeholder="Version"  name="version"
-                               th:value="${extension.getVersion()}"></input>
+                        <input type="text" class="form-control" id="extensionVersion" placeholder="Version"
+                               name="version"
+                               th:value="${extension.getVersion()}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="tagString">Tags:</label>
+                        <input type="text" class="form-control" id="tagString" placeholder="Tags" name="tags"
+                               th:value="${tagString}"/>
                     </div>
 
                     <div class="form-group">
@@ -29,16 +37,16 @@
                         <input type="text" class="form-control" id="extensionLink" placeholder="Link"  name="repositoryLink"
                                th:value="${extension.getRepositoryLink()}"></input>
                     </div>
-
+                    <!--
                     <div class="form-group">
                         <label class="control-label" for="uploadfile">Upload File:</label>
                         <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="file"
                         ></input>
                     </div>
-
-                    <button type="submit" class="btn btn-default" id="btnSubmit">Approve</button>
+                    -->
+                    <button type="submit" class="btn btn-success" id="btnSubmit">Approve</button>
                     <a class="btn btn-danger" th:href="@{/admin/delete/{id}(id = ${extension.getId()})}">Delete</a>
-
+                    <a class="btn btn-default" th:href="@{/admin/pending}">Cancel</a>
                     <!--<a href="/files" class="btn btn-default" role="button">Files</a>-->
                 </form>
                 <!--

@@ -45,4 +45,19 @@ public class UserServiceTests {
         // Assert
         Assert.assertEquals(actualUserList.size(),3);
     }
+
+    @Test
+    public void getUserByUsername_shouldReturnUserWithRequestedUsername(){
+        //Arrange
+        User user = new User();
+        user.setUsername("test");
+
+        when(mockUserRepository.findByUsername(user.getUsername())).thenReturn(user);
+
+        //Act
+        User actualUser = userService.findByUsername("test");
+
+        //Assert
+        Assert.assertEquals("test", actualUser.getUsername());
+    }
  }

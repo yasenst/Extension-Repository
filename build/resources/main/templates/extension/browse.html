@@ -1,5 +1,5 @@
 <div class="container">
-    <form class="form-inline browse" th:action="@{/extension/browse}">
+    <form class="form-inline" th:action="@{/extension/browse}">
         <div class="form-group">
             <label for="sort-criteria">Sort By:</label>
             <select class="form-control" id="sort-criteria" name="sortBy">
@@ -39,8 +39,8 @@
                                       th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
                         </div>
                     </form>
-                    <div class="card-body browse-btn" >
-                        <a th:href="${extension.getRepositoryLink()}" class="btn btn-info" >GitHub</a>
+                    <div class="card-body" >
+                        <a th:href="@{/extension/{id}(id = ${extension.getId()})}" class="btn btn-info">Open</a>
                         <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                     </div>
                 </div>

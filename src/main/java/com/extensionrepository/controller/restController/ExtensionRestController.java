@@ -28,7 +28,7 @@ public class ExtensionRestController {
     }
 
     @GetMapping("/api/extension/{id}")
-    public Extension getExtensionById(@PathVariable int id){
+    public Extension getExtensionById(@PathVariable int id) {
         return extensionService.getById(id);
     }
 }

@@ -13,6 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.print.DocFlavor;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -53,5 +55,26 @@ public class ExtensionServiceTests {
 
 
         Assert.assertEquals(result.size(),3);
+    }
+
+    @Test
+    public void getAllExtensions_ShouldReturnCorrectNumberOfExtensions(){
+        //Arrange
+        List<Extension> extensions = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+
+            Extension extension = new Extension();
+            extension.setName("test extension " + i);
+            extensions.add(extension);
+        }
+
+        Mockito.when(extensionRepository.getAll()).thenReturn(extensions);
+
+        //Act
+        List<Extension> actualExtension = extensionService.getAll();
+
+        //Assert
+        Assert.assertEquals(actualExtension.size(), 4);
     }
 }

@@ -92,14 +92,6 @@ img {
     border-radius: 10px;
 }
 
-.browse {
-    padding-left: 40px;
-}
-
-.browse-btn > a {
-    padding: 7px;
-}
-
 /*  FOOTER  */
 #footer {
     border-top: 5px solid #CDB380;
