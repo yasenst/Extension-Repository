@@ -69,8 +69,12 @@ public class Extension {
     private Set<Tag> tags;
 
     public Extension(){
+        this.date = new Date();
+        this.numberOfDownloads = 0;
         this.tags = new HashSet<>();
         this.date = new Date();
+        this.pending = true;
+        this.featured = false;
     }
 
     public Extension(String name, String description, String version, User user,String fileName, String repositoryLink, Set<Tag> tags) {

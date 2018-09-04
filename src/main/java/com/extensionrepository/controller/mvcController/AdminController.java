@@ -2,18 +2,21 @@ package com.extensionrepository.controller.mvcController;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
+import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.ExtensionService;
 import com.extensionrepository.service.base.FileStorageService;
+import com.extensionrepository.service.base.TagService;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -24,11 +27,14 @@ public class AdminController {
 
     private FileStorageService fileStorageService;
 
+    private TagService tagService;
+
     @Autowired
-    public AdminController(UserService userService, ExtensionService extensionService, FileStorageService fileStorageService) {
+    public AdminController(UserService userService, ExtensionService extensionService, FileStorageService fileStorageService, TagService tagService) {
         this.userService = userService;
         this.extensionService = extensionService;
         this.fileStorageService = fileStorageService;
+        this.tagService = tagService;
     }
 
     @GetMapping("/admin/accounts")
@@ -55,21 +61,29 @@ public class AdminController {
     }
 
     @GetMapping("/admin/approve/{id}")
-    public String updateExtension(Model model, @PathVariable int id){
+    public String approve(Model model, @PathVariable int id){
         if (!extensionService.exists(id)) {
             return "redirect:/";
         }
 
         Extension extension = extensionService.getById(id);
 
+        // Stringify tags
+        StringBuilder tagString = new StringBuilder();
+        for (Tag tag : extension.getTags()) {
+            tagString.append(tag.getName() + " ");
+        }
+
         model.addAttribute("extension", extension);
+        model.addAttribute("tagString", tagString.toString());
         model.addAttribute("view", "admin/approve");
         return "base-layout";
     }
 
     @PostMapping("/admin/approve/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String updateProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
+    public String approveProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
+
         if (!extensionService.exists(id)) {
             return "redirect:/";
         }
@@ -82,10 +96,8 @@ public class AdminController {
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
         extension.setPending(false);
 
-        // Todo fix
-        if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            fileStorageService.store(extensionDto.getFile(), "Hello");
-        }
+        Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
+        extension.setTags(tags);
 
         extensionService.update(extension);
 

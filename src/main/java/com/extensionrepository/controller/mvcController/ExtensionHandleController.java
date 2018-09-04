@@ -105,7 +105,7 @@ public class ExtensionHandleController {
             return "redirect:/error/403";
         }
 
-        Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
+
 
         if (!extensionDto.getName().equals("")) {
             extension.setName(extensionDto.getName());
@@ -113,6 +113,8 @@ public class ExtensionHandleController {
         extension.setDescription((extensionDto.getDescription()));
         extension.setVersion(extensionDto.getVersion());
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
+
+        Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
         extension.setTags(tags);
 
         // check for new file, delete old
