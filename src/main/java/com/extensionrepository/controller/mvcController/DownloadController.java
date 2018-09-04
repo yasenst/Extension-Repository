@@ -43,4 +43,15 @@ public class DownloadController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
+
+    @GetMapping("/extension/image/{id}")
+    public ResponseEntity<Resource> getImage(@PathVariable int id) {
+        Extension extension = extensionService.getById(id);
+
+        Resource file = fileStorageService.loadFile(extension.getImagePath());
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file);
+    }
 }

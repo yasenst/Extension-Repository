@@ -22,6 +22,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private final Path rootLocation = Paths.get("filestorage");
+    private final Path imageLocation = Paths.get("filestorage/images");
 
     @Override
     public void init() {
@@ -35,10 +36,9 @@ public class FileStorageServiceImpl implements FileStorageService {
     @Override
     public void store(MultipartFile multipartFile, String fileName) {
         try {
-            String fileSeparator = System.getProperty("file.separator");
-            String filePath = rootLocation.toString() + "\\" + fileName;
-            File newFile = new File(rootLocation.toString() + "\\" + fileName + multipartFile.getOriginalFilename());
+            File newFile = new File(rootLocation.toString() + "\\" + fileName);
             Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()));
+            System.out.println(this.rootLocation.resolve(newFile.getName()));
         } catch (FileAlreadyExistsException faee) {
             throw new RuntimeException("Extension " + multipartFile.getOriginalFilename() + " already exists");
         } catch (IOException e) {
@@ -85,5 +85,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getImageLocation() {
+        return rootLocation.toString();
     }
 }
