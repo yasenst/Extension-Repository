@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="control-label" for="extensionName">Name:</label>
                         <input type="text" class="form-control" id="extensionName" placeholder="Name"
-                               name="name" th:value="${extensionDto.getName()}">
+                               name="name" th:value="${extensionDto.getName()}" required="required">
                         <div class="form-control-feedback" th:each="error : ${#fields.errors('name')}"
                              th:text="${error}">
                             Name exists
@@ -27,13 +27,13 @@
                     <div class="form-group">
                         <label class="control-label" for="extensionDescription">Description:</label>
                         <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"
-                               name="description" th:value="${extensionDto.getDescription()}"/>
+                               name="description" th:value="${extensionDto.getDescription()}" required="required"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionVersion">Version:</label>
                         <input type="text" class="form-control" id="extensionVersion" placeholder="Version"
-                               name="version" th:value="${extensionDto.getVersion()}"/>
+                               name="version" th:value="${extensionDto.getVersion()}" required="required"/>
                     </div>
 
                     <div class="form-group">
@@ -54,8 +54,7 @@
 
                     <div class="form-group">
                         <label class="control-label" for="uploadfile">Upload File:</label>
-                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"
-                               name="file"/>
+                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File" name="file" required="required"/>
                     </div>
 
                     <button type="submit" class="btn btn-default" id="btnSubmit">Upload</button>

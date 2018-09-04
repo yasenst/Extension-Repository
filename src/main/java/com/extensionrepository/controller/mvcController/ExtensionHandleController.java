@@ -4,22 +4,20 @@ import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
-import com.extensionrepository.service.GitHubService;
-import com.extensionrepository.service.base.ExtensionService;
-import com.extensionrepository.service.base.FileStorageService;
-import com.extensionrepository.service.base.TagService;
-import com.extensionrepository.service.base.UserService;
+import com.extensionrepository.service.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class ExtensionHandleController {
@@ -32,12 +30,15 @@ public class ExtensionHandleController {
 
     private TagService tagService;
 
+    private GitHubService gitHubService;
+
     @Autowired
-    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService) {
+    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
         this.tagService = tagService;
+        this.gitHubService = gitHubService;
     }
 
     @GetMapping("/extension/browse")
@@ -61,7 +62,7 @@ public class ExtensionHandleController {
     }
 
     @GetMapping("/extension/update/{id}")
-    public String updateExtension(Model model, @PathVariable int id){
+    public String update(Model model, @PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
         if (!extensionService.exists(id)) {
             return "redirect:/";
         }
@@ -69,7 +70,7 @@ public class ExtensionHandleController {
         Extension extension = extensionService.getById(id);
 
         if (!isUserOwnerOrAdmin(extension)) {
-            return "redirect:/extension/" + id;
+            return "redirect:/error/403";
         }
 
         // Stringify tags
@@ -87,31 +88,50 @@ public class ExtensionHandleController {
 
     @PostMapping("/extension/update/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String updateProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
+    public String updateProcess(@PathVariable int id,@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model){
+
         if (!extensionService.exists(id)) {
             return "redirect:/";
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("view", "extension/update");
+            return update(model, id, extensionDto);
         }
 
         Extension extension = extensionService.getById(id);
 
         if (!isUserOwnerOrAdmin(extension)) {
-            return "redirect:/extension/" + id;
+            return "redirect:/error/403";
         }
 
         Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
 
-        extension.setName(extensionDto.getName());
+        if (!extensionDto.getName().equals("")) {
+            extension.setName(extensionDto.getName());
+        }
         extension.setDescription((extensionDto.getDescription()));
         extension.setVersion(extensionDto.getVersion());
         extension.setRepositoryLink(extensionDto.getRepositoryLink());
         extension.setTags(tags);
 
-        // TODO fix
+        // check for new file, delete old
         if (!extensionDto.getFile().getOriginalFilename().equals("")){
-            fileStorageService.store(extensionDto.getFile(), "hello");
+            String previousFile = extension.getFileName();
+            UUID uniquePrefix = UUID.randomUUID();
+            String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
+            extension.setFileName(fileName);
+            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+            fileStorageService.delete(previousFile);
         }
 
-        extension = GitHubService.fetchGithubInfo(extension);
+        /*
+        //update github data
+        extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
+        extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
+        extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+        */
+
         extensionService.update(extension);
 
         return "redirect:/extension/" + extension.getId();
@@ -127,7 +147,7 @@ public class ExtensionHandleController {
         Extension extension = extensionService.getById(id);
 
         if (!isUserOwnerOrAdmin(extension)) {
-            return "redirect:/extension/" + id;
+            return "redirect:/error/403";
         }
 
         model.addAttribute("extension", extension);
@@ -145,13 +165,13 @@ public class ExtensionHandleController {
         Extension extension = extensionService.getById(id);
 
         if (!isUserOwnerOrAdmin(extension)) {
-            return "redirect:/extension/" + id;
+            return "redirect:/error/403";
         }
 
         fileStorageService.delete(extension.getFileName());
         extensionService.delete(extension);
 
-        return "redirect:/";
+        return "redirect:/user/my-extensions";
     }
 
     private boolean isUserOwnerOrAdmin(Extension extension) {

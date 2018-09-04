@@ -4,11 +4,7 @@ import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
-import com.extensionrepository.service.GitHubService;
-import com.extensionrepository.service.base.ExtensionService;
-import com.extensionrepository.service.base.FileStorageService;
-import com.extensionrepository.service.base.TagService;
-import com.extensionrepository.service.base.UserService;
+import com.extensionrepository.service.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -36,18 +31,20 @@ public class ExtensionUploadController {
 
     private TagService tagService;
 
+    private GitHubService gitHubService;
+
     @Autowired
-    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService) {
+    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
         this.tagService = tagService;
+        this.gitHubService = gitHubService;
     }
 
     @GetMapping("/upload")
     public String upload(Model model, @ModelAttribute ExtensionDto extensionDto) {
         model.addAttribute("view", "extension/upload-form");
-
         return "base-layout";
     }
 
@@ -55,7 +52,6 @@ public class ExtensionUploadController {
     public String uploadProcess(@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model,  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("view", "extension/upload-form");
-            System.out.println(bindingResult.toString());
             return upload(model, extensionDto);
         }
 
@@ -68,26 +64,31 @@ public class ExtensionUploadController {
             // extract user from database
             User user = userService.findByUsername(principal.getUsername());
 
+            // Collect tags
             Set<Tag> tags = tagService.getTagsFromString(extensionDto.getTags());
 
+            // Create extension and fill by dto
+            Extension extension = new Extension();
 
+            extension.setName(extensionDto.getName());
+            extension.setDescription(extensionDto.getDescription());
+            extension.setVersion(extensionDto.getVersion());
+            extension.setUser(user);
+            extension.setRepositoryLink(extensionDto.getRepositoryLink());
+            extension.setTags(tags);
 
-            Extension extension = new Extension(
-                    extensionDto.getName(),
-                    extensionDto.getDescription(),
-                    extensionDto.getVersion(),
-                    user,
-                    extensionDto.getFile().getOriginalFilename(),
-                    extensionDto.getRepositoryLink(),
-                    tags
-            );
-
+            // Generate unique filename
             UUID uniquePrefix = UUID.randomUUID();
             String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
-            System.out.println(fileName);
-            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
             extension.setFileName(fileName);
-            extension = GitHubService.fetchGithubInfo(extension);
+
+            // store file
+            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+
+            // fetch github info
+            extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
+            extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
+            extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
 
             extensionService.save(extension);
 

@@ -1,51 +1,62 @@
-<div class="container h-100">
+<div class="container h-100" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">
                 <h3>Update Extension</h3>
                 <form method="POST" enctype="multipart/form-data" id="fileUploadForm"
-                      th:action="@{/extension/update/{id}(id = ${extension.getId()})}">
+                      th:action="@{/extension/update/{id}(id = ${extension.getId()})}" th:object="${extensionDto}">
 
                     <div class="form-group">
                         <label class="control-label" for="extensionName">Name:</label>
                         <input type="text" class="form-control" id="extensionName" placeholder="Name"  name="name"
-                        th:value="${extension.getName()}"></input>
+                        th:value="${extensionDto.getName()}" th:placeholder="${extension.getName()}">
+                        <div class="form-control-feedback" th:each="error : ${#fields.errors('name')}"
+                             th:text="${error}">
+                            Name exists
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionDescription">Description:</label>
-                        <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"  name="description"
-                        th:value="${extension.getDescription()}"></input>
+                        <input type="textarea" class="form-control" id="extensionDescription" placeholder="Description"
+                               name="description"
+                               th:value="${extension.getDescription()}" required="required"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionVersion">Version:</label>
-                        <input type="text" class="form-control" id="extensionVersion" placeholder="Version"  name="version"
-                        th:value="${extension.getVersion()}"></input>
+                        <input type="text" class="form-control" id="extensionVersion" placeholder="Version"
+                               name="version"
+                               th:value="${extension.getVersion()}" required="required"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="tagString">Tags:</label>
-                        <input type="text" class="form-control" id="tagString" placeholder="Tags"  name="tags"
-                               th:value="${tagString}"></input>
+                        <input type="text" class="form-control" id="tagString" placeholder="Tags" name="tags"
+                               th:value="${tagString}"/>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label" for="extensionLink">GitHub Link:</label>
-                        <input type="text" class="form-control" id="extensionLink" placeholder="Link"  name="repositoryLink"
-                        th:value="${extension.getRepositoryLink()}"></input>
+                        <input type="text" class="form-control" id="extensionLink" placeholder="Link"
+                               name="repositoryLink"
+                               th:value="${extension.getRepositoryLink()}" required="required"/>
+                        <div class="form-control-feedback" th:each="error : ${#fields.errors('global')}"
+                             th:text="${error}">
+                            Not a github repository
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" for="uploadfile">Upload File:</label>
-                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="file"
-                        ></input>
+                        <label class="control-label" for="uploadfile">Upload New File (optional):</label>
+                        <input type="file" class="form-control" id="uploadfile" placeholder="Upload File" name="file" />
                     </div>
 
-                    <button type="submit" class="btn btn-default" id="btnSubmit">Update</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">Update</button>
+                    <a class="btn btn-default" th:href="@{/user/my-extensions}">Cancel</a>
                 </form>
                 <div th:if="${message}">
-                    <span th:text="${message}"/>
+                    <span th:text="${message}"></span>
                 </div>
             </div>
         </div>

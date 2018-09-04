@@ -12,20 +12,16 @@ import javax.validation.constraints.NotNull;
 
 @IsGithubRepository
 public class ExtensionDto {
-    @NotEmpty
     @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists")
     private String name;
 
-    @NotEmpty
     private String description;
 
-    @NotEmpty
     private String version;
 
     @NotEmpty
     private String repositoryLink;
 
-    @NotNull
     private MultipartFile file;
 
     private String tags;
