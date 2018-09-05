@@ -1,5 +1,5 @@
 <div class="moviecard" th:object="${extension}" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="movie-poster play-trailer"></div>
+    <div class="movie-poster play-trailer"> <img th:src="@{/extension/image/{id}(id = ${extension.getId()})}"  width="300px" height="300px" alt="Card image"></div>
     <div id="movie-content">
         <div class="movie-ratings">
             <span class="glyphicon glyphicon-download-alt"></span>

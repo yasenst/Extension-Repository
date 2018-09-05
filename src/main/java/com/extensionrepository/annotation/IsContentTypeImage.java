@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Constraint(validatedBy = IsContentTypeImageValidator.class)
 public @interface IsContentTypeImage {
-    String message() default "Content is not an image";
+    String message() default "Image should be png, jpg or jpeg";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

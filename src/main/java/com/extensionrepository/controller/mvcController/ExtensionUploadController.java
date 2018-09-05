@@ -94,21 +94,8 @@ public class ExtensionUploadController {
                 fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());
             }
 
-            /*
-           String imagePath = "\\src\\main\\resources\\static\\images\\";
-           String imagePathRoot = System.getProperty("user.dir");
-           String imageSaveDirectory = imagePathRoot + imagePath;
-           String filename = extensionDto.getImage().getOriginalFilename();
-           String savePath = imageSaveDirectory + filename;
-           File imageFile = new File(savePath);
-           String databaseImagePath = filename;
-            extension.setImagePath(databaseImagePath);
 
-
-           extensionDto.getImage().transferTo(imageFile);
-           */
             // fetch github info
-
             extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
             extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
             extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));

@@ -12,10 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
@@ -37,7 +34,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     public void store(MultipartFile multipartFile, String fileName) {
         try {
             File newFile = new File(rootLocation.toString() + "\\" + fileName);
-            Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()));
+            Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()), StandardCopyOption.REPLACE_EXISTING);
             System.out.println(this.rootLocation.resolve(newFile.getName()));
         } catch (FileAlreadyExistsException faee) {
             throw new RuntimeException("Extension " + multipartFile.getOriginalFilename() + " already exists");
