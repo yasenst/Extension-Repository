@@ -1,5 +1,6 @@
 package com.extensionrepository.dto;
 
+import com.extensionrepository.annotation.IsContentTypeImage;
 import com.extensionrepository.annotation.IsFieldUnique;
 import com.extensionrepository.annotation.IsGithubRepository;
 import com.extensionrepository.service.ExtensionServiceImpl;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 
 @IsGithubRepository
+@IsContentTypeImage
 public class ExtensionDto {
     @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists")
     private String name;
@@ -23,6 +25,16 @@ public class ExtensionDto {
     private String repositoryLink;
 
     private MultipartFile file;
+
+    private MultipartFile image;
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
 
     private String tags;
 

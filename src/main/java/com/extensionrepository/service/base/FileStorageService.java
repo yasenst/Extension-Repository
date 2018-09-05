@@ -11,4 +11,5 @@ public interface FileStorageService {
     public Resource loadFile(String filename);
     Resource loadAsResource(String filename);
     void delete(String filename);
+    String getImageLocation();
 }

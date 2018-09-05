@@ -60,6 +60,17 @@ public class Extension {
     @Column(name = "file_name")
     private String fileName;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

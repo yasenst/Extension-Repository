@@ -5,6 +5,7 @@ import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.*;
+import com.extensionrepository.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -105,8 +106,6 @@ public class ExtensionHandleController {
             return "redirect:/error/403";
         }
 
-
-
         if (!extensionDto.getName().equals("")) {
             extension.setName(extensionDto.getName());
         }
@@ -123,16 +122,15 @@ public class ExtensionHandleController {
             UUID uniquePrefix = UUID.randomUUID();
             String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
             extension.setFileName(fileName);
-            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+            fileStorageService.store(extensionDto.getFile(), fileName);
             fileStorageService.delete(previousFile);
         }
 
-        /*
-        //update github data
-        extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
-        extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
-        extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
-        */
+        // check for image
+        if (!extensionDto.getImage().getOriginalFilename().equals("")) {
+            extension.setImagePath(extensionDto.getImage().getOriginalFilename());
+            fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());
+        }
 
         extensionService.update(extension);
 

@@ -4,15 +4,11 @@ import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
-import com.extensionrepository.service.base.ExtensionService;
-import com.extensionrepository.service.base.FileStorageService;
-import com.extensionrepository.service.base.TagService;
-import com.extensionrepository.service.base.UserService;
+import com.extensionrepository.service.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +25,15 @@ public class AdminController {
 
     private TagService tagService;
 
+    private GitHubService gitHubService;
+
     @Autowired
-    public AdminController(UserService userService, ExtensionService extensionService, FileStorageService fileStorageService, TagService tagService) {
+    public AdminController(UserService userService, ExtensionService extensionService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
         this.userService = userService;
         this.extensionService = extensionService;
         this.fileStorageService = fileStorageService;
         this.tagService = tagService;
+        this.gitHubService = gitHubService;
     }
 
     @GetMapping("/admin/accounts")
@@ -132,5 +131,18 @@ public class AdminController {
     public String toggleFeaturedStatus(@PathVariable int id) {
         extensionService.changeStatus(id);
         return "redirect:/extension/" + id;
+    }
+
+    @GetMapping("/admin/sync/{id}")
+    public String sync(@PathVariable int id) {
+        Extension extension = extensionService.getById(id);
+
+        extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
+        extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
+        extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+
+        extensionService.update(extension);
+
+        return "redirect:/extension/" + extension.getId();
     }
 }

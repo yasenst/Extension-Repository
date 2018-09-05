@@ -1,5 +1,5 @@
 <div class="moviecard" th:object="${extension}" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="movie-poster play-trailer"></div>
+    <div class="movie-poster play-trailer"> <img th:src="@{/extension/image/{id}(id = ${extension.getId()})}"  width="300px" height="300px" alt="Card image"></div>
     <div id="movie-content">
         <div class="movie-ratings">
             <span class="glyphicon glyphicon-download-alt"></span>
@@ -49,6 +49,8 @@
                th:href="@{/admin/featured/toggle-status/{id}(id=${extension.getId()})}">Feature</a>
             <a sec:authorize="hasRole('ADMIN')"
                th:href="@{/extension/update/{id}(id = ${extension.getId()})}" class="btn btn-warning">Edit</a>
+            <a sec:authorize="hasRole('ADMIN')"
+               th:href="@{/admin/sync/{id}(id = ${extension.getId()})}" class="btn btn-info">Synchronize</a>
             <a sec:authorize="hasRole('ADMIN')"
                th:href="@{/extension/delete/{id}(id = ${extension.getId()})}" class="btn btn-danger">Delete</a>
         </div>

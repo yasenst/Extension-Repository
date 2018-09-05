@@ -5,6 +5,7 @@ import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.*;
+import com.extensionrepository.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +15,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.Set;
 import java.util.UUID;
 
@@ -81,9 +84,16 @@ public class ExtensionUploadController {
             UUID uniquePrefix = UUID.randomUUID();
             String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
             extension.setFileName(fileName);
+            fileStorageService.store(extensionDto.getFile(), fileName);
 
-            // store file
-            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+            // image
+            if (extensionDto.getImage().getOriginalFilename().equals("")) {
+                extension.setImagePath(Constants.DEFAULT_IMAGE);
+            } else {
+                extension.setImagePath(extensionDto.getImage().getOriginalFilename());
+                fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());
+            }
+
 
             // fetch github info
             extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
