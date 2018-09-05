@@ -40,6 +40,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User getById(int id) {
+        User user = null;
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            user = (User) session.get(User.class, id);
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    @Override
     public User findByUsername(String username) {
 
         User user = null;
@@ -73,6 +88,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    /*
     @Override
     public void changeStatus(int id) {
         User user = null;
@@ -95,7 +111,7 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
     }
-
+    */
     @Override
     public boolean isExistUsername(String username) {
         try (Session session = factory.openSession()) {
@@ -111,6 +127,17 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void update(User user) {
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

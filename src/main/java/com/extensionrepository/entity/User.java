@@ -102,7 +102,7 @@ public class User {
         this.fullName = fullName;
     }
 
-    public boolean getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -119,10 +119,6 @@ public class User {
     }
 
     public void addRole(Role role) { this.roles.add(role); }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
 
     public List<Extension> getExtensions() {
         return extensions;
