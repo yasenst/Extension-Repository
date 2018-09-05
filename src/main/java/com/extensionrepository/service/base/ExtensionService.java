@@ -14,6 +14,7 @@ public interface ExtensionService extends FieldValueExists {
     Extension getById(int id);
     boolean save(Extension extension);
     boolean exists(int id);
+    boolean exists(String name);
     void update(Extension extension);
     void delete(Extension extension);
     void changeStatus(int id);

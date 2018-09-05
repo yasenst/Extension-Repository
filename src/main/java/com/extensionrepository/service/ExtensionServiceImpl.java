@@ -1,5 +1,6 @@
 package com.extensionrepository.service;
 
+import com.extensionrepository.entity.User;
 import com.extensionrepository.util.Constants;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.repositories.base.ExtensionRepository;
@@ -32,7 +33,24 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public boolean exists(int id) {
-        return extensionRepository.exists(id);
+        Extension extension = extensionRepository.getById(id);
+
+        if (extension == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean exists(String name) {
+        Extension extension = extensionRepository.getByName(name);
+
+        if (extension == null) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -107,6 +125,6 @@ public class ExtensionServiceImpl implements ExtensionService {
             return false;
         }
         System.out.println("This is it " + value.toString());
-        return this.extensionRepository.exists(value.toString());
+        return exists(value.toString());
     }
 }

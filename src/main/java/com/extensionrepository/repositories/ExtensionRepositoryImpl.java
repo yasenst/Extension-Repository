@@ -30,16 +30,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        /*
-        if (extensions != null) {
-            Collections.sort(extensions, new Comparator<Prediction>() {
-                @Override
-                public int compare(Prediction o1, Prediction o2) {
-                    return o2.getDate().compareTo(o1.getDate());
-                }
-            });
-        }
-        */
+
         return extensions;
     }
 
@@ -58,6 +49,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
     }
 
+    /*
     @Override
     public boolean exists(int id) {
         Extension extension = null;
@@ -73,7 +65,9 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
 
     }
+    */
 
+    /*
     @Override
     public boolean exists(String name) {
         try (Session session = factory.openSession()) {
@@ -91,7 +85,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
             return false;
         }
     }
-
+    */
 
     @Override
     public Extension getById(int id) {
@@ -103,6 +97,24 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+
+        return extension;
+    }
+
+    @Override
+    public Extension getByName(String name) {
+        Extension extension = null;
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            Query query= session.createQuery("from Extension where name=:rname");
+            query.setParameter("rname",name);
+            extension = (Extension) query.uniqueResult();
+
+            session.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         return extension;
