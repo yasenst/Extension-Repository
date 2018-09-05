@@ -94,7 +94,7 @@ public class ExtensionServiceTests {
 
     }
 
-    /*@Test
+    @Test
     public void createExtension_whenExtensionSave_shouldReturnTrue(){
         //Arrange
         Extension extension = new Extension();
@@ -105,6 +105,6 @@ public class ExtensionServiceTests {
         boolean isCreated = extensionService.save(extension);
 
         //Assert
-        Assert.assertTrue("true", isCreated);
-    }*/
+        Assert.assertTrue(isCreated);
+    }
 }
