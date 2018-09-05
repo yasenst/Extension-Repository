@@ -122,7 +122,7 @@ public class ExtensionHandleController {
             UUID uniquePrefix = UUID.randomUUID();
             String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
             extension.setFileName(fileName);
-            fileStorageService.store(extensionDto.getFile(), uniquePrefix.toString());
+            fileStorageService.store(extensionDto.getFile(), fileName);
             fileStorageService.delete(previousFile);
         }
 
