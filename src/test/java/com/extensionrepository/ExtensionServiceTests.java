@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.print.DocFlavor;
+import javax.validation.constraints.AssertTrue;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,5 +107,26 @@ public class ExtensionServiceTests {
 
         //Assert
         Assert.assertTrue(isCreated);
+    }
+
+    @Test
+    public void exists_shouldReturnTrue_whenExtensionExistsByNameOrId() {
+        // Arrange
+        Extension extension1 = new Extension();
+        extension1.setId(1);
+
+        Extension extension2 = new Extension();
+        extension2.setName("Extension2");
+
+        Mockito.when(extensionRepository.getById(extension1.getId())).thenReturn(extension1);
+        Mockito.when(extensionRepository.getByName(extension2.getName())).thenReturn(extension2);
+
+        // Act
+        boolean isExtension1Exist = extensionService.exists(extension1.getId());
+        boolean isExtension2Exist = extensionService.exists(extension2.getName());
+
+        // Assert
+        Assert.assertTrue(isExtension1Exist);
+        Assert.assertTrue(isExtension2Exist);
     }
 }

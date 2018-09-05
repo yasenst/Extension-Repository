@@ -36,7 +36,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeStatus(int id) {
-        userRepository.changeStatus(id);
+        User user = userRepository.getById(id);
+
+        if (user.isEnabled()) {
+            user.setEnabled(false);
+        } else {
+            user.setEnabled(true);
+        }
+
+        userRepository.update(user);
     }
 
     @Override

@@ -82,7 +82,6 @@ public class AdminController {
     @PostMapping("/admin/approve/{id}")
     @PreAuthorize("isAuthenticated()")
     public String approveProcess(@PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
-
         if (!extensionService.exists(id)) {
             return "redirect:/";
         }
