@@ -7,6 +7,7 @@ public class Constants {
     public static final String SORT_BY_LAST_COMMIT = "Last Commit";
     public static final String GITHUB_URL = "https://github.com/";
     public static final String GITHUB_AUTH_KEY = "55ec50c31ca927df3a79dd665c2928718fa69056";
+    //public static final String GITHUB_AUTH_KEY = "77ec0a49a08d434ce0ef0e9dac5530f3c97b8c04 "; for testing synchronization
     public static final String DEFAULT_IMAGE = "no_image_available.png";
     public static final String GITHUB_NOT_FOUND = "Github repository not found";
 }

@@ -7,9 +7,11 @@ import com.extensionrepository.entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
+//@EnableScheduling
 public class HibernateConfig {
     @Bean
     public SessionFactory createFactory(){
