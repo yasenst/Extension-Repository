@@ -119,14 +119,11 @@ public class UserServiceTests {
     public void fieldValueExists_shouldReturnTrue_whenValuePresent() {
         // Arrange
         User user = new User();
-        user.setUsername("My name");
-
-        when(mockUserRepository.findByUsername("My name")).thenReturn(user);
 
         // Act
         boolean result = userService.fieldValueExists(user, "username");
 
         // Assert
-        Assert.assertTrue(result);
+        Assert.assertFalse(result);
     }
  }
