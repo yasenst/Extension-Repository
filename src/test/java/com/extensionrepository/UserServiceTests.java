@@ -46,7 +46,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getUserByUsername_shouldReturnUserWithRequestedUsername(){
+    public void findByUsername_shouldReturnUserWithRequestedUsername(){
         //Arrange
         User user = new User();
         user.setUsername("test");
@@ -116,7 +116,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void fieldValueExists_shouldReturnTrue_whenValuePresent() {
+    public void fieldValueExists_shouldReturnFalse_whenValuePresent() {
         // Arrange
         User user = new User();
 
@@ -125,5 +125,20 @@ public class UserServiceTests {
 
         // Assert
         Assert.assertFalse(result);
+    }
+
+    @Test
+    public void isExistUsername_shouldReturnTrue_whenUsernameExists() {
+        // Arrange
+        User user = new User();
+        user.setUsername("test");
+
+        when(mockUserRepository.findByUsername(user.getUsername())).thenReturn(user);
+
+        // Act
+        boolean result = userService.isExistUsername("test");
+
+        // Assert
+        Assert.assertTrue(result);
     }
  }
