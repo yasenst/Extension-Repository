@@ -7,7 +7,6 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong th:text="${failMessage}"></strong>
     </div>
-
     <div class="h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-sm-5">
@@ -46,10 +45,15 @@
                         <label class="control-label" for="extensionLink">GitHub Link:</label>
                         <input type="text" class="form-control" id="extensionLink" placeholder="Link"
                                name="repositoryLink" th:value="${extensionDto.getRepositoryLink()}"/>
-                        <div class="form-control-feedback" th:each="error : ${#fields.errors('global')}"
-                             th:text="${error}">
+                        <div class="form-control-feedback" th:if="${failMessage}"
+                             th:text="${failMessage}">
                             Not a github repository
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="uploadimage">Image (optional):</label>
+                        <input type="file" class="form-control" id="uploadimage" placeholder="Upload Image" name="image" />
                     </div>
 
                     <div class="form-group">

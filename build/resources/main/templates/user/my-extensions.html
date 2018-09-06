@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th scope="col">Name</th>
+        <th scope="col">Status</th>
         <th scope="col">Actions</th>
     </tr>
     </thead>
@@ -9,6 +10,8 @@
 
     <tr th:each="extension : ${extensions}">
         <td><a th:text="${extension.getName()}" th:href="@{/extension/{id}(id = ${extension.getId()})}"></a></td>
+        <td th:text="${extension.isPending() ? 'PENDING' : 'ACTIVE'}"
+            th:class="${extension.isPending() ? 'btn btn-danger btn-xs disabled' : 'btn btn-success btn-xs disabled'}"></td>
         <td>
             <a class="btn btn-primary btn-xs" th:href="@{/extension/{id}(id = ${extension.getId()})}">Review</a>
             <a class="btn btn-success btn-xs" th:href="@{/extension/update/{id}(id = ${extension.getId()})}">Edit</a>

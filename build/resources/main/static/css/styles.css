@@ -63,6 +63,9 @@ footer {
     pointer-events: none;
     background: #ccc;
 }
+.form-inline > *{
+    display: inline-block;
+}
 
 .card {
     box-shadow: 2px 2px 8px lightgray;
@@ -253,7 +256,7 @@ img {
 
 .moviecard .movie-poster {
     position: absolute;
-    background: url("http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png") no-repeat;
+    /*background: url("http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png") no-repeat;*/
     width: 300px;
     height: 300px;
     right: -100px;
@@ -264,7 +267,7 @@ img {
     transition: all 500ms ease-out;
 }
 
-/* input annotation errors*/
+/* input validation errors*/
 .form-control-feedback {
     all: unset;
     color: red;

@@ -63,6 +63,9 @@ footer {
     pointer-events: none;
     background: #ccc;
 }
+.form-inline > *{
+    display: inline-block;
+}
 
 .card {
     box-shadow: 2px 2px 8px lightgray;
