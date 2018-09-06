@@ -1,7 +1,7 @@
 package com.extensionrepository.service;
 
 import com.extensionrepository.entity.Tag;
-import com.extensionrepository.repositories.base.TagRepository;
+import com.extensionrepository.repository.base.TagRepository;
 import com.extensionrepository.service.base.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class TagServiceImpl implements TagService {
 
             if (tag == null) {
                 tag = new Tag(tagAsString);
-                tagRepository.save(tag);
+                tag = tagRepository.save(tag);
             }
 
             tagSet.add(tag);

@@ -1,7 +1,7 @@
 package com.extensionrepository.service;
 
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.base.UserRepository;
+import com.extensionrepository.repository.base.UserRepository;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerUser(User user) {
-        return userRepository.registerUser(user);
+    public boolean register(User user) {
+        if (userRepository.save(user) == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override

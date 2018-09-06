@@ -1,4 +1,4 @@
-package com.extensionrepository.repositories.base;
+package com.extensionrepository.repository.base;
 
 import com.extensionrepository.entity.Role;
 

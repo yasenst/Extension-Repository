@@ -1,8 +1,7 @@
-package com.extensionrepository.repositories.base;
+package com.extensionrepository.repository.base;
 
 
 import com.extensionrepository.entity.User;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface UserRepository {
 
     User findByUsername(String username);
 
-    boolean registerUser(User user);
+    User save(User user);
 
     //void changeStatus(int id);
 

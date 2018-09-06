@@ -1,8 +1,8 @@
-package com.extensionrepository.repositories;
+package com.extensionrepository.repository;
 
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.base.AdminRepository;
+import com.extensionrepository.repository.base.AdminRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 

@@ -68,7 +68,7 @@ public class LoginRegisterController {
         Role userRole = this.roleService.findByName("ROLE_USER");
         user.addRole(userRole);
 
-        userService.registerUser(user);
+        userService.register(user);
 
         redirectAttributes.addFlashAttribute("registrationMessage", "Registration successful! You may login now.");
         return "redirect:/login";

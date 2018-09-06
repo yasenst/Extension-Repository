@@ -2,7 +2,7 @@ package com.extensionrepository;
 
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.base.ExtensionRepository;
+import com.extensionrepository.repository.base.ExtensionRepository;
 import com.extensionrepository.service.ExtensionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,9 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.print.DocFlavor;
-import javax.validation.constraints.AssertTrue;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

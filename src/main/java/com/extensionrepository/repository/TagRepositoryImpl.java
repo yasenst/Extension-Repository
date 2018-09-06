@@ -1,13 +1,11 @@
-package com.extensionrepository.repositories;
+package com.extensionrepository.repository;
 
 import com.extensionrepository.entity.Tag;
-import com.extensionrepository.repositories.base.TagRepository;
+import com.extensionrepository.repository.base.TagRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Set;
 
 @Repository
 public class TagRepositoryImpl implements TagRepository {
@@ -37,7 +35,7 @@ public class TagRepositoryImpl implements TagRepository {
     }
 
     @Override
-    public void save(Tag tag) {
+    public Tag save(Tag tag) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
@@ -47,6 +45,8 @@ public class TagRepositoryImpl implements TagRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return tag;
     }
 
 }

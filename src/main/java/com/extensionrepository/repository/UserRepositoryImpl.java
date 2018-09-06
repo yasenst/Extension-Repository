@@ -1,15 +1,13 @@
-package com.extensionrepository.repositories;
+package com.extensionrepository.repository;
 
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.base.UserRepository;
+import com.extensionrepository.repository.base.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Repository
@@ -74,18 +72,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean registerUser(User user) {
+    public User save(User user) {
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
-
-            return true;
         } catch (Exception e){
             e.printStackTrace();
-            return false;
         }
+
+        return user;
     }
 
     /*

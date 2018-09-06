@@ -1,7 +1,7 @@
-package com.extensionrepository.repositories;
+package com.extensionrepository.repository;
 
 import com.extensionrepository.entity.Role;
-import com.extensionrepository.repositories.base.RoleRepository;
+import com.extensionrepository.repository.base.RoleRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

@@ -1,9 +1,8 @@
 package com.extensionrepository.service;
 
-import com.extensionrepository.entity.User;
 import com.extensionrepository.util.Constants;
 import com.extensionrepository.entity.Extension;
-import com.extensionrepository.repositories.base.ExtensionRepository;
+import com.extensionrepository.repository.base.ExtensionRepository;
 import com.extensionrepository.service.base.ExtensionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

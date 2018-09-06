@@ -1,9 +1,8 @@
 package com.extensionrepository;
 
 import com.extensionrepository.entity.Tag;
-import com.extensionrepository.repositories.base.TagRepository;
+import com.extensionrepository.repository.base.TagRepository;
 import com.extensionrepository.service.TagServiceImpl;
-import com.extensionrepository.service.base.TagService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TagServiceTests {
@@ -45,7 +46,8 @@ public class TagServiceTests {
 
         Mockito.when(tagRepository.findByName("Tag1")).thenReturn(tag1);
         Mockito.when(tagRepository.findByName("Tag2")).thenReturn(tag2);
-        Mockito.when(tagRepository.findByName("Tag3")).thenReturn(tag3);
+        Mockito.when(tagRepository.findByName("Tag3")).thenReturn(null);
+        Mockito.when(tagRepository.save(any(Tag.class))).thenReturn(tag3);
 
         // Act
         Set<Tag> actualTags = tagService.getTagsFromString(tagString);

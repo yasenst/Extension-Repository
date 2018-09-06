@@ -1,10 +1,8 @@
-package com.extensionrepository.repositories.base;
+package com.extensionrepository.repository.base;
 
 import com.extensionrepository.entity.Tag;
 
-import java.util.Set;
-
 public interface TagRepository {
     Tag findByName(String name);
-    void save(Tag tag);
+    Tag save(Tag tag);
 }
