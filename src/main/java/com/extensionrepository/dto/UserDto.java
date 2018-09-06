@@ -1,8 +1,8 @@
 package com.extensionrepository.dto;
 
 import com.extensionrepository.service.UserServiceImpl;
-import com.extensionrepository.annotation.IsPasswordMatching;
-import com.extensionrepository.annotation.IsFieldUnique;
+import com.extensionrepository.validation.IsPasswordMatching;
+import com.extensionrepository.validation.IsFieldUnique;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

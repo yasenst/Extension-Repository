@@ -1,4 +1,4 @@
-package com.extensionrepository.annotation;
+package com.extensionrepository.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,10 +9,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Constraint(validatedBy = IsPasswordMatchingValidator.class)
-public @interface IsPasswordMatching {
-    String message() default "Passwords not matching";
+@Constraint(validatedBy = IsContentTypeImageValidator.class)
+public @interface IsContentTypeImage {
+    String message() default "Image should be png, jpg or jpeg";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
-

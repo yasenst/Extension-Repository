@@ -29,6 +29,7 @@ public class WebUserDetailsServiceTests {
     private WebUserDetailsService webUserDetailsService;
 
     private final String mockUsername = "mockUser";
+    private final String wrongUsername = "wrongUser";
 
     @Before
     public void beforeTest() {
@@ -62,4 +63,26 @@ public class WebUserDetailsServiceTests {
 
     }
 
+    @Test(expected = UsernameNotFoundException.class)
+    public void loadUserByUsername_shouldThrowUsernameNotFoundException_whenUserNotFound() {
+        //Arrange
+        User user = new User(mockUsername, "pass", "user user");
+
+        Set<GrantedAuthority> grantedAuthorities = user.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+
+        org.springframework.security.core.userdetails.User userToFind =
+                new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        grantedAuthorities
+                );
+
+        when(mockUserRepository.findByUsername(mockUsername)).thenReturn(user);
+
+        // ACT
+        UserDetails userFound = webUserDetailsService.loadUserByUsername(wrongUsername);
+    }
 }

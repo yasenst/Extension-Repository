@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -136,9 +137,14 @@ public class AdminController {
     public String sync(@PathVariable int id) {
         Extension extension = extensionService.getById(id);
 
-        extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
-        extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
-        extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+        try {
+            extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
+            extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
+            extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
 
         extensionService.update(extension);
 

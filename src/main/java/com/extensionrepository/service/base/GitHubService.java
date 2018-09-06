@@ -1,9 +1,10 @@
 package com.extensionrepository.service.base;
 
+import java.io.IOException;
 import java.util.Date;
 
 public interface GitHubService {
-    int fetchOpenIssues(String repositoryLink);
-    int fetchPullRequests(String repositoryLink);
-    Date fetchLastCommit(String repositoryLink);
+    int fetchOpenIssues(String repositoryLink) throws IOException;
+    int fetchPullRequests(String repositoryLink) throws IOException;
+    Date fetchLastCommit(String repositoryLink) throws IOException;
 }

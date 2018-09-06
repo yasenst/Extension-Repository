@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,9 +55,19 @@ public class ExtensionHandleController {
     }
 
     @GetMapping("/extension/{id}")
-    public String extensionDetail(Model model, @PathVariable int id){
+    public String extensionDetail(Model model, @PathVariable int id, RedirectAttributes redirectAttributes){
+        if (!extensionService.exists(id)) {
+            return "redirect:/error/not-found";
+        }
 
         Extension extension = extensionService.getById(id);
+
+        if (extension.isPending()) {
+            if (!isUserOwnerOrAdmin(extension)) {
+                return "redirect:/error/403";
+            }
+        }
+
         model.addAttribute("extension", extension);
         model.addAttribute("view", "extension/details");
         return "base-layout";
@@ -65,7 +76,7 @@ public class ExtensionHandleController {
     @GetMapping("/extension/update/{id}")
     public String update(Model model, @PathVariable int id, @ModelAttribute ExtensionDto extensionDto){
         if (!extensionService.exists(id)) {
-            return "redirect:/";
+            return "redirect:/error/not-found";
         }
 
         Extension extension = extensionService.getById(id);
@@ -92,7 +103,7 @@ public class ExtensionHandleController {
     public String updateProcess(@PathVariable int id,@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model){
 
         if (!extensionService.exists(id)) {
-            return "redirect:/";
+            return "redirect:/error/not-found";
         }
 
         if (bindingResult.hasErrors()) {
@@ -141,7 +152,7 @@ public class ExtensionHandleController {
     @PreAuthorize("isAuthenticated()")
     public String deleteExtension(Model model, @PathVariable int id){
         if (!extensionService.exists(id)) {
-            return "redirect:/";
+            return "redirect:/error/not-found";
         }
 
         Extension extension = extensionService.getById(id);
@@ -159,7 +170,7 @@ public class ExtensionHandleController {
     @PreAuthorize("isAuthenticated()")
     public String deleteProcess(@PathVariable int id){
         if (!extensionService.exists(id)) {
-            return "redirect:/";
+            return "redirect:/error/not-found";
         }
 
         Extension extension = extensionService.getById(id);
