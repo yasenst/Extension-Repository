@@ -115,15 +115,54 @@ public class ExtensionServiceTests {
         Extension extension2 = new Extension();
         extension2.setName("Extension2");
 
+        Extension extension3 = new Extension();
+        extension1.setId(3);
+
+        Extension extension4 = new Extension();
+        extension2.setName("Extension4");
+
         Mockito.when(extensionRepository.getById(extension1.getId())).thenReturn(extension1);
         Mockito.when(extensionRepository.getByName(extension2.getName())).thenReturn(extension2);
+        Mockito.when(extensionRepository.getById(extension3.getId())).thenReturn(null);
+        Mockito.when(extensionRepository.getByName(extension4.getName())).thenReturn(null);
 
         // Act
         boolean isExtension1Exist = extensionService.exists(extension1.getId());
         boolean isExtension2Exist = extensionService.exists(extension2.getName());
+        boolean isExtension3Exist = extensionService.exists(extension3.getId());
+        boolean isExtension4Exist = extensionService.exists(extension4.getName());
 
         // Assert
         Assert.assertTrue(isExtension1Exist);
         Assert.assertTrue(isExtension2Exist);
+        Assert.assertFalse(isExtension3Exist);
+        Assert.assertFalse(isExtension4Exist);
     }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void fieldValueExists_shoudlThrowUnsupportedOperationException_whenFieldNameNotName() {
+        extensionService.fieldValueExists(new Object(), "not name");
+    }
+
+    @Test
+    public void fieldValueExists_shouldReturnFalse_whenObjectIsNull() {
+        // Act
+        boolean result = extensionService.fieldValueExists(null, "name");
+
+        // Assert
+        Assert.assertFalse(result);
+    }
+
+    @Test
+    public void fieldValueExists_shouldReturnFalse_whenValuePresent() {
+        // Arrange
+        Extension extension = new Extension();
+
+        // Act
+        boolean result = extensionService.fieldValueExists(extension, "name");
+
+        // Assert
+        Assert.assertFalse(result);
+    }
+
 }
