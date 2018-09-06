@@ -12,6 +12,7 @@ public interface ExtensionService extends FieldValueExists {
     List<Extension> getFeatured();
     List<Extension> filter(String name, String sortBy);
     Extension getById(int id);
+    Extension increaseDownloads(int id);
     boolean save(Extension extension);
     boolean exists(int id);
     boolean exists(String name);

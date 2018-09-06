@@ -16,10 +16,6 @@ public interface ExtensionRepository {
     List<Extension> filterByLastCommit(String name);
     Extension getById(int id);
     Extension getByName(String name);
-    /*
-    boolean exists(int id);
-    boolean exists(String name);
-    */
     boolean save(Extension extension);
     void update(Extension extension);
     void delete(Extension extension);

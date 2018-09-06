@@ -31,11 +31,7 @@ public class DownloadController {
     @GetMapping("/extension/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int id) {
         Extension extension = extensionService.getById(id);
-        //extension.setNumberOfDownloads(extension.getNumberOfDownloads() + 1);
-        int numberOfDownloads = extension.getNumberOfDownloads();
-        int increasedNumberOfDownloads = numberOfDownloads + 1;
-        extension.setNumberOfDownloads(increasedNumberOfDownloads);
-        extensionService.update(extension);
+        extensionService.increaseDownloads(id);
 
         Resource file = fileStorageService.loadFile(extension.getFileName());
 

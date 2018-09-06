@@ -196,4 +196,17 @@ public class ExtensionServiceTests {
         Assert.assertEquals(3, extensionsByLastCommit.size());
     }
 
+    @Test
+    public void increaseDownloads_shouldCorrectlyIncrementDownloads() {
+        Extension extension = new Extension();
+        extension.setId(1);
+        extension.setNumberOfDownloads(0);
+
+        Mockito.when(extensionRepository.getById(1)).thenReturn(extension);
+
+        extension = extensionService.increaseDownloads(1);
+
+        Assert.assertEquals(1,extension.getNumberOfDownloads());
+    }
+
 }

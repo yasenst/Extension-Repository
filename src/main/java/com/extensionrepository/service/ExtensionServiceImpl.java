@@ -78,6 +78,19 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
+    public Extension increaseDownloads(int id) {
+        Extension extension = extensionRepository.getById(id);
+
+        int numberOfDownloads = extension.getNumberOfDownloads();
+        int increasedNumberOfDownloads = numberOfDownloads + 1;
+        extension.setNumberOfDownloads(increasedNumberOfDownloads);
+
+        extensionRepository.update(extension);
+
+        return extension;
+    }
+
+    @Override
     public void update(Extension extension) {
         extensionRepository.update(extension);
     }
