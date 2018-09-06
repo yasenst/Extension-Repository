@@ -41,6 +41,7 @@ public class Extension {
 
     @Column(name = "pending")
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
     private boolean pending;
 
     @Column(name = "featured")
@@ -71,7 +72,7 @@ public class Extension {
         this.imagePath = imagePath;
     }
 
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "extensions_tags",

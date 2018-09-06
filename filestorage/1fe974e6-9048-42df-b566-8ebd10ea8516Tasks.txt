@@ -1,0 +1,10 @@
+add images
+improve file
+unit tests
+rest api
+message while uploading
+admin can refresh
+
+in download controller
+	method downloadImage
+	same as downloadFile but returns

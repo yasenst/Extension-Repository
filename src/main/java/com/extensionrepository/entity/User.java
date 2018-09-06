@@ -18,14 +18,18 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "fullName", nullable = false)
+    @JsonIgnore
     private String fullName;
 
     @Column(name = "enabled")
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
     private boolean enabled;
 
 
@@ -36,13 +40,16 @@ public class User {
 
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonIgnore
     private Set<Role> roles;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Extension> extensions;
 
     @Transient
+    @JsonIgnore
     public boolean isAdmin() {
         return this.getRoles()
                 .stream()

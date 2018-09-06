@@ -24,7 +24,7 @@ public class TagRestController {
         this.extensionService = extensionService;
     }
 
-    @GetMapping("api/extension/tag/{name}")
+    @GetMapping("/api/extension/tag/{name}")
     private Set<Extension> extensionsByTag(@PathVariable String name){
         Tag tag = tagService.findByName(name);
         Set<Extension> extensions = tag.getExtensions();
