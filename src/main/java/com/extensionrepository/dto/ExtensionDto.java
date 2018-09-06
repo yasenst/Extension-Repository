@@ -1,17 +1,13 @@
 package com.extensionrepository.dto;
 
-import com.extensionrepository.annotation.IsContentTypeImage;
-import com.extensionrepository.annotation.IsFieldUnique;
-import com.extensionrepository.annotation.IsGithubRepository;
+import com.extensionrepository.validation.IsContentTypeImage;
+import com.extensionrepository.validation.IsFieldUnique;
 import com.extensionrepository.service.ExtensionServiceImpl;
-import com.extensionrepository.service.UserServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
-@IsGithubRepository
 @IsContentTypeImage
 public class ExtensionDto {
     @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists")

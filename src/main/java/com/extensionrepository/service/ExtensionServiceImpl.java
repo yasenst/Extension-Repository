@@ -124,7 +124,7 @@ public class ExtensionServiceImpl implements ExtensionService {
         if (value == null) {
             return false;
         }
-        System.out.println("This is it " + value.toString());
+
         return exists(value.toString());
     }
 }

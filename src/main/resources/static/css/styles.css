@@ -264,7 +264,7 @@ img {
     transition: all 500ms ease-out;
 }
 
-/* input annotation errors*/
+/* input validation errors*/
 .form-control-feedback {
     all: unset;
     color: red;

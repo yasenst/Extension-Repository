@@ -1,6 +1,7 @@
 package com.extensionrepository.service;
 
 import com.extensionrepository.service.base.FileStorageService;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.SizeLimitExceededException;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,7 +21,6 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private final Path rootLocation = Paths.get("filestorage");
-    private final Path imageLocation = Paths.get("filestorage/images");
 
     @Override
     public void init() {
@@ -31,11 +32,10 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public void store(MultipartFile multipartFile, String fileName) {
+    public void store(MultipartFile multipartFile, String fileName)  {
         try {
             File newFile = new File(rootLocation.toString() + "\\" + fileName);
             Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()), StandardCopyOption.REPLACE_EXISTING);
-            System.out.println(this.rootLocation.resolve(newFile.getName()));
         } catch (FileAlreadyExistsException faee) {
             throw new RuntimeException("Extension " + multipartFile.getOriginalFilename() + " already exists");
         } catch (IOException e) {

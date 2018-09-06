@@ -1,4 +1,4 @@
-package com.extensionrepository.annotation;
+package com.extensionrepository.validation;
 
 import com.extensionrepository.dto.UserDto;
 

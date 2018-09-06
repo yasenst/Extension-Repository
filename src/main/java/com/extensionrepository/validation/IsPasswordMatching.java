@@ -1,4 +1,4 @@
-package com.extensionrepository.annotation;
+package com.extensionrepository.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,9 +9,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Constraint(validatedBy = IsGithubRepositoryValidator.class)
-public @interface IsGithubRepository {
-    String message() default "Not a valid github repository";
+@Constraint(validatedBy = IsPasswordMatchingValidator.class)
+public @interface IsPasswordMatching {
+    String message() default "Passwords not matching";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
+

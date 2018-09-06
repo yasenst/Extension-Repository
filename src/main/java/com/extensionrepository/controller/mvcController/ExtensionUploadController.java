@@ -6,6 +6,8 @@ import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.*;
 import com.extensionrepository.util.Constants;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
+import org.kohsuke.github.GHFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.nio.file.FileSystemException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -80,6 +83,11 @@ public class ExtensionUploadController {
             extension.setRepositoryLink(extensionDto.getRepositoryLink());
             extension.setTags(tags);
 
+            // fetch github info
+            extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
+            extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
+            extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+
             // Generate unique filename
             UUID uniquePrefix = UUID.randomUUID();
             String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();
@@ -95,17 +103,15 @@ public class ExtensionUploadController {
             }
 
 
-            // fetch github info
-            extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
-            extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
-            extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
-
             extensionService.save(extension);
 
             redirectAttributes.addFlashAttribute("successMessage", "Extension uploaded successfully!");
-            //model.addAttribute("message", "File uploaded successfully! -> filename = " + extensionDto.getFile().getOriginalFilename());
+        } catch (GHFileNotFoundException gh) {
+            model.addAttribute("failMessage", gh.getMessage());
+            return upload(model, extensionDto);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("failMessage", e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("failMessage", "Faulty github repository");
             return upload(model, extensionDto);
         }
 
