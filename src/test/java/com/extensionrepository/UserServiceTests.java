@@ -3,6 +3,7 @@ package com.extensionrepository;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.repository.base.UserRepository;
 import com.extensionrepository.service.UserServiceImpl;
+import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,6 +83,7 @@ public class UserServiceTests {
         Assert.assertTrue(user2.isEnabled());
     }
 
+    @Test
     public void register_shouldReturnTrue_whenUserSaved() {
         // Arrange
         User user1 = new User();
@@ -113,6 +115,7 @@ public class UserServiceTests {
         Assert.assertFalse(result);
     }
 
+    @Test
     public void fieldValueExists_shouldReturnTrue_whenValuePresent() {
         // Arrange
         User user = new User();
