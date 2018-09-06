@@ -4,6 +4,7 @@ import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.repository.base.ExtensionRepository;
 import com.extensionrepository.service.ExtensionServiceImpl;
+import com.extensionrepository.util.Constants;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -163,6 +164,36 @@ public class ExtensionServiceTests {
 
         // Assert
         Assert.assertFalse(result);
+    }
+
+    /**
+     * check if methods are correctly called
+     */
+
+    @Test
+    public void filter_shouldCallCorrectRepositoryMethod() {
+        List<Extension> extensions = Arrays.asList(
+                new Extension(),
+                new Extension(),
+                new Extension()
+        );
+
+        final String extensionName = "name";
+
+        Mockito.when(extensionRepository.filterByName(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByDate(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByDownloads(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByLastCommit(extensionName)).thenReturn(extensions);
+
+        List<Extension> extensionsByName = extensionService.filter(extensionName, Constants.SORT_BY_NAME);
+        List<Extension> extensionsByDate = extensionService.filter(extensionName, Constants.SORT_BY_UPLOAD_DATE);
+        List<Extension> extensionsByDownloads = extensionService.filter(extensionName, Constants.SORT_BY_DOWNLOADS);
+        List<Extension> extensionsByLastCommit = extensionService.filter(extensionName, Constants.SORT_BY_LAST_COMMIT);
+
+        Assert.assertEquals(3, extensionsByName.size());
+        Assert.assertEquals(3, extensionsByDate.size());
+        Assert.assertEquals(3, extensionsByDownloads.size());
+        Assert.assertEquals(3, extensionsByLastCommit.size());
     }
 
 }
