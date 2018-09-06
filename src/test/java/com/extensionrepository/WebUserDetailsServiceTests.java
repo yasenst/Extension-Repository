@@ -29,7 +29,7 @@ public class WebUserDetailsServiceTests {
     private WebUserDetailsService webUserDetailsService;
 
     private final String mockUsername = "mockUser";
-    private final String wrongUsername = "wrongUser";
+    
 
     @Before
     public void beforeTest() {
@@ -80,9 +80,9 @@ public class WebUserDetailsServiceTests {
                         grantedAuthorities
                 );
 
-        when(mockUserRepository.findByUsername(mockUsername)).thenReturn(user);
+        when(mockUserRepository.findByUsername(mockUsername)).thenReturn(null);
 
         // ACT
-        UserDetails userFound = webUserDetailsService.loadUserByUsername(wrongUsername);
+        UserDetails userFound = webUserDetailsService.loadUserByUsername(mockUsername);
     }
 }

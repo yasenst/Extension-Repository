@@ -54,4 +54,19 @@ public class TagServiceTests {
         Assert.assertEquals(tags, actualTags);
         Assert.assertEquals(3, actualTags.size());
     }
+
+    @Test
+    public void findByName_shouldReturnTag_whenExistingNameGiven() {
+        // Arrange
+        Tag tag = new Tag();
+        tag.setName("Tag");
+
+        Mockito.when(tagRepository.findByName("Tag")).thenReturn(tag);
+
+        // Act
+        Tag actualTag = tagService.findByName("Tag");
+
+        // Assert
+        Assert.assertEquals(tag, actualTag);
+    }
 }
