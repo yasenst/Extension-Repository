@@ -9,10 +9,12 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -78,5 +80,50 @@ public class UserServiceTests {
         // Assert
         Assert.assertFalse(user1.isEnabled());
         Assert.assertTrue(user2.isEnabled());
+    }
+
+    public void register_shouldReturnTrue_whenUserSaved() {
+        // Arrange
+        User user1 = new User();
+        User user2 = new User();
+
+        when(mockUserRepository.save(user1)).thenReturn(user1);
+        when(mockUserRepository.save(user2)).thenReturn(null);
+
+        // Act
+        boolean registrationSuccess = userService.register(user1);
+        boolean registrationFail = userService.register(user2);
+
+        // Assert
+        Assert.assertTrue(registrationSuccess);
+        Assert.assertFalse(registrationFail);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void fieldValueExists_shoudlThrowUnsupportedOperationException_whenFieldNameNotUsername() {
+        userService.fieldValueExists(new Object(), "not username");
+    }
+
+    @Test
+    public void fieldValueExists_shouldReturnFalse_whenObjectIsNull() {
+        // Act
+        boolean result = userService.fieldValueExists(null, "username");
+
+        // Assert
+        Assert.assertFalse(result);
+    }
+
+    public void fieldValueExists_shouldReturnTrue_whenValuePresent() {
+        // Arrange
+        User user = new User();
+        user.setUsername("My name");
+
+        when(mockUserRepository.findByUsername("My name")).thenReturn(user);
+
+        // Act
+        boolean result = userService.fieldValueExists(user, "username");
+
+        // Assert
+        Assert.assertTrue(result);
     }
  }

@@ -9,6 +9,8 @@ public interface UserService extends FieldValueExists {
 
     User findByUsername(String username);
 
+    boolean isExistUsername(String username);
+
     boolean register(User user);
 
     void changeStatus(int id);

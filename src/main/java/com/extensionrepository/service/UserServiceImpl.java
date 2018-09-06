@@ -30,6 +30,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isExistUsername(String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean register(User user) {
         if (userRepository.save(user) == null) {
             return false;
@@ -61,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if (value == null) {
             return false;
         }
-        System.out.println("This is it " + value.toString());
-        return this.userRepository.isExistUsername(value.toString());
+
+        return isExistUsername(value.toString());
     }
 }
