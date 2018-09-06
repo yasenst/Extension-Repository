@@ -1,10 +1,9 @@
-package com.extensionrepository.controller.mvcController;
+package com.extensionrepository.controller.mvc;
 
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;

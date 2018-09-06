@@ -91,13 +91,19 @@ public class ExtensionServiceImpl implements ExtensionService {
     }
 
     @Override
-    public void update(Extension extension) {
-        extensionRepository.update(extension);
+    public boolean update(Extension extension) {
+        if (extensionRepository.update(extension) != null) {
+            return  true;
+        }
+        return false;
     }
 
     @Override
-    public void delete(Extension extension) {
-        extensionRepository.delete(extension);
+    public boolean delete(Extension extension) {
+        if (extensionRepository.delete(extension) != null) {
+            return  true;
+        }
+        return false;
     }
 
     @Override
@@ -122,7 +128,15 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public void changeStatus(int id) {
-        extensionRepository.changeStatus(id);
+        Extension extension = extensionRepository.getById(id);
+
+        if (extension.isFeatured()) {
+            extension.setFeatured(false);
+        } else {
+            extension.setFeatured(true);
+        }
+
+        extensionRepository.update(extension);
     }
 
     @Override

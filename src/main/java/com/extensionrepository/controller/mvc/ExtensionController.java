@@ -1,11 +1,10 @@
-package com.extensionrepository.controller.mvcController;
+package com.extensionrepository.controller.mvc;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.*;
-import com.extensionrepository.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +21,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Controller
-public class ExtensionHandleController {
+public class ExtensionController {
 
     private ExtensionService extensionService;
 
@@ -35,7 +34,7 @@ public class ExtensionHandleController {
     private GitHubService gitHubService;
 
     @Autowired
-    public ExtensionHandleController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
+    public ExtensionController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;

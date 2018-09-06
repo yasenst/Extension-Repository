@@ -1,5 +1,5 @@
 
-package com.extensionrepository.controller.restController;
+package com.extensionrepository.controller.rest;
 
 import com.extensionrepository.entity.Extension;
 import com.extensionrepository.service.base.ExtensionService;

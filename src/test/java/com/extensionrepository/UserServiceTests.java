@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -102,7 +102,7 @@ public class UserServiceTests {
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void fieldValueExists_shoudlThrowUnsupportedOperationException_whenFieldNameNotUsername() {
+    public void fieldValueExists_shouldThrowUnsupportedOperationException_whenFieldNameNotUsername() {
         userService.fieldValueExists(new Object(), "not username");
     }
 

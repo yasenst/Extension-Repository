@@ -59,21 +59,6 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public Resource loadAsResource(String filename) {
-        try {
-            Path file = rootLocation.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read file: " + filename);
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Could not read file: " + filename, e);
-        }
-    }
-
-    @Override
     public void delete(String filename) {
         Path file = rootLocation.resolve(filename);
 
@@ -84,8 +69,4 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
     }
 
-    @Override
-    public String getImageLocation() {
-        return rootLocation.toString();
-    }
 }

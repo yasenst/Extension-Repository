@@ -49,44 +49,6 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         }
     }
 
-    /*
-    @Override
-    public boolean exists(int id) {
-        Extension extension = null;
-
-        try (Session session = factory.openSession()) {
-            session.beginTransaction();
-            extension = (Extension) session.get(Extension.class, id);
-            session.getTransaction().commit();
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-    */
-
-    /*
-    @Override
-    public boolean exists(String name) {
-        try (Session session = factory.openSession()) {
-            session.beginTransaction();
-
-            Query query = session.createQuery("from Extension where name=:uname");
-            query.setParameter("uname",name);
-            if (query.uniqueResult() != null) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    */
-
     @Override
     public Extension getById(int id) {
         Extension extension = null;
@@ -121,50 +83,34 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public void update(Extension extension) {
+    public Extension update(Extension extension) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
             session.update(extension);
             session.getTransaction().commit();
+            return extension;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return extension;
         }
+
     }
 
     @Override
-    public void delete(Extension extension) {
+    public Extension delete(Extension extension) {
         try (Session session = factory.openSession()) {
 
             session.beginTransaction();
             session.delete(extension);
             session.getTransaction().commit();
+
+            return extension;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
 
-    @Override
-    public void changeStatus(int id) {
-        Extension extension = null;
-
-        try (Session session = factory.openSession()) {
-            session.beginTransaction();
-
-            extension = (Extension) session.get(Extension.class, id);
-
-            if (extension.isFeatured()) {
-                extension.setFeatured(false);
-            } else {
-                extension.setFeatured(true);
-            }
-
-            session.update(extension);
-
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 
     @Override

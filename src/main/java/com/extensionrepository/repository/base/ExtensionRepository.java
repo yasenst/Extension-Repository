@@ -17,7 +17,6 @@ public interface ExtensionRepository {
     Extension getById(int id);
     Extension getByName(String name);
     boolean save(Extension extension);
-    void update(Extension extension);
-    void delete(Extension extension);
-    void changeStatus(int id);
+    Extension update(Extension extension);
+    Extension delete(Extension extension);
 }

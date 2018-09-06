@@ -1,4 +1,4 @@
-package com.extensionrepository.controller.mvcController;
+package com.extensionrepository.controller.mvc;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;
@@ -6,7 +6,6 @@ import com.extensionrepository.entity.Tag;
 import com.extensionrepository.entity.User;
 import com.extensionrepository.service.base.*;
 import com.extensionrepository.util.Constants;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.kohsuke.github.GHFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,17 +16,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.nio.file.FileSystemException;
 import java.util.Set;
 import java.util.UUID;
 
 @Controller
-public class ExtensionUploadController {
+public class UploadController {
 
     private ExtensionService extensionService;
 
@@ -40,7 +36,7 @@ public class ExtensionUploadController {
     private GitHubService gitHubService;
 
     @Autowired
-    public ExtensionUploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
+    public UploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {
         this.extensionService = extensionService;
         this.userService = userService;
         this.fileStorageService = fileStorageService;

@@ -19,6 +19,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ExtensionServiceTests {
     @Mock
@@ -172,6 +175,7 @@ public class ExtensionServiceTests {
 
     @Test
     public void filter_shouldCallCorrectRepositoryMethod() {
+        // Arrange
         List<Extension> extensions = Arrays.asList(
                 new Extension(),
                 new Extension(),
@@ -185,11 +189,13 @@ public class ExtensionServiceTests {
         Mockito.when(extensionRepository.filterByDownloads(extensionName)).thenReturn(extensions);
         Mockito.when(extensionRepository.filterByLastCommit(extensionName)).thenReturn(extensions);
 
+        // Act
         List<Extension> extensionsByName = extensionService.filter(extensionName, Constants.SORT_BY_NAME);
         List<Extension> extensionsByDate = extensionService.filter(extensionName, Constants.SORT_BY_UPLOAD_DATE);
         List<Extension> extensionsByDownloads = extensionService.filter(extensionName, Constants.SORT_BY_DOWNLOADS);
         List<Extension> extensionsByLastCommit = extensionService.filter(extensionName, Constants.SORT_BY_LAST_COMMIT);
 
+        // Assert
         Assert.assertEquals(3, extensionsByName.size());
         Assert.assertEquals(3, extensionsByDate.size());
         Assert.assertEquals(3, extensionsByDownloads.size());
@@ -198,15 +204,68 @@ public class ExtensionServiceTests {
 
     @Test
     public void increaseDownloads_shouldCorrectlyIncrementDownloads() {
+        // Arrange
         Extension extension = new Extension();
         extension.setId(1);
         extension.setNumberOfDownloads(0);
 
         Mockito.when(extensionRepository.getById(1)).thenReturn(extension);
 
+        // Act
         extension = extensionService.increaseDownloads(1);
 
+        // Assert
         Assert.assertEquals(1,extension.getNumberOfDownloads());
     }
 
+    @Test
+    public void changeStatus_shouldToggleUserEnabledStatus() {
+        // Arrange
+       Extension extension1 = new Extension();
+       extension1.setId(1);
+       extension1.setFeatured(true);
+
+        Extension extension2 = new Extension();
+        extension2.setId(2);
+        extension2.setFeatured(false);
+
+        when(extensionRepository.getById(1)).thenReturn(extension1);
+        when(extensionRepository.getById(2)).thenReturn(extension2);
+
+        // Act
+        extensionService.changeStatus(1);
+        extensionService.changeStatus(2);
+
+        // Assert
+        Assert.assertFalse(extension1.isFeatured());
+        Assert.assertTrue(extension2.isFeatured());
+    }
+
+    @Test
+    public void update_shouldReturnExtension_ifUpdateSuccessful() {
+        // Arrange
+        Extension extension = new Extension();
+
+        when(extensionRepository.update(any(Extension.class))).thenReturn(extension);
+
+        // Act
+        boolean isUpdateSuccessful = extensionService.update(extension);
+
+        // Assert
+        Assert.assertTrue(isUpdateSuccessful);
+    }
+
+    @Test
+    public void delete_shouldReturnExtension_ifUpdateSuccessful() {
+        // Arrange
+        Extension extension = new Extension();
+
+        when(extensionRepository.delete(any(Extension.class))).thenReturn(extension);
+
+        // Act
+        boolean isDeleteSuccessful = extensionService.delete(extension);
+
+        // Assert
+        Assert.assertTrue(isDeleteSuccessful);
+    }
 }

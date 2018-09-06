@@ -1,4 +1,4 @@
-package com.extensionrepository.controller.mvcController;
+package com.extensionrepository.controller.mvc;
 
 import com.extensionrepository.dto.ExtensionDto;
 import com.extensionrepository.entity.Extension;

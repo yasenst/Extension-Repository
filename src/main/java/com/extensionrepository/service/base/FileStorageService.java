@@ -11,7 +11,5 @@ public interface FileStorageService {
     public void init();
     public void store(MultipartFile multipartFile, String fileName);
     public Resource loadFile(String filename);
-    Resource loadAsResource(String filename);
     void delete(String filename);
-    String getImageLocation();
 }
