@@ -32,6 +32,7 @@ public class DataSynchronization {
                 extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
                 extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
                 extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+                extension.setLastSync(new Date());
                 extensionService.update(extension);
             } catch (IOException e) {
                 e.printStackTrace();

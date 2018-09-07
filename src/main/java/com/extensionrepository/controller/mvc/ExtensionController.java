@@ -138,7 +138,7 @@ public class ExtensionController {
 
         // check for image
         if (!extensionDto.getImage().getOriginalFilename().equals("")) {
-            extension.setImagePath(extensionDto.getImage().getOriginalFilename());
+            extension.setImageName(extensionDto.getImage().getOriginalFilename());
             fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());
         }
 

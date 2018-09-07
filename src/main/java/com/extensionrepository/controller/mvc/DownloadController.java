@@ -44,7 +44,7 @@ public class DownloadController {
     public ResponseEntity<Resource> getImage(@PathVariable int id) {
         Extension extension = extensionService.getById(id);
 
-        Resource file = fileStorageService.loadFile(extension.getImagePath());
+        Resource file = fileStorageService.loadFile(extension.getImageName());
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")

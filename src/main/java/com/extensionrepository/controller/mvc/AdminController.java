@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -141,6 +142,7 @@ public class AdminController {
             extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
             extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
             extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+            extension.setLastSync(new Date());
         } catch(IOException e) {
             e.printStackTrace();
         }

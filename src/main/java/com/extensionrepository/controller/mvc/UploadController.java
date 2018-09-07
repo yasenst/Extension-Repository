@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -83,6 +84,7 @@ public class UploadController {
             extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));
             extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));
             extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));
+            extension.setLastSync(new Date());
 
             // Generate unique filename
             UUID uniquePrefix = UUID.randomUUID();
@@ -92,9 +94,9 @@ public class UploadController {
 
             // image
             if (extensionDto.getImage().getOriginalFilename().equals("")) {
-                extension.setImagePath(Constants.DEFAULT_IMAGE);
+                extension.setImageName(Constants.DEFAULT_IMAGE);
             } else {
-                extension.setImagePath(extensionDto.getImage().getOriginalFilename());
+                extension.setImageName(extensionDto.getImage().getOriginalFilename());
                 fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());
             }
 
