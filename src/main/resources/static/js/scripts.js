@@ -1,17 +1,3 @@
-$(document).ready(function(){
-    /*
-    $('#search-button').attr('disabled',true);
-    $('#search-field').keyup(function(){
-        if($(this).val().length !=0){
-            $('#search-button').attr('disabled', false);
-        } else {
-            $('#search-button').attr('disabled',true);
-        }
-
-    })
-    */
-});
-
 $(document).ready(function () {
     var itemsMainDiv = ('.MultiCarousel');
     var itemsDiv = ('.MultiCarousel-inner');
@@ -118,6 +104,7 @@ $(document).ready(function () {
     }
 
     // Search bar delete input with 'x'
+    /*
     $("#search-input").keyup(function(){
         $("#search-clear").toggle(Boolean($(this).val()));
     });
@@ -125,6 +112,17 @@ $(document).ready(function () {
     $("#search-clear").click(function(){
         $("#search-input").val('').focus();
         $(this).hide();
+    });
+    */
+    $('.has-clear input[type="text"]').on('input propertychange', function() {
+        var $this = $(this);
+        var visible = Boolean($this.val());
+        $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+    }).trigger('propertychange');
+
+    $('.form-control-clear').click(function() {
+        $(this).siblings('input[type="text"]').val('')
+            .trigger('propertychange').focus();
     });
 
 
