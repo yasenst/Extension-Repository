@@ -34,9 +34,9 @@ public class UserController {
         // get predictions
         List<Extension> extensions = user.getExtensions();
 
-        // add predictions to model
+        // add predictions and username to model to model
         model.addAttribute("extensions", extensions);
-
+        model.addAttribute("username", user.getUsername());
         // return the view
         model.addAttribute("view", "user/my-extensions");
         return "base-layout";

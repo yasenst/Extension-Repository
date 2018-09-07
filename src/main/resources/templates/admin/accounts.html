@@ -19,7 +19,7 @@
                             <td th:text="${user.getFullName()}"></td>
                             <td>
                                 <a th:text="${user.isEnabled() ? 'Disable' : 'Enable'}"
-                                   th:class="${user.isEnabled() ? 'btn btn-danger btn-xs' : 'btn btn-success btn-xs'}"
+                                   th:class="${user.isEnabled() ? 'btn btn-danger' : 'btn btn-success'}"
                                    th:href="@{/admin/accounts/toggle-status/{id}(id=${user.getId()})}">Disable</a>
                             </td>
                         </tr>

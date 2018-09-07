@@ -58,20 +58,16 @@ public class Extension {
     @Column(name="last_commit")
     private Date lastCommit;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name="last_sync")
+    @JsonIgnore
+    private Date lastSync;
+
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "image_path")
-    private String imagePath;
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
+    @Column(name = "image_name")
+    private String imageName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -222,5 +218,21 @@ public class Extension {
 
     public void setLastCommit(Date lastCommit) {
         this.lastCommit = lastCommit;
+    }
+
+    public Date getLastSync() {
+        return lastSync;
+    }
+
+    public void setLastSync(Date lastSync) {
+        this.lastSync = lastSync;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
