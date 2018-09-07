@@ -14,7 +14,7 @@
                     <tbody>
 
                     <th:block th:each="user : ${users}">
-                        <tr th:class="${user.isAdmin() ? 'info' : null}">
+                        <tr>
                             <td th:text="${user.getUsername()}"></td>
                             <td th:text="${user.getFullName()}"></td>
                             <td>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +23,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return userRepository.getAll();
+    }
+
+    @Override
+    public List<User> getAllNonAdminUsers() {
+        return getAll().stream()
+                .filter(user -> !user.isAdmin())
+                .collect(Collectors.toList());
     }
 
     @Override

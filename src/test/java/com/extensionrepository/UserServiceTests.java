@@ -1,7 +1,10 @@
 package com.extensionrepository;
 
+import com.extensionrepository.entity.Role;
 import com.extensionrepository.entity.User;
+import com.extensionrepository.repository.base.RoleRepository;
 import com.extensionrepository.repository.base.UserRepository;
+import com.extensionrepository.service.RoleServiceImpl;
 import com.extensionrepository.service.UserServiceImpl;
 import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.Assert;
@@ -12,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,8 +28,14 @@ public class UserServiceTests {
     @Mock
     private UserRepository mockUserRepository;
 
+    @Mock
+    private RoleRepository mockRoleRepository;
+
     @InjectMocks
     private UserServiceImpl userService;
+
+    @InjectMocks
+    private RoleServiceImpl roleService;
 
     @Test
     public void getAll_shouldReturnCorrectNumberOfEntities() {
@@ -140,5 +150,37 @@ public class UserServiceTests {
 
         // Assert
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void getAllNonAdminUsers_shouldReturnUsers_WithOnlyRoleUser() {
+        // Arrange
+        List<User> users = Arrays.asList(
+                new User("user1", "pass", "user1"),
+                new User("user2", "pass", "user2"),
+                new User("user3", "pass", "user3")
+        );
+
+        Role userRole = new Role();
+        userRole.setName("ROLE_USER");
+        Role adminRole = new Role();
+        adminRole.setName("ROLE_ADMIN");
+
+
+        when(mockRoleRepository.findByName("ROLE_USER")).thenReturn(userRole);
+        when(mockRoleRepository.findByName("ROLE_ADMIN")).thenReturn(adminRole);
+        when(mockUserRepository.getAll()).thenReturn(users);
+
+        users.get(0).addRole(roleService.findByName("ROLE_USER"));
+        users.get(1).addRole(roleService.findByName("ROLE_USER"));
+        users.get(2).addRole(roleService.findByName("ROLE_USER"));
+        users.get(2).addRole(roleService.findByName("ROLE_ADMIN"));
+
+        // Act
+        List<User> nonAdminUsers = userService.getAllNonAdminUsers();
+
+        // Assert
+        Assert.assertEquals(2, nonAdminUsers.size());
+
     }
  }

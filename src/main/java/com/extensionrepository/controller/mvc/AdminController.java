@@ -39,7 +39,7 @@ public class AdminController {
 
     @GetMapping("/admin/accounts")
     public String accounts(Model model) {
-        List<User> users = userService.getAll();
+        List<User> users = userService.getAllNonAdminUsers();
         model.addAttribute("users", users);
         model.addAttribute("view", "admin/accounts");
         return "base-layout";
