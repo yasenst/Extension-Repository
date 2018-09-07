@@ -245,27 +245,36 @@ public class ExtensionServiceTests {
     public void update_shouldReturnExtension_ifUpdateSuccessful() {
         // Arrange
         Extension extension = new Extension();
+        Extension extension1 = new Extension();
 
-        when(extensionRepository.update(any(Extension.class))).thenReturn(extension);
+        when(extensionRepository.update(extension)).thenReturn(extension);
+        when(extensionRepository.update(extension1)).thenReturn(null);
 
         // Act
         boolean isUpdateSuccessful = extensionService.update(extension);
+        boolean updateFalse = extensionService.update(extension1);
 
         // Assert
         Assert.assertTrue(isUpdateSuccessful);
+        Assert.assertFalse(updateFalse);
     }
 
     @Test
     public void delete_shouldReturnExtension_ifUpdateSuccessful() {
         // Arrange
         Extension extension = new Extension();
+        Extension extension1 = new Extension();
 
-        when(extensionRepository.delete(any(Extension.class))).thenReturn(extension);
+
+        when(extensionRepository.delete(extension)).thenReturn(extension);
+        when(extensionRepository.delete(extension1)).thenReturn(null);
 
         // Act
         boolean isDeleteSuccessful = extensionService.delete(extension);
+        boolean failedDelete = extensionService.delete(extension1);
 
         // Assert
         Assert.assertTrue(isDeleteSuccessful);
+        Assert.assertFalse(failedDelete);
     }
 }
