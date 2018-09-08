@@ -54,11 +54,11 @@ public class Extension {
     @Column(name = "pull_requests")
     private int pullRequests;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="last_commit")
     private Date lastCommit;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="last_sync")
     @JsonIgnore
     private Date lastSync;

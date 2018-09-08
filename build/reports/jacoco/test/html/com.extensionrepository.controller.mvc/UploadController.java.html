@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UploadController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">extensionrepository</a> &gt; <a href="index.source.html" class="el_package">com.extensionrepository.controller.mvc</a> &gt; <span class="el_source">UploadController.java</span></div><h1>UploadController.java</h1><pre class="source lang-java linenums">package com.extensionrepository.controller.mvc;
+
+import com.extensionrepository.dto.ExtensionDto;
+import com.extensionrepository.entity.Extension;
+import com.extensionrepository.entity.Tag;
+import com.extensionrepository.entity.User;
+import com.extensionrepository.service.base.*;
+import com.extensionrepository.util.Constants;
+import org.kohsuke.github.GHFileNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.Set;
+import java.util.UUID;
+
+@Controller
+public class UploadController {
+
+    private ExtensionService extensionService;
+
+    private UserService userService;
+
+    private FileStorageService fileStorageService;
+
+    private TagService tagService;
+
+    private GitHubService gitHubService;
+
+    @Autowired
+<span class="nc" id="L40">    public UploadController(ExtensionService extensionService, UserService userService, FileStorageService fileStorageService, TagService tagService, GitHubService gitHubService) {</span>
+<span class="nc" id="L41">        this.extensionService = extensionService;</span>
+<span class="nc" id="L42">        this.userService = userService;</span>
+<span class="nc" id="L43">        this.fileStorageService = fileStorageService;</span>
+<span class="nc" id="L44">        this.tagService = tagService;</span>
+<span class="nc" id="L45">        this.gitHubService = gitHubService;</span>
+<span class="nc" id="L46">    }</span>
+
+    @GetMapping(&quot;/upload&quot;)
+    public String upload(Model model, @ModelAttribute ExtensionDto extensionDto) {
+<span class="nc" id="L50">        model.addAttribute(&quot;view&quot;, &quot;extension/upload-form&quot;);</span>
+<span class="nc" id="L51">        return &quot;base-layout&quot;;</span>
+    }
+
+    @PostMapping(&quot;/upload&quot;)
+    public String uploadProcess(@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model,  RedirectAttributes redirectAttributes) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (bindingResult.hasErrors()) {</span>
+<span class="nc" id="L57">            model.addAttribute(&quot;view&quot;, &quot;extension/upload-form&quot;);</span>
+<span class="nc" id="L58">            return upload(model, extensionDto);</span>
+        }
+
+        try {
+            // get currently logged user
+<span class="nc" id="L63">            UserDetails principal = (UserDetails) SecurityContextHolder.getContext()</span>
+<span class="nc" id="L64">                    .getAuthentication()</span>
+<span class="nc" id="L65">                    .getPrincipal();</span>
+
+            // extract user from database
+<span class="nc" id="L68">            User user = userService.findByUsername(principal.getUsername());</span>
+
+            // Collect tags
+<span class="nc" id="L71">            Set&lt;Tag&gt; tags = tagService.getTagsFromString(extensionDto.getTags());</span>
+
+            // Create extension and fill by dto
+<span class="nc" id="L74">            Extension extension = new Extension();</span>
+
+<span class="nc" id="L76">            extension.setName(extensionDto.getName());</span>
+<span class="nc" id="L77">            extension.setDescription(extensionDto.getDescription());</span>
+<span class="nc" id="L78">            extension.setVersion(extensionDto.getVersion());</span>
+<span class="nc" id="L79">            extension.setUser(user);</span>
+<span class="nc" id="L80">            extension.setRepositoryLink(extensionDto.getRepositoryLink());</span>
+<span class="nc" id="L81">            extension.setTags(tags);</span>
+
+            // fetch github info
+<span class="nc" id="L84">            extension.setPullRequests(gitHubService.fetchPullRequests(extension.getRepositoryLink()));</span>
+<span class="nc" id="L85">            extension.setOpenIssues(gitHubService.fetchOpenIssues(extension.getRepositoryLink()));</span>
+<span class="nc" id="L86">            extension.setLastCommit(gitHubService.fetchLastCommit(extension.getRepositoryLink()));</span>
+<span class="nc" id="L87">            extension.setLastSync(new Date());</span>
+
+            // Generate unique filename
+<span class="nc" id="L90">            UUID uniquePrefix = UUID.randomUUID();</span>
+<span class="nc" id="L91">            String fileName = uniquePrefix.toString() + extensionDto.getFile().getOriginalFilename();</span>
+<span class="nc" id="L92">            extension.setFileName(fileName);</span>
+<span class="nc" id="L93">            fileStorageService.store(extensionDto.getFile(), fileName);</span>
+
+            // image
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if (extensionDto.getImage().getOriginalFilename().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L97">                extension.setImageName(Constants.DEFAULT_IMAGE);</span>
+            } else {
+<span class="nc" id="L99">                extension.setImageName(extensionDto.getImage().getOriginalFilename());</span>
+<span class="nc" id="L100">                fileStorageService.store(extensionDto.getImage(), extensionDto.getImage().getOriginalFilename());</span>
+            }
+
+
+<span class="nc" id="L104">            extensionService.save(extension);</span>
+
+<span class="nc" id="L106">            redirectAttributes.addFlashAttribute(&quot;successMessage&quot;, &quot;Extension uploaded successfully!&quot;);</span>
+<span class="nc" id="L107">        } catch (GHFileNotFoundException gh) {</span>
+<span class="nc" id="L108">            model.addAttribute(&quot;failMessage&quot;, gh.getMessage());</span>
+<span class="nc" id="L109">            return upload(model, extensionDto);</span>
+<span class="nc" id="L110">        } catch (Exception e) {</span>
+<span class="nc" id="L111">            e.printStackTrace();</span>
+<span class="nc" id="L112">            model.addAttribute(&quot;failMessage&quot;, &quot;Faulty github repository&quot;);</span>
+<span class="nc" id="L113">            return upload(model, extensionDto);</span>
+<span class="nc" id="L114">        }</span>
+
+<span class="nc" id="L116">        model.addAttribute(&quot;view&quot;, &quot;extension/upload-form&quot;);</span>
+<span class="nc" id="L117">        return &quot;redirect:/upload&quot;;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

@@ -30,13 +30,13 @@
                 <span class="badge" th:text="${extension.getPullRequests()}">0</span>
                 </span>
                 <span class="movie-genre">Last Commit Date:
-                <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy')}">0</span>
+                <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy HH:mm')}">0</span>
                 </span>
             </div>
         </div>
         <div class="movie-issues">
             <span sec:authorize="hasRole('ADMIN')" class="movie-genre">Last Synced:
-                <span class="badge" th:text="${#dates.format(extension.getLastSync(), 'dd-MMM-yyyy')}">0</span>
+                <span class="badge" th:text="${#dates.format(extension.getLastSync(), 'dd-MMM-yyyy HH:mm:ss')}">0</span>
                 </span>
         </div>
         <div class="movie-details">

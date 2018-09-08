@@ -1,7 +1,7 @@
 <main>
     <div class="container body-content">
         <div class="well">
-            <h2>Feature Extensions</h2>
+            <h2>Featured Extensions</h2>
             <div class="row">
                 <table class="table table-striped table-hover ">
                     <thead>
@@ -15,11 +15,11 @@
 
                     <th:block th:each="extension : ${extensions}">
                         <tr th:class="${extension.isPending() ? 'info' : null}">
-                            <td th:text="${extension.getName()}"></td>
+                            <td><a th:text="${extension.getName()}" th:href="@{/extension/{id}(id = ${extension.getId()})}"></a></td>
                             <td th:text="${extension.getVersion()}"></td>
                             <td>
                                 <a th:text="${extension.isFeatured() ? 'Disable' : 'Featured'}"
-                                   th:class="${extension.isFeatured() ? 'btn btn-danger btn-xs' : 'btn btn-success btn-xs'}"
+                                   th:class="${extension.isFeatured() ? 'btn btn-danger' : 'btn btn-success'}"
                                    th:href="@{/admin/featured/toggle-status/{id}(id=${extension.getId()})}">Disable</a>
                             </td>
                         </tr>

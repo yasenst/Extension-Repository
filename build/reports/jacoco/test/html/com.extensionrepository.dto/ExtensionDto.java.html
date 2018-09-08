@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">extensionrepository</a> &gt; <a href="index.source.html" class="el_package">com.extensionrepository.dto</a> &gt; <span class="el_source">ExtensionDto.java</span></div><h1>ExtensionDto.java</h1><pre class="source lang-java linenums">package com.extensionrepository.dto;
+
+import com.extensionrepository.validation.IsContentTypeImage;
+import com.extensionrepository.validation.IsFieldUnique;
+import com.extensionrepository.service.ExtensionServiceImpl;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.constraints.NotEmpty;
+
+
+@IsContentTypeImage
+<span class="nc" id="L12">public class ExtensionDto {</span>
+    @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = &quot;name&quot;, message = &quot;Extension name already exists&quot;)
+    private String name;
+
+    private String description;
+
+    private String version;
+
+    @NotEmpty
+    private String repositoryLink;
+
+    private MultipartFile file;
+
+    private MultipartFile image;
+
+    public MultipartFile getImage() {
+<span class="nc" id="L28">        return image;</span>
+    }
+
+    public void setImage(MultipartFile image) {
+<span class="nc" id="L32">        this.image = image;</span>
+<span class="nc" id="L33">    }</span>
+
+    private String tags;
+
+    public String getName() {
+<span class="nc" id="L38">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L42">        this.name = name;</span>
+<span class="nc" id="L43">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L46">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L50">        this.description = description;</span>
+<span class="nc" id="L51">    }</span>
+
+    public String getVersion() {
+<span class="nc" id="L54">        return version;</span>
+    }
+
+    public void setVersion(String version) {
+<span class="nc" id="L58">        this.version = version;</span>
+<span class="nc" id="L59">    }</span>
+
+    public String getRepositoryLink() {
+<span class="nc" id="L62">        return repositoryLink;</span>
+    }
+
+    public void setRepositoryLink(String repositoryLink) {
+<span class="nc" id="L66">        this.repositoryLink = repositoryLink;</span>
+<span class="nc" id="L67">    }</span>
+
+    public MultipartFile getFile() {
+<span class="nc" id="L70">        return file;</span>
+    }
+
+    public void setFile(MultipartFile file) {
+<span class="nc" id="L74">        this.file = file;</span>
+<span class="nc" id="L75">    }</span>
+
+    public String getTags() {
+<span class="nc" id="L78">        return tags;</span>
+    }
+
+    public void setTags(String tags) {
+<span class="nc" id="L82">        this.tags = tags;</span>
+<span class="nc" id="L83">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L87">        return name;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>
