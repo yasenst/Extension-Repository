@@ -14,5 +14,3 @@ cache:
   - $HOME/.m2
   - $HOME/.gradle
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
