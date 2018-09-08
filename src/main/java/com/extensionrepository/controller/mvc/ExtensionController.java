@@ -99,7 +99,7 @@ public class ExtensionController {
 
     @PostMapping("/extension/update/{id}")
     @PreAuthorize("isAuthenticated()")
-    public String updateProcess(@PathVariable int id,@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model){
+    public String updateProcess(@PathVariable int id,@Valid @ModelAttribute ExtensionDto extensionDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
 
         if (!extensionService.exists(id)) {
             return "redirect:/error/not-found";
@@ -144,6 +144,7 @@ public class ExtensionController {
 
         extensionService.update(extension);
 
+        redirectAttributes.addFlashAttribute("updateMessage", "Extension updated successfully!");
         return "redirect:/extension/" + extension.getId();
     }
 
