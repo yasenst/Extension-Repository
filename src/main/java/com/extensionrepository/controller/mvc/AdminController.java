@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Date;
@@ -152,4 +153,22 @@ public class AdminController {
 
         return "redirect:/extension/" + extension.getId();
     }
+
+    @GetMapping("/admin/settings")
+    public String syncSetting(Model model, @ModelAttribute("newSyncInterval") String newSyncInterval) {
+        Date lastSync = gitHubService.getLastSync();
+        String syncInterval = gitHubService.getSyncInterval();
+        model.addAttribute("syncInterval", syncInterval);
+        model.addAttribute("lastSync", lastSync);
+        model.addAttribute("view", "admin/settings");
+        return "base-layout";
+    }
+
+    @PostMapping("/admin/settings")
+    public String syncUpdateProcess(@ModelAttribute("newSyncInterval") String newSyncInterval, RedirectAttributes redirectAttributes) {
+        gitHubService.setSyncInterval(newSyncInterval);
+        redirectAttributes.addFlashAttribute("synchronizationMessage", "Synchronization Interval Updated!");
+        return "redirect:/admin/settings";
+    }
+
 }

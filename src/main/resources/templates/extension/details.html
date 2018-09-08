@@ -1,3 +1,7 @@
+<div class="alert alert-dismissible alert-success" th:if="${updateMessage}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong th:text="${update   Message}"></strong>
+</div>
 <div class="moviecard" th:object="${extension}" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="movie-poster play-trailer"> <img th:src="@{/extension/image/{id}(id = ${extension.getId()})}"  width="300px" height="300px" alt="Card image"></div>
     <div id="movie-content">
@@ -30,13 +34,13 @@
                 <span class="badge" th:text="${extension.getPullRequests()}">0</span>
                 </span>
                 <span class="movie-genre">Last Commit Date:
-                <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy')}">0</span>
+                <span class="badge" th:text="${#dates.format(extension.getLastCommit(), 'dd-MMM-yyyy HH:mm')}">0</span>
                 </span>
             </div>
         </div>
         <div class="movie-issues">
             <span sec:authorize="hasRole('ADMIN')" class="movie-genre">Last Synced:
-                <span class="badge" th:text="${#dates.format(extension.getLastSync(), 'dd-MMM-yyyy')}">0</span>
+                <span class="badge" th:text="${#dates.format(extension.getLastSync(), 'dd-MMM-yyyy HH:mm:ss')}">0</span>
                 </span>
         </div>
         <div class="movie-details">

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.extensionrepository.ExtensionServiceTests" tests="13" skipped="0" failures="0" errors="0" timestamp="2018-09-07T15:30:55" hostname="Yasen" time="0.102">
+  <properties/>
+  <testcase name="fieldValueExists_shoudlThrowUnsupportedOperationException_whenFieldNameNotName" classname="com.extensionrepository.ExtensionServiceTests" time="0.007"/>
+  <testcase name="exists_shouldReturnTrue_whenExtensionExistsByNameOrId" classname="com.extensionrepository.ExtensionServiceTests" time="0.036"/>
+  <testcase name="fieldValueExists_shouldReturnFalse_whenObjectIsNull" classname="com.extensionrepository.ExtensionServiceTests" time="0.0"/>
+  <testcase name="changeStatus_shouldToggleUserEnabledStatus" classname="com.extensionrepository.ExtensionServiceTests" time="0.001"/>
+  <testcase name="update_shouldReturnExtension_ifUpdateSuccessful" classname="com.extensionrepository.ExtensionServiceTests" time="0.001"/>
+  <testcase name="createExtension_whenExtensionSave_shouldReturnTrue" classname="com.extensionrepository.ExtensionServiceTests" time="0.002"/>
+  <testcase name="delete_shouldReturnExtension_ifUpdateSuccessful" classname="com.extensionrepository.ExtensionServiceTests" time="0.002"/>
+  <testcase name="getExtensionById_shouldReturnExtensionWithRequestedId" classname="com.extensionrepository.ExtensionServiceTests" time="0.002"/>
+  <testcase name="getAllExtensions_shouldReturnCorrectNumberOfExtensions" classname="com.extensionrepository.ExtensionServiceTests" time="0.001"/>
+  <testcase name="fieldValueExists_shouldReturnFalse_whenValuePresent" classname="com.extensionrepository.ExtensionServiceTests" time="0.001"/>
+  <testcase name="filter_shouldReturnMatchingNames_whenNameSpecified" classname="com.extensionrepository.ExtensionServiceTests" time="0.032"/>
+  <testcase name="increaseDownloads_shouldCorrectlyIncrementDownloads" classname="com.extensionrepository.ExtensionServiceTests" time="0.001"/>
+  <testcase name="filter_shouldCallCorrectRepositoryMethod" classname="com.extensionrepository.ExtensionServiceTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

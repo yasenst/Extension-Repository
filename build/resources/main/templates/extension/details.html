@@ -14,7 +14,7 @@
 
         </div>
         <div class="movie-castcrew"><span class="title">Author</span>
-            <span class="name" th:text="${extension.getUser().getFullName()}">John Doe</span>
+            <span class="name" th:text="${extension.getUser().getUsername()}">John Doe</span>
         </div>
         <div class="movie-castcrew"><span class="title">Date</span>
             <span class="name" th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">19-Aug-2018</span>
@@ -34,11 +34,14 @@
                 </span>
             </div>
         </div>
+        <div class="movie-issues">
+            <span sec:authorize="hasRole('ADMIN')" class="movie-genre">Last Synced:
+                <span class="badge" th:text="${#dates.format(extension.getLastSync(), 'dd-MMM-yyyy')}">0</span>
+                </span>
+        </div>
         <div class="movie-details">
-
               <a class="badge badge-info" th:each="tag : ${extension.getTags()}"
             th:text="${tag.getName()}" th:href="@{/extension/tag/{name}(name = ${tag.getName()})}">Info</a>
-
         </div>
         <div>
             <a th:href="${extension.getRepositoryLink()}" class="btn btn-info">Repository</a>

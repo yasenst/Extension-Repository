@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">extensionrepository</a> &gt; <a href="index.source.html" class="el_package">com.extensionrepository.service</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package com.extensionrepository.service;
+
+import com.extensionrepository.entity.User;
+import com.extensionrepository.repository.base.UserRepository;
+import com.extensionrepository.service.base.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private UserRepository userRepository;
+
+    @Autowired
+<span class="fc" id="L19">    public UserServiceImpl(UserRepository repository) {</span>
+<span class="fc" id="L20">        this.userRepository = repository;</span>
+<span class="fc" id="L21">    }</span>
+
+    @Override
+    public List&lt;User&gt; getAll() {
+<span class="fc" id="L25">        return userRepository.getAll();</span>
+    }
+
+    @Override
+    public List&lt;User&gt; getAllNonAdminUsers() {
+<span class="fc" id="L30">        return getAll().stream()</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                .filter(user -&gt; !user.isAdmin())</span>
+<span class="fc" id="L32">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public User findByUsername(String username) {
+<span class="fc" id="L37">        return userRepository.findByUsername(username);</span>
+    }
+
+    @Override
+    public boolean isExistUsername(String username) {
+<span class="fc" id="L42">        User user = userRepository.findByUsername(username);</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L45">            return false;</span>
+        }
+
+<span class="fc" id="L48">        return true;</span>
+    }
+
+    @Override
+    public boolean register(User user) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (userRepository.save(user) == null) {</span>
+<span class="fc" id="L54">            return false;</span>
+        }
+<span class="fc" id="L56">        return true;</span>
+    }
+
+    @Override
+    public void changeStatus(int id) {
+<span class="fc" id="L61">        User user = userRepository.getById(id);</span>
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (user.isEnabled()) {</span>
+<span class="fc" id="L64">            user.setEnabled(false);</span>
+        } else {
+<span class="fc" id="L66">            user.setEnabled(true);</span>
+        }
+
+<span class="fc" id="L69">        userRepository.update(user);</span>
+<span class="fc" id="L70">    }</span>
+
+    @Override
+    public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
+<span class="fc" id="L74">        Assert.notNull(fieldName, &quot;Username already exists&quot;);</span>
+
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (!fieldName.equals(&quot;username&quot;)) {</span>
+<span class="fc" id="L77">            throw new UnsupportedOperationException(&quot;Field name not supported&quot;);</span>
+        }
+
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L81">            return false;</span>
+        }
+
+<span class="fc" id="L84">        return isExistUsername(value.toString());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

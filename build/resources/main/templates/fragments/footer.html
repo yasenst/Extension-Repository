@@ -1,0 +1,63 @@
+<footer id="footer" class="clearfix">
+    <div id="footer-widgets">
+
+        <div class="container list-unstyled list-inline">
+
+            <div id="footer-wrapper">
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-2">
+                        <div id="meta-3" class="widget widgetFooter widget_meta">
+                            <h4 class="widgettitle">Private Area :</h4>
+                            <ul>
+                                <li><a th:href="@{/}"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                                <li><a th:href="@{/extension/browse}"><i class="fa fa-link"></i> Extensions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-2">
+                        <div id="recent-posts-3" class="widget widgetFooter widget_recent_entries">
+                            <h4 class="widgettitle">Developer Info :</h4>
+                            <ul>
+                                <li>
+                                    <a href="https://github.com/yasenst" target="_blank"><i
+                                            class="fa fa-github"></i> Github - Yasen</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/PenyoKolev" target="_blank"><i
+                                            class="fa fa-github"></i> Github - Penyo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div id="private-area" class="widget widgetFooter widget_meta">
+                            <h4 class="widgettitle">Important Pages :</h4>
+                            <ul>
+                                <li><a th:href="@{/login}"><i class="fa fa-home fa-fw"></i> Login</a></li>
+                                <li><a th:href="@{/register}"><i class="fa fa-link"></i> Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
+                        <div id="search-3" class="widget widgetFooter widget_search"><h4 class="widgettitle">Search Our Database:</h4>
+
+                            <form class="form-group" th:action="@{/extension/browse}">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Keyword :</span>
+                                    <input class="form-control" placeholder="Name ..." type="text" name="name">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
