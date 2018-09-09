@@ -25,7 +25,7 @@ public class GitHubServiceImpl implements GitHubService{
     private static Date lastSync;
 
     @Autowired
-    private ExtensionService extensionRepository;
+    private ExtensionService extensionService;
 
     // try to connect to github using oAuth key
     public GitHubServiceImpl() {
@@ -101,13 +101,13 @@ public class GitHubServiceImpl implements GitHubService{
         syncThread = new Thread(() -> {
             while (true) {
                 try {
-                    List<Extension> extensions = extensionRepository.getAll();
+                    List<Extension> extensions = extensionService.getAll();
                     for (Extension extension : extensions) {
                         extension.setPullRequests(fetchPullRequests(extension.getRepositoryLink()));
                         extension.setOpenIssues(fetchOpenIssues(extension.getRepositoryLink()));
                         extension.setLastCommit(fetchLastCommit(extension.getRepositoryLink()));
                         extension.setLastSync(new Date());
-                        extensionRepository.update(extension);
+                        extensionService.update(extension);
                         lastSync = new Date();
                         System.out.println("Updated extension " + extension.getName() + " at " + new Date().toString());
                     }

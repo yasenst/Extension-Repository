@@ -32,7 +32,7 @@ public class ExtensionServiceTests {
 
     private static final String EXTENSION_SEARCH_PARAM = "Cool";
 
-    
+
     @Test
     public void getAllExtensions_shouldReturnCorrectNumberOfExtensions(){
         //Arrange
@@ -163,17 +163,32 @@ public class ExtensionServiceTests {
         Mockito.when(extensionRepository.filterByNameAndByDownloads(extensionName)).thenReturn(extensions);
         Mockito.when(extensionRepository.filterByNameAndByLastCommit(extensionName)).thenReturn(extensions);
 
+        Mockito.when(extensionRepository.filterByName()).thenReturn(extensions);
+        Mockito.when(extensionRepository.getByDate()).thenReturn(extensions);
+        Mockito.when(extensionRepository.getByDownloads()).thenReturn(extensions);
+        Mockito.when(extensionRepository.getByLastCommit()).thenReturn(extensions);
+
         // Act
-        List<Extension> extensionsByName = extensionService.filter(extensionName, Constants.SORT_BY_NAME);
-        List<Extension> extensionsByDate = extensionService.filter(extensionName, Constants.SORT_BY_UPLOAD_DATE);
-        List<Extension> extensionsByDownloads = extensionService.filter(extensionName, Constants.SORT_BY_DOWNLOADS);
-        List<Extension> extensionsByLastCommit = extensionService.filter(extensionName, Constants.SORT_BY_LAST_COMMIT);
+        List<Extension> extensionsByNameSpecified = extensionService.filter(extensionName, Constants.SORT_BY_NAME);
+        List<Extension> extensionsByNameAndByDate = extensionService.filter(extensionName, Constants.SORT_BY_UPLOAD_DATE);
+        List<Extension> extensionsByNameAndByDownloads = extensionService.filter(extensionName, Constants.SORT_BY_DOWNLOADS);
+        List<Extension> extensionsByNameAndByLastCommit = extensionService.filter(extensionName, Constants.SORT_BY_LAST_COMMIT);
+
+        List<Extension> allExtensionsByName = extensionService.filter(null, Constants.SORT_BY_NAME);
+        List<Extension> allExtensionsDate = extensionService.filter(null, Constants.SORT_BY_UPLOAD_DATE);
+        List<Extension> allExtensionsByDownloads = extensionService.filter(null, Constants.SORT_BY_DOWNLOADS);
+        List<Extension> allExtensionsByLastCommit = extensionService.filter(null, Constants.SORT_BY_LAST_COMMIT);
 
         // Assert
-        Assert.assertEquals(3, extensionsByName.size());
-        Assert.assertEquals(3, extensionsByDate.size());
-        Assert.assertEquals(3, extensionsByDownloads.size());
-        Assert.assertEquals(3, extensionsByLastCommit.size());
+        Assert.assertEquals(3, extensionsByNameSpecified.size());
+        Assert.assertEquals(3, extensionsByNameAndByDate.size());
+        Assert.assertEquals(3, extensionsByNameAndByDownloads.size());
+        Assert.assertEquals(3, extensionsByNameAndByLastCommit.size());
+
+        Assert.assertEquals(3, allExtensionsByName.size());
+        Assert.assertEquals(3, allExtensionsDate.size());
+        Assert.assertEquals(3, allExtensionsByDownloads.size());
+        Assert.assertEquals(3, allExtensionsByLastCommit.size());
     }
 
     @Test
