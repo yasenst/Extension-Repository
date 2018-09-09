@@ -31,22 +31,20 @@ CREATE TABLE IF NOT EXISTS `extensions` (
   `file_name` varchar(255) NOT NULL,
   `open_issues` int(11) NOT NULL,
   `pull_requests` int(11) NOT NULL,
-  `last_commit` date NOT NULL,
-  `last_sync` date NOT NULL,
+  `last_commit` datetime NOT NULL,
+  `last_sync` datetime NOT NULL,
   `image_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`extension_id`),
   KEY `FK__users` (`user_id`),
   CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
 
--- Dumping data for table extensions_db.extensions: ~5 rows (approximately)
+-- Dumping data for table extensions_db.extensions: ~3 rows (approximately)
 /*!40000 ALTER TABLE `extensions` DISABLE KEYS */;
 INSERT INTO `extensions` (`extension_id`, `name`, `description`, `version`, `user_id`, `date`, `number_of_downloads`, `repository_link`, `pending`, `featured`, `file_name`, `open_issues`, `pull_requests`, `last_commit`, `last_sync`, `image_name`) VALUES
-	(86, 'Test Extension 3', '213', '141', 3, '2018-09-05 23:59:51', 4, 'https://github.com/yasenst/Coursework-1', 0, 1, 'c4f43e8a-5a02-47b8-bcc1-2523cc75b7c2c++Revision.txt', 0, 0, '2017-05-13', '2018-09-07', 'mDPMo.png'),
-	(87, 'Test extension 2', 'saljkfd', 'askld', 3, '2018-09-06 00:07:40', 0, 'https://github.com/yasenst/Coursework-1', 0, 1, '84fc5a0d-37bd-4051-9d8c-ec3c7c9b476fc++Revision.txt', 0, 0, '2017-05-13', '2018-09-05', 'no_image_available.png'),
-	(88, 'Betting Predictions', 'Betting', '1.1.2', 3, '2018-09-06 06:26:09', 0, 'https://github.com/yasenst/Betting-Predictions', 0, 1, 'ab7c9773-6578-4ad2-876c-ed625bdd84bec++Revision.txt', 0, 0, '2018-08-22', '2018-09-04', 'Blue_umbrella-Transparent.png'),
-	(89, 'Test my key', 'dsklf', 'skld', 3, '2018-09-06 16:27:37', 0, 'https://github.com/andri27-ts/60_Days_RL_Challenge', 1, 0, '4a377d9c-efd9-4885-8a6f-638859b10360Tasks.txt', 1, 0, '2018-09-03', '2018-09-01', 'no_image_available.png'),
-	(90, 'Revmeter test', 'asdf', '1.0.0', 3, '2018-09-06 16:42:50', 3, 'https://github.com/yasenst/Revmeter', 0, 0, '0e3b3d20-a895-4d7f-84bc-9e398cd770b3Tasks.txt', 0, 0, '2018-09-06', '2018-08-06', 'no_image_available.png');
+	(87, 'Test extension 2', 'saljkfd', 'askld', 3, '2018-09-06 00:07:40', 0, 'https://github.com/yasenst/Coursework-1', 0, 1, '84fc5a0d-37bd-4051-9d8c-ec3c7c9b476fc++Revision.txt', 0, 0, '2017-05-13 21:04:58', '2018-09-09 14:59:19', 'no_image_available.png'),
+	(89, 'Test my key', 'dsklf', 'skld', 3, '2018-09-06 16:27:37', 0, 'https://github.com/andri27-ts/60_Days_RL_Challenge', 0, 0, '4a377d9c-efd9-4885-8a6f-638859b10360Tasks.txt', 1, 0, '2018-09-03 23:35:41', '2018-09-09 14:59:20', 'no_image_available.png'),
+	(95, 'Extension 53', 'sdaf', 'safd', 3, '2018-09-09 13:53:49', 1, 'https://github.com/yasenst/Coursework-2', 0, 0, '3f2bca8a-0afe-4b53-a19b-223af8505f50Tasks.txt', 0, 0, '2017-09-05 23:53:55', '2018-09-09 14:59:22', 'Blue_umbrella-Transparent.png');
 /*!40000 ALTER TABLE `extensions` ENABLE KEYS */;
 
 -- Dumping structure for table extensions_db.extensions_tags
@@ -59,11 +57,10 @@ CREATE TABLE IF NOT EXISTS `extensions_tags` (
   CONSTRAINT `FK__tags` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table extensions_db.extensions_tags: ~2 rows (approximately)
+-- Dumping data for table extensions_db.extensions_tags: ~1 rows (approximately)
 /*!40000 ALTER TABLE `extensions_tags` DISABLE KEYS */;
 INSERT INTO `extensions_tags` (`extension_id`, `tag_id`) VALUES
-	(86, 5),
-	(89, 5);
+	(95, 5);
 /*!40000 ALTER TABLE `extensions_tags` ENABLE KEYS */;
 
 -- Dumping structure for table extensions_db.roles
@@ -85,9 +82,9 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Dumping data for table extensions_db.tags: ~12 rows (approximately)
+-- Dumping data for table extensions_db.tags: ~15 rows (approximately)
 /*!40000 ALTER TABLE `tags` DISABLE KEYS */;
 INSERT INTO `tags` (`tag_id`, `name`) VALUES
 	(1, 'c'),
@@ -101,7 +98,10 @@ INSERT INTO `tags` (`tag_id`, `name`) VALUES
 	(9, 'css'),
 	(10, 'js'),
 	(11, 'Hello'),
-	(12, 'Java');
+	(12, 'Java'),
+	(13, 'laravel'),
+	(14, 'lisp'),
+	(15, 'go');
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 
 -- Dumping structure for table extensions_db.users
