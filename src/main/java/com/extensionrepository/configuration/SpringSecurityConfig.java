@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-//@EnableScheduling
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("webUserDetailsService")
@@ -33,21 +32,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        /*
-        http.authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-                .formLogin().loginPage("/login")
-                .usernameParameter("username").passwordParameter("password")
-                .and()
-                .logout().logoutSuccessUrl("/login?logout")
-                .and()
-                .exceptionHandling().accessDeniedPage("/error/403")
-                .and()
-                .csrf();
-           */
-
         http.
                 csrf().disable()
                 .authorizeRequests()
@@ -56,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/extension").permitAll()
                 .antMatchers("/extension/update/**").authenticated()
                 .antMatchers("/extension/delete/**").authenticated()
-                .antMatchers("/upload").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/upload").authenticated()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
@@ -71,7 +55,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder getBCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 
 }

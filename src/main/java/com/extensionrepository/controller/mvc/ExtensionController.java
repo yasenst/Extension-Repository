@@ -55,10 +55,11 @@ public class ExtensionController {
 
     @GetMapping("/extension/{id}")
     public String extensionDetail(Model model, @PathVariable int id, RedirectAttributes redirectAttributes){
+        /*
         if (!extensionService.exists(id)) {
             return "redirect:/error/not-found";
         }
-
+        */
         Extension extension = extensionService.getById(id);
 
         if (extension.isPending()) {

@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
-//@EnableScheduling
 public class HibernateConfig {
     @Bean
     public SessionFactory createFactory(){
@@ -23,7 +22,5 @@ public class HibernateConfig {
                 .addAnnotatedClass(Tag.class)
                 .buildSessionFactory();
     }
-
-
 
 }
