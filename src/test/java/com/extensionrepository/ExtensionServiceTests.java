@@ -32,33 +32,7 @@ public class ExtensionServiceTests {
 
     private static final String EXTENSION_SEARCH_PARAM = "Cool";
 
-    @Test
-    public void filter_shouldReturnMatchingNames_whenNameSpecified() {
-        List<Extension> extensions = Arrays.asList(
-                new Extension("Cool Extension1", "test", "test", new User(), "test",  "test", new HashSet<>()),
-                new Extension("Extension2", "test", "test", new User(), "test",  "test", new HashSet<>()),
-                new Extension("Cool Extension2", "test", "test", new User(),  "test", "test", new HashSet<>()),
-                new Extension("Extension4", "test", "test", new User(),  "test", "test", new HashSet<>()),
-                new Extension("Cool Extension3", "test", "test", new User(),  "test", "test", new HashSet<>())
-
-        );
-
-        for (Extension e : extensions) {
-            e.setPending(false);
-            extensionRepository.save(e);
-        }
-
-
-
-        Mockito.when(extensionRepository.filterByName(EXTENSION_SEARCH_PARAM))
-                .thenReturn(extensions.stream().filter(extension -> extension.getName().contains(EXTENSION_SEARCH_PARAM)).collect(Collectors.toList()));
-
-        List<Extension> result = extensionService.filter(EXTENSION_SEARCH_PARAM,null);
-
-
-        Assert.assertEquals(result.size(),3);
-    }
-
+    
     @Test
     public void getAllExtensions_shouldReturnCorrectNumberOfExtensions(){
         //Arrange
@@ -185,9 +159,9 @@ public class ExtensionServiceTests {
         final String extensionName = "name";
 
         Mockito.when(extensionRepository.filterByName(extensionName)).thenReturn(extensions);
-        Mockito.when(extensionRepository.filterByDate(extensionName)).thenReturn(extensions);
-        Mockito.when(extensionRepository.filterByDownloads(extensionName)).thenReturn(extensions);
-        Mockito.when(extensionRepository.filterByLastCommit(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByNameAndByDate(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByNameAndByDownloads(extensionName)).thenReturn(extensions);
+        Mockito.when(extensionRepository.filterByNameAndByLastCommit(extensionName)).thenReturn(extensions);
 
         // Act
         List<Extension> extensionsByName = extensionService.filter(extensionName, Constants.SORT_BY_NAME);
