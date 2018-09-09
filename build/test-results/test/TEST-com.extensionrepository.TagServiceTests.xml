@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.extensionrepository.TagServiceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-09-07T15:30:56" hostname="Yasen" time="0.007">
+<testsuite name="com.extensionrepository.TagServiceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-09-09T09:55:48" hostname="Yasen" time="0.008">
   <properties/>
-  <testcase name="findByName_shouldReturnTag_whenExistingNameGiven" classname="com.extensionrepository.TagServiceTests" time="0.0"/>
+  <testcase name="findByName_shouldReturnTag_whenExistingNameGiven" classname="com.extensionrepository.TagServiceTests" time="0.001"/>
   <testcase name="getTagsFromString_ShouldReturnRelevantSetOfTags" classname="com.extensionrepository.TagServiceTests" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -26,7 +26,7 @@
                         </div>
                     </form>
                     <div class="card-body">
-                        <a th:href="@{'extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
+                        <a th:href="@{'/extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
                         <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
                     </div>
                 </div>

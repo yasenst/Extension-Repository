@@ -259,6 +259,12 @@ img {
     color: red;
 }
 
+/* search bar clear field*/
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
+}
+
+/* tags color*/
+.badge-info {
+    background-color: #3a87ad;
 }

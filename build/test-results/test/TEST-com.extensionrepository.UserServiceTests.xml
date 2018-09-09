@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.extensionrepository.UserServiceTests" tests="9" skipped="0" failures="0" errors="0" timestamp="2018-09-07T15:30:56" hostname="Yasen" time="0.033">
+<testsuite name="com.extensionrepository.UserServiceTests" tests="9" skipped="0" failures="0" errors="0" timestamp="2018-09-09T09:55:48" hostname="Yasen" time="0.056">
   <properties/>
-  <testcase name="findByUsername_shouldReturnUserWithRequestedUsername" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
-  <testcase name="fieldValueExists_shouldReturnFalse_whenObjectIsNull" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
-  <testcase name="changeStatus_shouldToggleUserEnabledStatus" classname="com.extensionrepository.UserServiceTests" time="0.005"/>
-  <testcase name="isExistUsername_shouldReturnTrue_whenUsernameExists" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
-  <testcase name="getAllNonAdminUsers_shouldReturnUsers_WithOnlyRoleUser" classname="com.extensionrepository.UserServiceTests" time="0.006"/>
+  <testcase name="findByUsername_shouldReturnUserWithRequestedUsername" classname="com.extensionrepository.UserServiceTests" time="0.0"/>
+  <testcase name="fieldValueExists_shouldReturnFalse_whenObjectIsNull" classname="com.extensionrepository.UserServiceTests" time="0.0"/>
+  <testcase name="changeStatus_shouldToggleUserEnabledStatus" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
+  <testcase name="isExistUsername_shouldReturnTrue_whenUsernameExists" classname="com.extensionrepository.UserServiceTests" time="0.0"/>
+  <testcase name="getAllNonAdminUsers_shouldReturnUsers_WithOnlyRoleUser" classname="com.extensionrepository.UserServiceTests" time="0.039"/>
   <testcase name="register_shouldReturnTrue_whenUserSaved" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
   <testcase name="fieldValueExists_shouldThrowUnsupportedOperationException_whenFieldNameNotUsername" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
-  <testcase name="fieldValueExists_shouldReturnFalse_whenValuePresent" classname="com.extensionrepository.UserServiceTests" time="0.002"/>
+  <testcase name="fieldValueExists_shouldReturnFalse_whenValuePresent" classname="com.extensionrepository.UserServiceTests" time="0.0"/>
   <testcase name="getAll_shouldReturnCorrectNumberOfEntities" classname="com.extensionrepository.UserServiceTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

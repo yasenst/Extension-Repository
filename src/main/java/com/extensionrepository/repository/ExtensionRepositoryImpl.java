@@ -89,6 +89,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
             session.beginTransaction();
             session.update(extension);
             session.getTransaction().commit();
+
             return extension;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -122,10 +123,9 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
             extensions = session.createQuery("From Extension WHERE pending = true").list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return extensions;
-
     }
 
 
@@ -136,19 +136,13 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
 
-            if (name == null) {
-                extensions = session.
-                        createQuery("FROM Extension WHERE pending = false ORDER BY name ASC")
-                        .list();
-            } else {
-                extensions = session.createQuery(
-                        "FROM Extension " +
-                                "WHERE pending = false " +
-                                "AND name LIKE:searchName " +
-                                "ORDER BY name ASC")
-                        .setParameter("searchName", "%" + name.trim() + "%")
-                        .list();
-            }
+            extensions = session.createQuery(
+                    "FROM Extension " +
+                            "WHERE pending = false " +
+                            "AND name LIKE:searchName " +
+                            "ORDER BY name ASC")
+                    .setParameter("searchName", "%" + name.trim() + "%")
+                    .list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -159,25 +153,15 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> filterByDate(String name) {
+    public List<Extension> filterByName() {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
 
-            if (name == null) {
-                extensions = session.
-                        createQuery("FROM Extension WHERE pending = false ORDER BY date DESC")
-                        .list();
-            } else {
-                extensions = session.createQuery(
-                        "FROM Extension " +
-                                "WHERE pending = false " +
-                                "AND name LIKE:searchName " +
-                                "ORDER BY date DESC")
-                        .setParameter("searchName", "%" + name.trim() + "%")
-                        .list();
-            }
+            extensions = session.
+                    createQuery("FROM Extension WHERE pending = false ORDER BY name DESC")
+                    .list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -188,25 +172,19 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> filterByDownloads(String name) {
+    public List<Extension> filterByNameAndByDate(String name) {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
 
-            if (name == null) {
-                extensions = session.
-                        createQuery("FROM Extension WHERE pending = false ORDER BY numberOfDownloads DESC")
-                        .list();
-            } else {
-                extensions = session.createQuery(
-                        "FROM Extension " +
-                                "WHERE pending = false " +
-                                "AND name LIKE:searchName " +
-                                "ORDER BY numberOfDownloads DESC")
-                        .setParameter("searchName", "%" + name.trim() + "%")
-                        .list();
-            }
+            extensions = session.createQuery(
+                    "FROM Extension " +
+                            "WHERE pending = false " +
+                            "AND name LIKE:searchName " +
+                            "ORDER BY date DESC")
+                    .setParameter("searchName", "%" + name.trim() + "%")
+                    .list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -217,25 +195,19 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> filterByLastCommit(String name) {
+    public List<Extension> filterByNameAndByDownloads(String name) {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
             session.beginTransaction();
 
-            if (name == null) {
-                extensions = session.
-                        createQuery("FROM Extension WHERE pending = false ORDER BY lastCommit DESC")
-                        .list();
-            } else {
-                extensions = session.createQuery(
-                        "FROM Extension " +
-                                "WHERE pending = false " +
-                                "AND name LIKE:searchName " +
-                                "ORDER BY lastCommit DESC")
-                        .setParameter("searchName", "%" + name.trim() + "%")
-                        .list();
-            }
+            extensions = session.createQuery(
+                    "FROM Extension " +
+                            "WHERE pending = false " +
+                            "AND name LIKE:searchName " +
+                            "ORDER BY numberOfDownloads DESC")
+                    .setParameter("searchName", "%" + name.trim() + "%")
+                    .list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -246,7 +218,30 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> getNewest() {
+    public List<Extension> filterByNameAndByLastCommit(String name) {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extensions = session.createQuery(
+                    "FROM Extension " +
+                            "WHERE pending = false " +
+                            "AND name LIKE:searchName " +
+                            "ORDER BY lastCommit DESC")
+                    .setParameter("searchName", "%" + name.trim() + "%")
+                    .list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
+    public List<Extension> getByDate() {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
@@ -265,7 +260,7 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
     }
 
     @Override
-    public List<Extension> getPopular() {
+    public List getByDownloads() {
         List<Extension> extensions = new ArrayList<>();
 
         try (Session session = factory.openSession()) {
@@ -273,6 +268,25 @@ public class ExtensionRepositoryImpl implements ExtensionRepository {
 
             extensions = session.
                     createQuery("FROM Extension WHERE pending = false ORDER BY numberOfDownloads DESC")
+                    .list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return extensions;
+    }
+
+    @Override
+    public List<Extension> getByLastCommit() {
+        List<Extension> extensions = new ArrayList<>();
+
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+
+            extensions = session.
+                    createQuery("FROM Extension WHERE pending = false ORDER BY lastCommit DESC")
                     .list();
 
             session.getTransaction().commit();

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.extensionrepository.WebUserDetailsServiceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-09-07T15:30:56" hostname="Yasen" time="0.282">
+<testsuite name="com.extensionrepository.WebUserDetailsServiceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-09-09T09:55:48" hostname="Yasen" time="0.508">
   <properties/>
-  <testcase name="loadUserByUsername_shouldReturnUserDetails_whenSuchUserExists" classname="com.extensionrepository.WebUserDetailsServiceTests" time="0.28"/>
-  <testcase name="loadUserByUsername_shouldThrowUsernameNotFoundException_whenUserNotFound" classname="com.extensionrepository.WebUserDetailsServiceTests" time="0.001"/>
+  <testcase name="loadUserByUsername_shouldReturnUserDetails_whenSuchUserExists" classname="com.extensionrepository.WebUserDetailsServiceTests" time="0.505"/>
+  <testcase name="loadUserByUsername_shouldThrowUsernameNotFoundException_whenUserNotFound" classname="com.extensionrepository.WebUserDetailsServiceTests" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

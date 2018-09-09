@@ -54,22 +54,36 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> filter(String name, String sortBy) {
-        if (sortBy != null) {
+        if (name != null && sortBy != null) {
             switch (sortBy) {
                 case Constants.SORT_BY_NAME:
                     return extensionRepository.filterByName(name);
 
                 case Constants.SORT_BY_UPLOAD_DATE:
-                    return extensionRepository.filterByDate(name);
+                    return extensionRepository.filterByNameAndByDate(name);
 
                 case Constants.SORT_BY_DOWNLOADS:
-                    return extensionRepository.filterByDownloads(name);
+                    return extensionRepository.filterByNameAndByDownloads(name);
 
                 case Constants.SORT_BY_LAST_COMMIT:
-                    return extensionRepository.filterByLastCommit(name);
+                    return extensionRepository.filterByNameAndByLastCommit(name);
+            }
+        } else if (sortBy != null) {
+            switch (sortBy) {
+                case Constants.SORT_BY_NAME:
+                    return extensionRepository.filterByName();
+
+                case Constants.SORT_BY_UPLOAD_DATE:
+                    return extensionRepository.getByDate();
+
+                case Constants.SORT_BY_DOWNLOADS:
+                    return extensionRepository.getByDownloads();
+
+                case Constants.SORT_BY_LAST_COMMIT:
+                    return extensionRepository.getByLastCommit();
             }
         }
-        return extensionRepository.filterByName(name);
+        return extensionRepository.filterByName();
     }
 
     @Override
@@ -113,12 +127,12 @@ public class ExtensionServiceImpl implements ExtensionService {
 
     @Override
     public List<Extension> getNewest() {
-        return extensionRepository.getNewest();
+        return extensionRepository.getByDate();
     }
 
     @Override
-    public List<Extension> getPopular() {
-        return extensionRepository.getPopular();
+    public List getPopular() {
+        return extensionRepository.getByDownloads();
     }
 
     @Override

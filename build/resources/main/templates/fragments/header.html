@@ -35,6 +35,8 @@
                         Extensions</a></li>
                     <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/featured}">Featured
                         Extensions</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/settings}">Synchronization
+                        Settings</a></li>
                 </ul>
             </li>
             <li sec:authorize="isAuthenticated()">
