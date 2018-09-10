@@ -74,9 +74,9 @@ All public features are accessible via Rest API
 ###### Structure
 ![project structure](https://i.imgur.com/ydMNpJz.png)
 ###### Homepage
-![index](https://i.imgur.com/nz3SKHF.png)
+![index](https://i.imgur.com/ji4HcbF.png)
 ###### Browse
-![browse](https://i.imgur.com/27XA0To.png)
+![browse](https://i.imgur.com/IUR7PQ6.png)
 ###### Extension
 ![extension](https://i.imgur.com/ZQMePc8.png)
 ###### Admin
