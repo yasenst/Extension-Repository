@@ -22,9 +22,10 @@ public class DatabaseTest {
         Session session = factory.openSession();
         session.beginTransaction();
 
-        User u = session.get(User.class, 1);
-        for (Extension e : u.getExtensions()) {
-            System.out.println(e.getName());
+
+        Extension t = session.get(Extension.class, 37);
+        for (Tag tagg : t.getTags()) {
+            System.out.println(tagg.getName() + " ");
         }
 
         session.getTransaction().commit();

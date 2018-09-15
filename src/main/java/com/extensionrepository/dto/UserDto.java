@@ -1,21 +1,28 @@
 package com.extensionrepository.dto;
 
-import javax.validation.constraints.NotNull;
+import com.extensionrepository.service.UserServiceImpl;
+import com.extensionrepository.validation.IsPasswordMatching;
+import com.extensionrepository.validation.IsFieldUnique;
+
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+
+@IsPasswordMatching
 public class UserDto {
-    @NotNull
+    @NotEmpty
     @Size(min = 3, message = "Username must be at least 3 characters")
+    @IsFieldUnique(service = UserServiceImpl.class, fieldName = "username", message = "Username already exists")
     private String username;
 
-    @NotNull
-    private String fullname;
+    @NotEmpty
+    private String fullName;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 5, message = "Password must be at least 5 characters")
     private String password;
 
-    @NotNull
+    @NotEmpty
     private String confirmPassword;
 
     public String getConfirmPassword() {
@@ -34,12 +41,12 @@ public class UserDto {
         this.username = username;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPassword() {
@@ -48,5 +55,10 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return username;
     }
 }

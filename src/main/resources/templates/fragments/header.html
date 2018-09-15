@@ -1,11 +1,18 @@
-<nav class="navbar navbar-inverse ">
+
+<nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/}">Extension Repository</a>
+            <a href="https://www.tick42.com/">
+                <img src="https://cn.lfasiallc.com/wp-content/uploads/2017/11/logo_tick42-1.png" alt="Tick42"
+                     width="80px" height="40px">
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Marketplace</a>
         </div>
         <ul class="nav navbar-nav">
             <li>
-                <a th:href="@{/}">Browse Extensions</a>
+                <a th:href="@{/extension/browse}">Browse Extensions</a>
             </li>
 
             <li sec:authorize="isAuthenticated()">
@@ -14,13 +21,22 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbardrop" data-toggle="dropdown">
+                <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbardrop" data-toggle="dropdown"
+                   th:text="${#authentication.getPrincipal().getUsername()}">
                     <span class="glyphicon glyphicon-user"></span>
                     My Profile
                 </a>
 
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" th:href="@{/user/my-extensions}">My Extensions</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/accounts}">Manage
+                        Accounts</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/pending}">Pending
+                        Extensions</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/featured}">Featured
+                        Extensions</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/admin/settings}">Synchronization
+                        Settings</a></li>
                 </ul>
             </li>
             <li sec:authorize="isAuthenticated()">

@@ -1,0 +1,34 @@
+<div class="container">
+    <legend th:text="'Tag:' + ${tag.getName()}"></legend>
+    <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+        <div class="MultiCarousel-inner" th:each="extension : ${extensions}">
+            <div class="item col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" th:src="@{/extension/image/{id}(id = ${extension.getId()})}"    width="150px" height="100px" alt="Card image">
+                    <a th:href="@{'/extension/' + ${extension.getId()}}">
+                        <textarea rows="2" class="card-title" th:text="${extension.getName()}">Extension name</textarea>
+                    </a>
+                    <!--
+                                            <i class="card-text text-muted" th:text="${extension.getUser().getFullName()}">User name</i>
+                    -->
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <h5 class="text-left text-danger"
+                                th:text="${#dates.format(extension.getDate(), 'dd-MMM-yyyy')}">
+                                Date</h5>
+                        </div>
+                        <div class="form-group">&nbsp;&nbsp;&nbsp;</div>
+                        <div class="form-group">
+                                <span class="text-right glyphicon glyphicon-download-alt"
+                                      th:text="${extension.getNumberOfDownloads()}">Number of Downloads</span>
+                        </div>
+                    </form>
+                    <div class="card-body">
+                        <a th:href="@{'/extension/' + ${extension.getId()}}" class="btn btn-info">Open</a>
+                        <a th:href="@{/extension/download/{id}(id = ${extension.getId()})}" class="btn btn-primary">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

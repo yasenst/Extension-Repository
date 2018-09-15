@@ -1,5 +1,8 @@
 package com.extensionrepository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -33,11 +36,38 @@ public class Extension {
     @Column(name = "number_of_downloads")
     private int numberOfDownloads;
 
-    @Column(name = "download_link")
-    private String downloadLink;
-
     @Column(name = "repository_link")
     private String repositoryLink;
+
+    @Column(name = "pending")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
+    private boolean pending;
+
+    @Column(name = "featured")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean featured;
+
+    @Column(name = "open_issues")
+    private int openIssues;
+
+    @Column(name = "pull_requests")
+    private int pullRequests;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="last_commit")
+    private Date lastCommit;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="last_sync")
+    @JsonIgnore
+    private Date lastSync;
+
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "image_name")
+    private String imageName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -47,20 +77,27 @@ public class Extension {
     private Set<Tag> tags;
 
     public Extension(){
+        this.date = new Date();
+        this.numberOfDownloads = 0;
         this.tags = new HashSet<>();
+        this.date = new Date();
+        this.pending = true;
+        this.featured = false;
     }
 
-    public Extension(String name, String description, String version, User user, String downloadLink, String repositoryLink) {
+    public Extension(String name, String description, String version, User user,String fileName, String repositoryLink, Set<Tag> tags) {
         this.name = name;
         this.description = description;
         this.version = version;
         this.user = user;
+        this.fileName = fileName;
+        this.repositoryLink = repositoryLink;
+        this.tags = tags;
+
+        this.pending = true;
+        this.featured = false;
         this.date = new Date();
         this.numberOfDownloads = 0;
-        this.downloadLink = downloadLink;
-        this.repositoryLink = repositoryLink;
-
-        this.tags = new HashSet<>();
     }
 
     public int getId() {
@@ -119,14 +156,6 @@ public class Extension {
         this.numberOfDownloads = numberOfDownloads;
     }
 
-    public String getDownloadLink() {
-        return downloadLink;
-    }
-
-    public void setDownloadLink(String downloadLink) {
-        this.downloadLink = downloadLink;
-    }
-
     public String getRepositoryLink() {
         return repositoryLink;
     }
@@ -135,11 +164,75 @@ public class Extension {
         this.repositoryLink = repositoryLink;
     }
 
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public Set<Tag> getTags() {
         return tags;
     }
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
+    public int getOpenIssues() {
+        return openIssues;
+    }
+
+    public void setOpenIssues(int openIssues) {
+        this.openIssues = openIssues;
+    }
+
+    public int getPullRequests() {
+        return pullRequests;
+    }
+
+    public void setPullRequests(int pullRequests) {
+        this.pullRequests = pullRequests;
+    }
+
+    public Date getLastCommit() {
+        return lastCommit;
+    }
+
+    public void setLastCommit(Date lastCommit) {
+        this.lastCommit = lastCommit;
+    }
+
+    public Date getLastSync() {
+        return lastSync;
+    }
+
+    public void setLastSync(Date lastSync) {
+        this.lastSync = lastSync;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

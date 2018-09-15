@@ -1,24 +1,38 @@
 package com.extensionrepository.dto;
 
+import com.extensionrepository.validation.IsContentTypeImage;
+import com.extensionrepository.validation.IsFieldUnique;
+import com.extensionrepository.service.ExtensionServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
+
+@IsContentTypeImage
 public class ExtensionDto {
-    @NotNull
+    @IsFieldUnique(service = ExtensionServiceImpl.class, fieldName = "name", message = "Extension name already exists")
     private String name;
 
-    @NotNull
     private String description;
 
-    @NotNull
     private String version;
 
-    @NotNull
+    @NotEmpty
     private String repositoryLink;
 
-    @NotNull
     private MultipartFile file;
+
+    private MultipartFile image;
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    private String tags;
 
     public String getName() {
         return name;
@@ -58,5 +72,18 @@ public class ExtensionDto {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -1,0 +1,270 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: whitesmoke;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+main {
+    flex: 1 0 auto;
+    padding: 20px;
+}
+
+/*  FOOTER  */
+
+footer {
+    flex-shrink: 0;
+    background: #033649 none repeat scroll 0% 0%;
+    color: white;
+    border-top: 5px solid #CDB380;
+    color: #AAA;
+}
+
+#footer h4 {
+    color: #FFF;
+}
+
+#footer ul {
+    list-style: outside none none;
+}
+
+#footer li {
+    padding: 7px 0px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    margin: 0px;
+}
+#footer li a {
+    color: #DDD;
+}
+
+
+/*  CAROUSEL  */
+.MultiCarousel {
+    float: left;
+    overflow: hidden;
+    padding: 15px;
+    width: 100%;
+    position: relative;
+}
+
+.MultiCarousel .MultiCarousel-inner {
+    transition: 1s ease all;
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item {
+    float: left;
+}
+
+.MultiCarousel .MultiCarousel-inner .item > div {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: white;
+    color: black;
+}
+
+.MultiCarousel .leftLst, .MultiCarousel .rightLst {
+    position: absolute;
+    border-radius: 50%;
+    top: calc(50% - 20px);
+}
+
+.MultiCarousel .leftLst {
+    left: 0;
+}
+
+.MultiCarousel .rightLst {
+    right: 0;
+}
+
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
+    pointer-events: none;
+    background: #ccc;
+}
+.form-inline > *{
+    display: inline-block;
+
+}
+
+.card {
+    box-shadow: 2px 2px 8px lightgray;
+    border-radius: 10px;
+    max-height: 260px;
+}
+.card:hover {
+    box-shadow: 2px 2px 8px gray;
+}
+
+.card > * {
+    margin: 0px;
+}
+.card-title{
+    font-size: large;
+    max-width: 100%;
+    border: none;
+    resize: none;
+    text-align: center;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+img {
+    border-radius: 10px;
+}
+
+/*  FOOTER  */
+
+
+/*  EXTENSION DETAILS  */
+
+* {
+    box-sizing: border-box;
+}
+
+.moviecard {
+    font-family: 'Helvetica', sans-serif, 'Ariel';
+    position: relative;
+    background: #ffffff;
+    color: #555555;
+    margin: 50px auto;
+    width: 850px;
+    max-width: 900px;
+    min-height: 300px;
+    padding: 30px 290px 30px 30px;
+    -moz-box-shadow: -5px 5px 15px;
+    -webkit-box-shadow: -5px 5px 15px;
+    box-shadow: -5px 5px 15px;
+    border-radius: 5px;
+}
+
+.moviecard #movie-content {
+    opacity: 1;
+    width: 100%;
+    display: table;
+    transition: all 500ms ease-out;
+    position: relative;
+}
+
+.moviecard .movie-title {
+    font-size: 36px;
+    padding-bottom: 6px;
+    color: #333333;
+}
+
+.moviecard .movie-title .movie-year {
+    margin-left: 12px;
+    font-size: 16px;
+}
+
+.moviecard .movie-title a {
+    color: #333333;
+    text-decoration: none;
+}
+
+.moviecard .movie-title a:hover {
+    color: #858585;
+}
+
+.moviecard .movie-details {
+    font-size: 12px;
+    padding-bottom: 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.moviecard .movie-details span {
+    padding: 0px 6px;
+    border-right: 1px solid #dbdbdb;
+}
+
+.moviecard .movie-details span:last-child {
+    border: none;
+}
+
+.moviecard .movie-castcrew {
+    padding-top: 12px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.moviecard .movie-castcrew span.title {
+    color: #333333;
+    display: inline-block;
+    width: 80px;
+    font-weight: 600;
+}
+
+.moviecard .movie-synopsis {
+    margin: 24px 0px;
+    padding-top: 24px;
+    border-top: 1px solid #dbdbdb;
+    max-height: 130px;
+    height: 130px;
+    overflow-y: hidden;
+    width: 100%;
+}
+
+.moviecard .movie-ratings {
+    position: absolute;
+    right: 0px;
+    margin-top: 20px;
+}
+
+.moviecard .movie-ratings {
+    font-size: 15px;
+    color: #333333;
+}
+
+.moviecard .movie-details {
+    font-size: 12px;
+    padding-bottom: 24px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.moviecard .movie-details span {
+    padding: 0px 6px;
+    border-right: 1px solid #dbdbdb;
+}
+
+.moviecard .movie-details span:last-child {
+    border: none;
+}
+
+.moviecard .movie-poster {
+    position: absolute;
+    /*background: url("http://pngimage.net/wp-content/uploads/2018/06/matrix-code-png.png") no-repeat;*/
+    width: 300px;
+    height: 300px;
+    right: -100px;
+    top: 95px;
+    -moz-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+    box-shadow: -2px 2px 7px rgba(0, 0, 0, 0.6);
+    transition: all 500ms ease-out;
+}
+
+/* input validation errors*/
+.form-control-feedback {
+    all: unset;
+    color: red;
+}
+
+/* search bar clear field*/
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+/* tags color*/
+.badge-info {
+    background-color: #3a87ad;
+}

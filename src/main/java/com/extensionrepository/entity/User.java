@@ -1,5 +1,6 @@
 package com.extensionrepository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -17,15 +18,21 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "fullName", nullable = false)
+    @JsonIgnore
     private String fullName;
 
     @Column(name = "enabled")
     @Type(type = "org.hibernate.type.NumericBooleanType")
+    @JsonIgnore
     private boolean enabled;
+
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -33,12 +40,16 @@ public class User {
 
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonIgnore
     private Set<Role> roles;
 
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Extension> extensions;
 
     @Transient
+    @JsonIgnore
     public boolean isAdmin() {
         return this.getRoles()
                 .stream()
@@ -98,7 +109,7 @@ public class User {
         this.fullName = fullName;
     }
 
-    public boolean getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -115,10 +126,6 @@ public class User {
     }
 
     public void addRole(Role role) { this.roles.add(role); }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
 
     public List<Extension> getExtensions() {
         return extensions;

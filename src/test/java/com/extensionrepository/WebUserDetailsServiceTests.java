@@ -1,7 +1,7 @@
 package com.extensionrepository;
 
 import com.extensionrepository.entity.User;
-import com.extensionrepository.repositories.base.UserRepository;
+import com.extensionrepository.repository.base.UserRepository;
 import com.extensionrepository.service.WebUserDetailsService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,12 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,6 +27,7 @@ public class WebUserDetailsServiceTests {
     private WebUserDetailsService webUserDetailsService;
 
     private final String mockUsername = "mockUser";
+    
 
     @Before
     public void beforeTest() {
@@ -62,4 +61,26 @@ public class WebUserDetailsServiceTests {
 
     }
 
+    @Test(expected = UsernameNotFoundException.class)
+    public void loadUserByUsername_shouldThrowUsernameNotFoundException_whenUserNotFound() {
+        //Arrange
+        User user = new User(mockUsername, "pass", "user user");
+
+        Set<GrantedAuthority> grantedAuthorities = user.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+
+        org.springframework.security.core.userdetails.User userToFind =
+                new org.springframework.security.core.userdetails.User(
+                        user.getUsername(),
+                        user.getPassword(),
+                        grantedAuthorities
+                );
+
+        when(mockUserRepository.findByUsername(mockUsername)).thenReturn(null);
+
+        // ACT
+        UserDetails userFound = webUserDetailsService.loadUserByUsername(mockUsername);
+    }
 }

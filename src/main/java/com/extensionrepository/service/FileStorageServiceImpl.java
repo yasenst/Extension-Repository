@@ -1,18 +1,20 @@
 package com.extensionrepository.service;
 
 import com.extensionrepository.service.base.FileStorageService;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.SizeLimitExceededException;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
@@ -30,10 +32,13 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile multipartFile, String fileName)  {
         try {
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
-        } catch (Exception e) {
+            File newFile = new File(rootLocation.toString() + "\\" + fileName);
+            Files.copy(multipartFile.getInputStream(), this.rootLocation.resolve(newFile.getName()), StandardCopyOption.REPLACE_EXISTING);
+        } catch (FileAlreadyExistsException faee) {
+            throw new RuntimeException("Extension " + multipartFile.getOriginalFilename() + " already exists");
+        } catch (IOException e) {
             throw new RuntimeException("FAIL! -> message = " + e.getMessage());
         }
     }
@@ -54,17 +59,14 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
-    public Resource loadAsResource(String filename) {
+    public void delete(String filename) {
+        Path file = rootLocation.resolve(filename);
+
         try {
-            Path file = rootLocation.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read file: " + filename);
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Could not read file: " + filename, e);
+            FileSystemUtils.deleteRecursively(file);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
+
 }
